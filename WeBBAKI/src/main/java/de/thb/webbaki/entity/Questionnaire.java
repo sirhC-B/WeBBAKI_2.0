@@ -1,12 +1,12 @@
 package de.thb.webbaki.entity;
 
-import de.thb.webbaki.enums.SzenarioType;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.*;
-import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.Date;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,25 +14,16 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
+@RequiredArgsConstructor
 @Entity(name = "questionnaire")
-@Table
 public class Questionnaire {
     @Id
-    @Setter(AccessLevel.NONE)
     private long id;
-
-    @Column(length = 1000)
-    @Size(max = 1000)
+    private Date date;
     private String comment;
 
-    @Enumerated(EnumType.ORDINAL)
-    private SzenarioType szenarioType;
-    private LocalDate date;
+    //Missing private SzenarioType szenariotype
 
-    //Question: Strings for SubTopics?
-
-
-    //EQUALS & HASHCODE
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
