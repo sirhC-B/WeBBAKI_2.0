@@ -1,12 +1,12 @@
 package de.thb.webbaki.entity;
 
+import de.thb.webbaki.entity.type.SzenarioType;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Date;
-import java.util.Objects;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,10 +19,9 @@ import java.util.Objects;
 public class Questionnaire {
     @Id
     private long id;
-    private Date date;
+    private LocalDate date;
     private String comment;
-
-    //Missing private SzenarioType szenariotype
+    private SzenarioType szenarioType;
 
     @Override
     public boolean equals(Object o) {
