@@ -84,6 +84,7 @@ public class SetupDataLoader implements
             role.setPrivileges(privileges);
             roleRepository.save(role);
         }
+        
         return role;
     }
 }
