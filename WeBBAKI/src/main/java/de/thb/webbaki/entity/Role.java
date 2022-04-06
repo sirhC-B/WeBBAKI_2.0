@@ -18,7 +18,7 @@ public class Role {
     private long id;
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @OneToMany(mappedBy = "roles")
     private Collection<User> users;
 
 
@@ -29,7 +29,12 @@ public class Role {
           name = "role_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(
           name = "privilege_id", referencedColumnName = "id"))
+
     private Collection<Privilege> privileges;
+
+    public Role(String name) {
+        this.name = name;
+    }
 }
 
 //https://www.baeldung.com/role-and-privilege-for-spring-security-registration

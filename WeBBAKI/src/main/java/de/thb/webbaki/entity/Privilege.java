@@ -1,9 +1,18 @@
 package de.thb.webbaki.entity;
 
+import lombok.*;
+import org.springframework.stereotype.Service;
+
 import javax.persistence.*;
 import java.util.Collection;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Builder
 @Entity(name="privilege")
+
 public class Privilege {
 
     @Id
@@ -13,4 +22,9 @@ public class Privilege {
 
     @ManyToMany(mappedBy = "privileges")
     private Collection<Role> roles;
+
+
+    public Privilege(String name) {
+        this.name = name;
+    }
 }
