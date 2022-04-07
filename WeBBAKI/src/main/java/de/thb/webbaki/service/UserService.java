@@ -67,7 +67,7 @@ public class UserService {
         Using emailExists() to check whether user already exists
         TODO: Create CustomerRegisterFormModel and UserAlreadyExistsException
      */
-    public void registerNewUser(CustomerRegisterFormModel form) throws new UserAlreadyExistsException{
+    public void registerNewUser(UserRegisterFormModel form) throws new UserAlreadyExistsException{
         if (emailExists(form.getEmail())){
             throw new UserAlreadyExistsException("Es existiert bereits ein Account mit folgender Email-Adresse: " + form.getEmail());
         } else

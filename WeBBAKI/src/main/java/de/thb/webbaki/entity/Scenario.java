@@ -1,5 +1,6 @@
 package de.thb.webbaki.entity;
 
+import enums.SzenarioType;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -18,6 +19,6 @@ public class Scenario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    private String masterTopic;
+    private SzenarioType szenarioType;
 
 }

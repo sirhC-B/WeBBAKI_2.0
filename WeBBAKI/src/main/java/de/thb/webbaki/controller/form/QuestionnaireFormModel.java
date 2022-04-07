@@ -1,6 +1,6 @@
 package de.thb.webbaki.controller.form;
 
-import de.thb.webbaki.entity.type.SzenarioType;
+import enums.SzenarioType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
