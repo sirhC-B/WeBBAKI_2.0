@@ -1,7 +1,9 @@
 package de.thb.webbaki.service;
 
+import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.UserRepository;
+import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -67,18 +69,18 @@ public class UserService {
         Using emailExists() to check whether user already exists
         TODO: Create CustomerRegisterFormModel and UserAlreadyExistsException
      */
-    public void registerNewUser(UserRegisterFormModel form) throws new UserAlreadyExistsException{
+    public void registerNewUser(UserRegisterFormModel form) throws UserAlreadyExistsException {
         if (emailExists(form.getEmail())){
             throw new UserAlreadyExistsException("Es existiert bereits ein Account mit folgender Email-Adresse: " + form.getEmail());
         } else
             userRepository.save(User.builder()
-                    .lastName(form.getLastname())
-                    .firstName(form.getFirstname())
+                    .lastName(form.getLastName())
+                    .firstName(form.getFirstName())
                     .sector(form.getSector())
                     .company(form.getCompany())
                     .password(passwordEncoder.encode(form.getPassword()))
                     .email(form.getEmail())
-                    .enabled(form.getEnabled(true))
+                    .enabled(true)
                     .build());
     }
 }

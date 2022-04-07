@@ -13,6 +13,7 @@ import java.util.Optional;
 public class RoleService {
     private RoleRepository roleRepository;
     private PrivilegeRepository privilegeRepository;
+    private User user;
 
     public Optional<Role> getRole(long id){
         return roleRepository.findById(id);
@@ -22,6 +23,9 @@ public class RoleService {
         return (List<Role>) roleRepository.findAll();
     }
 
+    /*
+    TODO finish adding Role to user if user doesnt already has a role.
+     */
     public void addRole(String name, Collection<User> user, Collection<Privilege> privilege){
         if ()
     }
