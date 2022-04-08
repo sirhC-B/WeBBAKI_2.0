@@ -13,9 +13,10 @@ import javax.swing.*;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+
 @Builder
 @AllArgsConstructor
+@Service
 public class UserService {
     private UserRepository userRepository;      //initialize repository Object
     private PasswordEncoder passwordEncoder;    //Encoding Passwords for registered Users
@@ -67,7 +68,6 @@ public class UserService {
     /*
         Registering new User with all parameters from User.java
         Using emailExists() to check whether user already exists
-        TODO: Create CustomerRegisterFormModel and UserAlreadyExistsException
      */
     public void registerNewUser(UserRegisterFormModel form) throws UserAlreadyExistsException {
         if (emailExists(form.getEmail())){
