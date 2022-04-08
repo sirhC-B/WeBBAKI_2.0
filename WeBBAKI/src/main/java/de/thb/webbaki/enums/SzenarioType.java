@@ -1,4 +1,4 @@
-package enums;
+package de.thb.webbaki.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

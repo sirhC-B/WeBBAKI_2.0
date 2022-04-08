@@ -1,6 +1,6 @@
 package de.thb.webbaki.entity;
 
-import enums.SzenarioType;
+import de.thb.webbaki.enums.SzenarioType;
 import lombok.*;
 
 import javax.persistence.Entity;
