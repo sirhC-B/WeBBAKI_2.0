@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Entity(name = "questionnaire")
 public class Questionnaire {
     @Id
