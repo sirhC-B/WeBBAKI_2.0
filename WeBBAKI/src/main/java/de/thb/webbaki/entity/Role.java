@@ -1,6 +1,7 @@
 package de.thb.webbaki.entity;
 
 
+import de.thb.webbaki.enums.RoleType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    private RoleType roleType;
 
     @OneToMany(mappedBy = "roles")
     private Collection<User> users;
