@@ -33,6 +33,7 @@ public class UserRegisterFormModel {
     @NotNull(message = "password not null")
     @NotEmpty(message = "Passwort darf nicht leer sein")
     private String password;
+    private String confirmPassword;
 
     @NotNull(message = "email not null")
     @NotEmpty(message = "Email darf nicht leer sein")

@@ -10,7 +10,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name="user")
+@Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,14 +26,5 @@ public class User {
     private boolean enabled;
     private boolean tokenExpired;
 
-    @ManyToOne
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
-
-    private Role roles;
 
 }
