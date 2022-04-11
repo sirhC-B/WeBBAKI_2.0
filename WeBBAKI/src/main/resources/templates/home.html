@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <h2>WebBAKI</h2>
+
+    <p>Herzlich Willkommen!</p>
+
+    <div class="row" sec:authorize="!isAuthenticated()">
+        <div class="col">
+            <label for="customerRegister">Registrieren als User:</label>
+            <a class="btn btn-outline-dark" id="customerRegister" type="button" th:href="@{/register/user}"><i
+                    class="bi bi-arrow-right-square"></i></a>
+        </div>
+        <!-- Register as .....
+        <div class="col">
+            <label for="providerRegister">Registrieren als Dienstleister:</label>
+            <a class="btn btn-outline-dark" id="providerRegister" type="button" th:href="@{/register/provider}"><i
+                    class="bi bi-arrow-right-square"></i></a>
+        </div>
+        -->
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        <a class="btn btn-outline-info" th:href="@{/account}">Mein Konto</a>
+    </div>
+    <hr>
+    <div class="row" sec:authorize="!isAuthenticated()">
+        <p> Schon registriert? <a th:href="@{/login}">Hier anmelden</a></p>
+    </div>
+</div>
+
+</body>
+</html>

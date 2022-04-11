@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @Entity(name = "questionnaire")
+@Table
 public class Questionnaire {
     @Id
     @Setter(AccessLevel.NONE)

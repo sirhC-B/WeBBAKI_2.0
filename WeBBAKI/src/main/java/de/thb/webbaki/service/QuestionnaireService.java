@@ -32,7 +32,7 @@ public class QuestionnaireService {
     public void createRiskFromQuestionnaire(QuestionnaireFormModel form){
         final var risk = questionnaireRepository.save(Questionnaire.builder()
                 .date(form.getDate())
-                .comment(form.getComment())
+                .comment(form.getComment()) 
                 .szenarioType(form.getSzenarioType())
                 .build());
     };
