@@ -3,17 +3,15 @@ package de.thb.webbaki.entity;
 import de.thb.webbaki.enums.SzenarioType;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name="user")
+@Entity(name="scenario")
+@Table
 public class Scenario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
