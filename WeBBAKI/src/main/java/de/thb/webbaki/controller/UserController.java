@@ -40,8 +40,8 @@ public class UserController {
                               BindingResult result) {
         //if (result.hasErrors()) ... TODO: add error messages here
         userService.addUser(
-                form.getLastname(),
-                form.getFirstname(),
+                form.getLastName(),
+                form.getFirstName(),
                 form.getSector(),
                 form.getCompany() ,
                 "geheimesPassword",
@@ -79,14 +79,14 @@ public class UserController {
     }
 
 
-    @GetMapping("/account/user_details")
+    @GetMapping("data/user")
     public String showUserData(Authentication authentication, Model model) {
 
         userService.getUserByEmail(authentication.getName()).ifPresent(
                 user -> model.addAttribute("user", user)
         );
 
-        return "/account/user_details";
+        return "account/user_data";
     }
 
     @GetMapping("/data/user/reports")
