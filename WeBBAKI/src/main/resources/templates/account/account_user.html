@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Konto</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Konto</h1>
+    <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+
+    <a class="btn btn-bd-primary" th:href="@{/data/customer}">Nutzerdaten</a>
+    <a class="btn btn-bd-primary" th:href="@{questionnaire}">Neuer Auftrag</a>
+    <a class="btn btn-bd-primary" th:href="@{/data/customer/orders}">Aktive Aufträge</a>
+</div>
+</body>
+</html>

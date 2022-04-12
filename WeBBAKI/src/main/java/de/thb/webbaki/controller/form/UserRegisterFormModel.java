@@ -1,10 +1,12 @@
 package de.thb.webbaki.controller.form;
 
+import de.thb.webbaki.security.passwordValidation.PasswordMatches;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -12,15 +14,16 @@ import javax.validation.constraints.NotNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@PasswordMatches
 public class UserRegisterFormModel {
 
     @NotNull(message = "LastName not null")
     @NotEmpty(message = "Nachname darf nicht leer sein")
-    private String lastName;
+    private String lastname;
 
     @NotNull(message = "firstName not null")
     @NotEmpty(message = "Vorname darf nicht leer sein")
-    private String firstName;
+    private String firstname;
 
     @NotNull(message = "sector not null")
     @NotEmpty(message = "Sektor darf nicht leer sein")
@@ -37,10 +40,9 @@ public class UserRegisterFormModel {
 
     @NotNull(message = "email not null")
     @NotEmpty(message = "Email darf nicht leer sein")
+    @Email
     private String email;
 
-    @NotNull(message = "enabled not null")
-    @NotEmpty(message = "Enabled darf nicht leer sein")
-    private boolean enabled;
+
 
 }

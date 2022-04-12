@@ -40,8 +40,8 @@ public class UserController {
                               BindingResult result) {
         //if (result.hasErrors()) ... TODO: add error messages here
         userService.addUser(
-                form.getLastName(),
-                form.getFirstName(),
+                form.getLastname(),
+                form.getFirstname(),
                 form.getSector(),
                 form.getCompany() ,
                 "geheimesPassword",

@@ -21,7 +21,7 @@ public class MainController {
         String role = auth.getAuthorities().toString();
 
         if (role.contains(UserAuthority.USER)) {
-            return "account/account_customer";
+            return "account/account_user";
        // } else if (role.contains(ProviderAuthority.PROVIDER)) {
         //    return "account/account_provider";
         } else return "home";

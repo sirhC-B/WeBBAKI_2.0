@@ -73,8 +73,8 @@ public class UserService {
             throw new UserAlreadyExistsException("Es existiert bereits ein Account mit folgender Email-Adresse: " + form.getEmail());
         } else
             userRepository.save(User.builder()
-                    .lastName(form.getLastName())
-                    .firstName(form.getFirstName())
+                    .lastName(form.getLastname())
+                    .firstName(form.getFirstname())
                     .sector(form.getSector())
                     .company(form.getCompany())
                     .password(passwordEncoder.encode(form.getPassword()))
