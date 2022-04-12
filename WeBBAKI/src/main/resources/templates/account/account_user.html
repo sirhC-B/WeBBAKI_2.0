@@ -9,9 +9,9 @@
     <h1>Konto</h1>
     <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
 
-    <a class="btn btn-bd-primary" th:href="@{/data/customer}">Nutzerdaten</a>
-    <a class="btn btn-bd-primary" th:href="@{questionnaire}">Neuer Auftrag</a>
-    <a class="btn btn-bd-primary" th:href="@{/data/customer/orders}">Aktive Aufträge</a>
+    <a class="btn btn-bd-primary" th:href="@{/account/user_details}">Nutzerdaten</a>
+    <a class="btn btn-bd-primary" th:href="@{questionnaire}">Neuer Report</a>
+    <a class="btn btn-bd-primary" th:href="@{/data/customer/orders}">Report Verlauf</a>
 </div>
 </body>
 </html>
