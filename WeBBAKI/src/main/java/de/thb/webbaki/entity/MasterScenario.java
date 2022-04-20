@@ -1,6 +1,6 @@
 package de.thb.webbaki.entity;
 
-import de.thb.webbaki.enums.SzenarioType;
+
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,16 +10,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name="scenario")
+@Entity(name="master_scenario")
 @Table
-public class Scenario {
+public class MasterScenario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-
-    @ManyToOne
-    @JoinColumn(name = "master_scenario_id", nullable = false)
-    private MasterScenario masterScenario;
-
 }

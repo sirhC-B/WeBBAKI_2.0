@@ -9,6 +9,13 @@ import java.util.Optional;
 @RepositoryDefinition(domainClass = Scenario.class, idClass = Long.class)
 public interface ScenarioRepository extends CrudRepository<Scenario, Long> {
 
-    Optional<Scenario> findById(String name);
+    Optional<Scenario> findById(long id);
+
+    Optional<Scenario> findByName(String name);
+
+
+
+
+
 
 }

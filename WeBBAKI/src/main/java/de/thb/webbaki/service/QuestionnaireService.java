@@ -1,14 +1,12 @@
 package de.thb.webbaki.service;
 
-import de.thb.webbaki.controller.form.QuestionnaireFormModel;
+import de.thb.webbaki.controller.form.ReportFormModel;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.repository.QuestionnaireRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -29,7 +27,7 @@ public class QuestionnaireService {
     TODO: Create QuestionnaireFormModel
     05. April: QuestionnaireFormModel Created, but needs further work
      */
-    public void createRiskFromQuestionnaire(QuestionnaireFormModel form){
+    public void createRiskFromQuestionnaire(ReportFormModel form){
         final var risk = questionnaireRepository.save(Questionnaire.builder()
                 .date(form.getDate())
                 .comment(form.getComment()) 
