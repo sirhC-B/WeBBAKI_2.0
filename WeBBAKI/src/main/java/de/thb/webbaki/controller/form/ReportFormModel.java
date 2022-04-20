@@ -2,6 +2,7 @@ package de.thb.webbaki.controller.form;
 
 import de.thb.webbaki.enums.Impact;
 import de.thb.webbaki.enums.Probability;
+import de.thb.webbaki.enums.Risk;
 import de.thb.webbaki.enums.SzenarioType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,9 @@ public class ReportFormModel {
 
     @NotNull(message = "Impact null")
     private Impact impact;
+
+    @NotNull(message = "Risk null")
+    private Risk risk;
 
     @NotNull(message = "Date not null")
     @NotEmpty(message = "Datum leer")

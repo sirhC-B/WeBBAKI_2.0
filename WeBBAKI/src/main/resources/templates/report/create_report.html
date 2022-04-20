@@ -26,7 +26,9 @@
         padding: 8px;
     }</style>
 
+
     <title>Report</title>
+
 </head>
 <body>
 <div layout:fragment="content">
@@ -47,16 +49,19 @@
         <tr th:each="scenario : ${masterScenario.scenarios}">
             <td th:text="${scenario.name}">?SC_NAME</td>
             <td>
-                <select id="selectProb" class="form-select" th:field="*{probability}" >
+                <select th:id="selectProb" class="form-select" th:field="*{probability}" >
                     <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}"
                             th:value="${probability}" th:text="${probability.value}"></option>
                 </select>
             </td>
-            <td><select id="selectImp" class="form-select" th:field="*{impact}" >
+            <td><select th:id="selectImp" class="form-select" th:field="*{impact}" >
                 <option th:each="impact : ${T(de.thb.webbaki.enums.Impact).values()}"
                         th:value="${impact}" th:text="${impact.value}"></option>
             </select></td>
-            <td>Auswirkungen</td>
+            <td><select id="showRisk" class="form-select" th:field="*{risk}" >
+                <option th:each="risk : ${T(de.thb.webbaki.enums.Risk).values()}"
+                        th:value="${risk}" th:text="${risk.value}"></option>
+            </select></td>
         </tr>
         <tfoot>
         </tfoot>
