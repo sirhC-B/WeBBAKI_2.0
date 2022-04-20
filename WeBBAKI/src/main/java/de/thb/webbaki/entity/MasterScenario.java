@@ -4,6 +4,7 @@ package de.thb.webbaki.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -17,4 +18,8 @@ public class MasterScenario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+
+
+    @OneToMany(mappedBy = "masterScenario")
+    private Set<Scenario> scenarios;
 }
