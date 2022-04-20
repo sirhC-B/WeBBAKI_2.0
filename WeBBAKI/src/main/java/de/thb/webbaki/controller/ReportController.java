@@ -1,6 +1,6 @@
 package de.thb.webbaki.controller;
 
-import de.thb.webbaki.controller.form.QuestionnaireFormModel;
+import de.thb.webbaki.controller.form.ReportFormModel;
 import de.thb.webbaki.service.QuestionnaireService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @AllArgsConstructor
-public class QuestionnaireController {
+public class ReportController {
 
     private final QuestionnaireService questionnaireService;
 
@@ -18,7 +18,7 @@ public class QuestionnaireController {
     @GetMapping("/report")
     public String showQuestionnaireForm(Model model) {
 
-        model.addAttribute("questionnaire", new QuestionnaireFormModel());
+        model.addAttribute("report", new ReportFormModel());
         return "report/create_report";
     }
 

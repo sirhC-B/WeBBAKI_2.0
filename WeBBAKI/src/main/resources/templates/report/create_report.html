@@ -2,12 +2,78 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
+    <style>
+
+    .report-table thead tr{
+        border-bottom: 1px dashed grey;
+    }
+
+    .report-table tfoot tr{
+        border-bottom: 1px dashed grey;
+    }
+    .report-table tbody tr{
+        border-bottom: 1px solid black;
+    }
+
+    .report-table thead tr td{
+        font-size:16px;
+        letter-spacing: 1px;
+        color: grey;
+        padding: 8px;
+    }</style>
+
     <title>Report</title>
 </head>
 <body>
 <div layout:fragment="content">
     <h2>Report</h2>
-
+    <p>Szenarien mit indirekter Wirkung auf den Betreiber (Höhere Gewalt)</p>
+    <table class="report-table" th:object="${report}" th:action="@{/report}" method="post">
+        <thead>
+        <tr>
+            <td>Szeanrien</td>
+            <td>Eintrittswahrscheilichkeit</td>
+            <td>Auswirkung</td>
+            <td>Bedrohungslage</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Die Auswirkungen von Veränderungen der klimatischen Bedingungen</td>
+            <td>
+                <select id="selectProb" class="form-select" th:field="*{probability}" >
+                    <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}"
+                            th:value="${probability}" th:text="${probability.value}"></option>
+                </select>
+            </td>
+            <td><select id="selectImp" class="form-select" th:field="*{impact}" >
+                <option th:each="impact : ${T(de.thb.webbaki.enums.Impact).values()}"
+                        th:value="${impact}" th:text="${impact.value}"></option>
+            </select></td>
+            <td>Leicht</td>
+        </tr>
+        <tr>
+            <td>Szenario 1</td>
+            <td>Hoch</td>
+            <td>SehrHoch</td>
+            <td>Leicht</td>
+        </tr>
+        <tr>
+            <td>Szenario 1</td>
+            <td>Hoch</td>
+            <td>SehrHoch</td>
+            <td>Leicht</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td>Szenario 1</td>
+            <td>Hoch</td>
+            <td>SehrHoch</td>
+            <td>Leicht</td>
+        </tr>
+        </tfoot>
+    </table>
 
 
 
