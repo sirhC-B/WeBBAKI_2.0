@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <style>
+    .report-table{
+        border-collapse: collapse;
+        margin-bottom: 100px;
+    }
+
+    .report-table thead tr{
+        border-bottom: 1px dashed grey;
+    }
+
+    .report-table tfoot tr{
+        border-bottom: 1px dashed grey;
+    }
+    .report-table tbody tr{
+        border-bottom: 1px solid black;
+    }
+
+    .report-table thead tr td{
+        font-size:16px;
+        letter-spacing: 1px;
+        color: grey;
+        padding: 8px;
+    }</style>
+
+
+    <title>Report</title>
+
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Report</h2>
+    <th:block th:each="masterScenario : ${masterScenarioList}">
+    <h5 th:text="${masterScenario.name}"></h5>
+    <table class="report-table" th:object="${report}" th:action="@{/report}" method="post">
+        <thead>
+        <tr>
+            <td>Szeanrien</td>
+            <td>Eintrittswahrscheilichkeit</td>
+            <td>Auswirkung</td>
+            <td>Bedrohungslage</td>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr th:each="scenario : ${masterScenario.scenarios}">
+            <td th:text="${scenario.name}">?SC_NAME</td>
+            <td>
+                <select th:id="selectProb" class="form-select" th:field="*{probability}" >
+                    <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}"
+                            th:value="${probability}" th:text="${probability.value}"></option>
+                </select>
+            </td>
+            <td><select th:id="selectImp" class="form-select" th:field="*{impact}" >
+                <option th:each="impact : ${T(de.thb.webbaki.enums.Impact).values()}"
+                        th:value="${impact}" th:text="${impact.value}"></option>
+            </select></td>
+            <td><select id="showRisk" class="form-select" th:field="*{risk}" >
+                <option th:each="risk : ${T(de.thb.webbaki.enums.Risk).values()}"
+                        th:value="${risk}" th:text="${risk.value}"></option>
+            </select></td>
+        </tr>
+        <tfoot>
+        </tfoot>
+    </table>
+    </th:block>
+
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title>Nutzerdaten</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Nutzerdaten</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tr>
+                            <td><b>Nachname:</b></td>
+                            <td><span th:text="${user.lastName}"></span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Vorname:</b></td>
+                            <td><span th:text="${user.firstName}"></span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Sektor:</b></td>
+                            <td><span th:text="${user.sector}"></span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Unternehmen:</b></td>
+                            <td><span th:text="${user.company}"></span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Email-Adresse:</b></td>
+                            <td><span th:text="${user.email}"></span></td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
