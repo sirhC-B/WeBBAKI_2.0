@@ -1,9 +1,6 @@
 package de.thb.webbaki.controller.form;
 
-import de.thb.webbaki.enums.Impact;
-import de.thb.webbaki.enums.Probability;
-import de.thb.webbaki.enums.Risk;
-import de.thb.webbaki.enums.SzenarioType;
+import de.thb.webbaki.enums.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReportFormModel {
+
 
     @NotNull(message = "Probability null")
     private Probability probability;
