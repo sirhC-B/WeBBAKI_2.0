@@ -47,7 +47,7 @@
         </thead>
         <tbody>
         <tr th:each="scenario : ${masterScenario.scenarios}">
-            <td th:text="${scenario.name}">?SC_NAME</td>
+            <td th:text="${scenario.name}"></td>
             <td>
                 <select th:id="selectProb" class="form-select" th:field="*{probability}" >
                     <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}"

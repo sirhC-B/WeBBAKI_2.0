@@ -17,6 +17,7 @@ import java.time.LocalDate;
 public class ReportFormModel {
 
 
+
     @NotNull(message = "Probability null")
     private Probability probability;
 

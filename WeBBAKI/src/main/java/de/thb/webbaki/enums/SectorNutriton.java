@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public enum SectorGesundheit {
+public enum SectorNutriton{
 
-    MEDIZIN("medizinische Versorgung"),
-    ARZNEIUNDIMPF("Arzneimittel und Impfstoffe"),
-    LABORE("Labore");
-
+    ERNAEHRUNGSWISSENSCHAFT("Ernährungswissenschaft"),
+    LEBENSMITTELHANDEL("Lebensmittelhandel");
 
     @Getter
     private final String value;
+
 }

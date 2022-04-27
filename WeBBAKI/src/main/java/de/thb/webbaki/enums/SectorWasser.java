@@ -1,16 +1,16 @@
 package de.thb.webbaki.enums;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public enum SectorGesundheit {
+public enum SectorWasser {
 
-    MEDIZIN("medizinische Versorgung"),
-    ARZNEIUNDIMPF("Arzneimittel und Impfstoffe"),
-    LABORE("Labore");
-
+    WASSERVERSORGUNG("öffentliche Wasserversorgung"),
+    ABWASSERVERSORGUNG("öffentliche Abwasserbeseitigung");
 
     @Getter
     private final String value;
+
 }
