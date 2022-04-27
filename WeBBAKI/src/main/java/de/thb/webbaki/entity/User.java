@@ -19,6 +19,7 @@ public class User {
     private String lastName;
     private String firstName;
     private String sector;
+    private String branche;
     private String company;
 
     // authentication

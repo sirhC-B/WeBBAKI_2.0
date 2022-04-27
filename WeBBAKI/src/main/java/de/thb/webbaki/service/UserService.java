@@ -2,6 +2,7 @@ package de.thb.webbaki.service;
 
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.enums.SectorEnergie;
 import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
 import lombok.AllArgsConstructor;
@@ -40,12 +41,14 @@ public class UserService {
         Adding a new User with all attributes from User.java
         Parameter used: @Builder
      */
-    public User addUser(String lastName, String firstName, String sector, String company,
+    public User addUser(String lastName, String firstName, String branche, String company,
                         String password, String email, Boolean enabled) {
+
+
         return userRepository.save(User.builder()
                 .lastName(lastName)
                 .firstName(firstName)
-                .sector(sector)
+                .branche(branche)
                 .company(company)
                 .password(password)
                 .email(email)
@@ -75,7 +78,7 @@ public class UserService {
             userRepository.save(User.builder()
                     .lastName(form.getLastname())
                     .firstName(form.getFirstname())
-                    .sector(form.getSector())
+                    .branche(form.getBranche())
                     .company(form.getCompany())
                     .password(passwordEncoder.encode(form.getPassword()))
                     .email(form.getEmail())

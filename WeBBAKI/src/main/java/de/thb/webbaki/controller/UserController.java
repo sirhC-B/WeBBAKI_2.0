@@ -42,7 +42,7 @@ public class UserController {
         userService.addUser(
                 form.getLastname(),
                 form.getFirstname(),
-                form.getSector(),
+                form.getBranche(),
                 form.getCompany() ,
                 "geheimesPassword",
                 form.getEmail() ,
