@@ -56,6 +56,7 @@
                     <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}"
                             th:value="${probability}" th:text="${probability.value}"></option>
                 </select>
+                <input type="hidden" id="prob" name="prob" th:value="${scenario.id}">
             </td>
             <td><select th:id="selectImp" class="form-select" th:field="*{imp}" >
                 <option value="none" selected >Bitte wählen...</option>
