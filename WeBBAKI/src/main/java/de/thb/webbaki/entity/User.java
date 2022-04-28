@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -28,5 +29,7 @@ public class User {
     private boolean enabled;
     private boolean tokenExpired;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Questionnaire> questionnaire;
 
 }
