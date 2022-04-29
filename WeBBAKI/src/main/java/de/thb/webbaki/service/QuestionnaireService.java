@@ -32,10 +32,7 @@ public class QuestionnaireService {
         return questionnaireRepository.findAllByUser(userRepository.findById(id).get());
     }
 
-    /*
-    TODO: Create QuestionnaireFormModel
-    05. April: QuestionnaireFormModel Created, but needs further work
-     */
+
     public void saveQuestionaire(ReportFormModel form){
         String[] prob = form.getProb();
         String[] imp = form.getImp();
