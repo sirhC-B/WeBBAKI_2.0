@@ -21,7 +21,7 @@
         </tr>
         </thead>
         <tbody>
-        // REVERSE th:each ->
+        <!-- REVERSE th:each -> -->
         <tr th:each="i: ${#numbers.sequence(questList.size() -1,0,-1)}">
             <td th:text="${questList[i].id}"></td>
             <td th:text="${questList[i].date.toLocalDate()}"></td>
