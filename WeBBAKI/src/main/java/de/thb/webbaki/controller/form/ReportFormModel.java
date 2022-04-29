@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -16,21 +17,22 @@ import javax.validation.constraints.NotNull;
 public class ReportFormModel {
 
 
-
+    // get ENUM for Frontend
     @NotNull(message = "Probability null")
     private Probability probability;
-
+    // get ENUM for Frontend
     @NotNull(message = "Impact null")
     private Impact impact;
-
+    // get ENUM for Frontend
     @NotNull(message = "Risk null")
     private Risk risk;
 
-    @NotNull(message = "SzenarioType not null")
-    private String prob;
-
-    @NotNull(message = "SzenarioType not null")
-    private String imp;
+    // get probability from Frontend as array
+    @NotNull(message = "prob not null")
+    private String[] prob;
+    // get impact from Frontend as array
+    @NotNull(message = "imp not null")
+    private String[] imp;
 
     private User user;
 

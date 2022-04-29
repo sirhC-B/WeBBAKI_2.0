@@ -33,9 +33,11 @@
 <body>
 <div layout:fragment="content">
     <h2>Report</h2>
+    <form th:object="${report}" th:action="@{/report}" method="post">
     <th:block th:each="masterScenario : ${masterScenarioList}">
     <h5 th:text="${masterScenario.name}"></h5>
-    <table class="report-table" th:object="${report}" th:action="@{/report}" method="post">
+
+        <table class="report-table">
         <thead>
         <tr>
             <td>Szeanrien</td>
@@ -46,30 +48,40 @@
 
         </thead>
         <tbody>
-        <tr th:each="scenario : ${masterScenario.scenarios}">
+        <th:block th:each="scenario : ${masterScenario.scenarios}">
+        <tr>
             <td th:text="${scenario.name}"></td>
             <td>
-                <select th:id="selectProb" class="form-select" th:field="*{probability}" >
+                <select th:id="selectProb" class="form-select" th:attr="name='prob['+${scenario.id}+']'">
+                    <option value="none" disabled selected>Bitte wählen...</option>
                     <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}"
                             th:value="${probability}" th:text="${probability.value}"></option>
                 </select>
             </td>
-            <td><select th:id="selectImp" class="form-select" th:field="*{impact}" >
+            <td><select th:id="selectImp" class="form-select" th:attr="name='imp['+${scenario.id}+']'">
+                <option value="none" disabled selected>Bitte wählen...</option>
                 <option th:each="impact : ${T(de.thb.webbaki.enums.Impact).values()}"
                         th:value="${impact}" th:text="${impact.value}"></option>
             </select></td>
             <td><select id="showRisk" class="form-select" th:field="*{risk}" >
                 <option th:each="risk : ${T(de.thb.webbaki.enums.Risk).values()}"
                         th:value="${risk}" th:text="${risk.value}"></option>
-            </select></td>
+            </select>
+            </td>
+
         </tr>
+        </th:block>
         <tfoot>
         </tfoot>
+
     </table>
+
     </th:block>
+    <div class="col-md-12 mt-2">
+        <button type="submit" class="btn btn-primary float-end">Abschicken</button>
+    </div>
 
-
-
+    </form>
 </div>
 </body>
 </html>

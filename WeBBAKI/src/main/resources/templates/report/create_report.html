@@ -48,26 +48,29 @@
 
         </thead>
         <tbody>
-        <tr th:each="scenario : ${masterScenario.scenarios}">
+        <th:block th:each="scenario : ${masterScenario.scenarios}">
+        <tr>
             <td th:text="${scenario.name}"></td>
             <td>
-                <select th:id="selectProb" class="form-select" th:field="*{prob}">
-                    <option value="none" selected >Bitte wählen...</option>
+                <select th:id="selectProb" class="form-select" th:attr="name='prob['+${scenario.id}+']'">
+                    <option value="none" disabled selected>Bitte wählen...</option>
                     <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}"
                             th:value="${probability}" th:text="${probability.value}"></option>
                 </select>
-                <input type="hidden" id="prob" name="prob" th:value="${scenario.id}">
             </td>
-            <td><select th:id="selectImp" class="form-select" th:field="*{imp}" >
-                <option value="none" selected >Bitte wählen...</option>
+            <td><select th:id="selectImp" class="form-select" th:attr="name='imp['+${scenario.id}+']'">
+                <option value="none" disabled selected>Bitte wählen...</option>
                 <option th:each="impact : ${T(de.thb.webbaki.enums.Impact).values()}"
                         th:value="${impact}" th:text="${impact.value}"></option>
             </select></td>
             <td><select id="showRisk" class="form-select" th:field="*{risk}" >
                 <option th:each="risk : ${T(de.thb.webbaki.enums.Risk).values()}"
                         th:value="${risk}" th:text="${risk.value}"></option>
-            </select></td>
+            </select>
+            </td>
+
         </tr>
+        </th:block>
         <tfoot>
         </tfoot>
 
