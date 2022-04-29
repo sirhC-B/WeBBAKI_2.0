@@ -32,7 +32,7 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h2>Report</h2>
+    <h2>Fragebogen</h2>
     <form th:object="${report}" th:action="@{/report}" method="post">
     <th:block th:each="masterScenario : ${masterScenarioList}">
     <h5 th:text="${masterScenario.name}"></h5>

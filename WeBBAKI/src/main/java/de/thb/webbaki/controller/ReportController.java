@@ -58,5 +58,17 @@ public class ReportController {
         return "redirect:/home";
     }
 
+    @GetMapping("/report/chronic")
+    public String showQuestChronic(Authentication authentication,Model model) {
+
+        userService.getUserByEmail(authentication.getName()).ifPresent(
+                user -> {
+                    final var questList = questionnaireService.getAllQuestByUser(user.getId());
+                    model.addAttribute("questList", questList);
+                }
+        );
+
+        return "report/chronic";
+    }
 
 }
