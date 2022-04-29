@@ -3,12 +3,14 @@ package de.thb.webbaki.service;
 import de.thb.webbaki.controller.form.ReportFormModel;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.repository.QuestionnaireRepository;
+import de.thb.webbaki.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,6 +18,7 @@ import java.util.Optional;
 @Builder
 public class QuestionnaireService {
     private final QuestionnaireRepository questionnaireRepository;
+    private final UserRepository userRepository;
 
     public Questionnaire getEmptyQuestionnaire(){
         return new Questionnaire();
@@ -23,6 +26,10 @@ public class QuestionnaireService {
 
     public Optional<Questionnaire> getQuestionnaire(long id){
         return questionnaireRepository.findById(id);
+    }
+
+    public List<Questionnaire> getAllQuestByUser(long id) {
+        return questionnaireRepository.findAllByUser(userRepository.findById(id).get());
     }
 
     /*
