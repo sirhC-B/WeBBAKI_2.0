@@ -1,9 +1,9 @@
 package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.ReportFormModel;
+import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.service.MasterScenarioService;
 import de.thb.webbaki.service.QuestionnaireService;
-import de.thb.webbaki.service.ScenarioService;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -12,10 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -58,6 +60,7 @@ public class ReportController {
         return "redirect:/home";
     }
 
+
     @GetMapping("/report/chronic")
     public String showQuestChronic(Authentication authentication,Model model) {
 
@@ -70,5 +73,15 @@ public class ReportController {
 
         return "report/chronic";
     }
+
+    @GetMapping("/report/open/{questID}")
+    public String showReportByID(@PathVariable("questID") long questID, Model model) {
+
+        Optional<Questionnaire> quest = questionnaireService.getQuestionnaire(questID);
+        model.addAttribute("quest", quest);
+
+        return "report/show_report";
+    }
+
 
 }

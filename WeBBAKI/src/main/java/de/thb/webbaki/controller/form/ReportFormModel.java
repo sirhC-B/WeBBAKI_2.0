@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import javax.xml.stream.events.Comment;
 
 
 @Data
@@ -15,7 +16,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReportFormModel {
-
 
     // get ENUM for Frontend
     @NotNull(message = "Probability null")
@@ -26,6 +26,8 @@ public class ReportFormModel {
     // get ENUM for Frontend
     @NotNull(message = "Risk null")
     private Risk risk;
+
+    private String comment;
 
     // get probability from Frontend as array
     @NotNull(message = "prob not null")
