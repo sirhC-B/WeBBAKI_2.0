@@ -67,6 +67,7 @@ public class QuestionnaireService {
                 ._25(prob[25]+","+imp[25])
                 ._26(prob[26]+","+imp[26])
                 ._27(prob[27]+","+imp[27])
+                .comment(form.getComment())
                 .build());
     };
 
