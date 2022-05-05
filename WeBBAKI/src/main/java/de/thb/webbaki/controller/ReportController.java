@@ -77,11 +77,16 @@ public class ReportController {
     @GetMapping("/report/open/{questID}")
     public String showReportByID(@PathVariable("questID") long questID, Model model) {
 
-        Optional<Questionnaire> quest = questionnaireService.getQuestionnaire(questID);
+        Questionnaire quest = questionnaireService.getQuestionnaire(questID);
         model.addAttribute("quest", quest);
+
+
+        // NEEDED
+        model.addAttribute("report", new ReportFormModel());
+        final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
+        model.addAttribute("masterScenarioList",masterScenarioList);
 
         return "report/show_report";
     }
-
 
 }

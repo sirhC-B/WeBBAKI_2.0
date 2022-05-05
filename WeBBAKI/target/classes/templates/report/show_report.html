@@ -50,18 +50,18 @@
                 <tbody>
                 <th:block th:each="scenario : ${masterScenario.scenarios}">
                     <tr>
-                        <td th:text="${szenario.name}"></td>
+                        <td th:text="${scenario.name}"></td>
                         <td>
-                            <select th:id="selectProb" class="form-select" th:attr="name='prob['+${questID}+']'">
-                                <option th:value="${quest.get()._22[0]}" selected>Bitte wählen...</option>
+                            <select th:id="selectProb" class="form-select" th:attr="name='prob['+${scenario.id}+']'">
+                                <option th:text="${quest.getCol(#vars.scenario.id)[0]}" selected></option>
                                 <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}"
-                                        th:value="${probability}" th:text="${probability.value}"></option>
+                                        th:value="${probability.value}" th:text="${probability.value}"></option>
                             </select>
                         </td>
-                        <td><select th:id="selectImp" class="form-select" th:attr="name='imp['+${questID}+']'">
-                            <option value="none" selected>Bitte wählen...</option>
+                        <td><select th:id="selectImp" class="form-select" th:attr="name='prob['+${scenario.id}+']'">
+                            <option th:text="${quest.getCol(#vars.scenario.id)[1]}" selected></option>
                             <option th:each="impact : ${T(de.thb.webbaki.enums.Impact).values()}"
-                                    th:value="${impact}" th:text="${impact.value}"></option>
+                                    th:value="${impact.value}" th:text="${impact.value}"></option>
                         </select></td>
                         <td><select id="showRisk" class="form-select" th:field="*{risk}" >
                             <option th:each="risk : ${T(de.thb.webbaki.enums.Risk).values()}"

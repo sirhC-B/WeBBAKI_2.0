@@ -13,5 +13,5 @@ import java.util.Optional;
 public interface QuestionnaireRepository extends CrudRepository<Questionnaire, Long> {
 
     List<Questionnaire> findAllByUser(User user);
-    Optional<Questionnaire> findById(long id);
+    Questionnaire findById(long id);
 }
