@@ -24,7 +24,7 @@ public class QuestionnaireService {
         return new Questionnaire();
     }
 
-    public Optional<Questionnaire> getQuestionnaire(long id){
+    public Questionnaire getQuestionnaire(long id){
         return questionnaireRepository.findById(id);
     }
 
