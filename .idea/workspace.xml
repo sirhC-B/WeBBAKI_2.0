@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="FINAL&#10;-start js part" />
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="FINAL&#10;-start js part">
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="dev/showChronik" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -91,6 +94,7 @@
       <workItem from="1651059170273" duration="144000" />
       <workItem from="1651059340298" duration="21000" />
       <workItem from="1651059378363" duration="25000" />
+      <workItem from="1651817878463" duration="232000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
