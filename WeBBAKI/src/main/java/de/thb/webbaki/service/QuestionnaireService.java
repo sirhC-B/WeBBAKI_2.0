@@ -32,6 +32,15 @@ public class QuestionnaireService {
         return questionnaireRepository.findAllByUser(userRepository.findById(id).get());
     }
 
+    /*
+    Delete Questionnaire by given ID
+    Used Repository-Method deleteQuestionnaireById from
+    @QuestionnaireRepository
+     */
+    public void delQuest(long id){
+        questionnaireRepository.deleteQuestionnaireById(id);
+    }
+
 
     public void saveQuestionaire(ReportFormModel form){
         String[] prob = form.getProb();

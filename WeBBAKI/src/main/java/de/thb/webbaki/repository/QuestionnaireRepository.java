@@ -14,4 +14,5 @@ public interface QuestionnaireRepository extends CrudRepository<Questionnaire, L
 
     List<Questionnaire> findAllByUser(User user);
     Questionnaire findById(long id);
+    Questionnaire deleteQuestionnaireById(long id);
 }

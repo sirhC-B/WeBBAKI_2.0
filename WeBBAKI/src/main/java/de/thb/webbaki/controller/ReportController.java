@@ -89,4 +89,17 @@ public class ReportController {
         return "report/show_report";
     }
 
+    /*
+    Delete Questionnaire by ID
+    Methods Used from QuestionnaireService.java
+
+
+    @GetMapping("/report/delete/{questID}")
+    public String deleteQuestionnaireByID(@PathVariable("questID") long questID, Model model){
+
+        Questionnaire quest = questionnaireService.getQuestionnaire(questID);
+        model.addAttribute("quest", quest);
+
+    }
+ */
 }
