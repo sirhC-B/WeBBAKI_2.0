@@ -59,10 +59,9 @@ public class QuestionnaireService {
         String rawString = quest.getMapping();
         // CUT "{" & "}"
         rawString = rawString.substring(1, rawString.length() - 1);
-        // REPLACE SPACES
-        rawString = rawString.replace(" ","");
 
-        Map<Long, String[]> newMap = Arrays.stream(rawString.split(","))
+
+        Map<Long, String[]> newMap = Arrays.stream(rawString.split(", "))
                 .map(s -> s.split("="))
                 .collect(Collectors.toMap(s -> Long.parseLong(s[0]), s -> s[1].split(";")));
 
