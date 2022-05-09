@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -44,8 +46,6 @@ public class ReportController {
                                       BindingResult result, Authentication authentication,
                                       RedirectAttributes redirectAttributes) {
 
-        System.out.println(questionnaireFormModel);
-
         userService.getUserByEmail(authentication.getName()).ifPresent(questionnaireFormModel::setUser);
         questionnaireService.saveQuestionaire(questionnaireFormModel);
 
@@ -64,6 +64,7 @@ public class ReportController {
     @GetMapping("/report/chronic")
     public String showQuestChronic(Authentication authentication,Model model) {
 
+
         userService.getUserByEmail(authentication.getName()).ifPresent(
                 user -> {
                     final var questList = questionnaireService.getAllQuestByUser(user.getId());
@@ -80,6 +81,8 @@ public class ReportController {
         Questionnaire quest = questionnaireService.getQuestionnaire(questID);
         model.addAttribute("quest", quest);
 
+        Map<Long, String[]> questMap = questionnaireService.getMapping(quest);
+        model.addAttribute("questMap", questMap);
 
         // NEEDED
         model.addAttribute("report", new ReportFormModel());
