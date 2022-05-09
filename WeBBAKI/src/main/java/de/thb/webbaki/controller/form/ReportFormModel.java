@@ -1,5 +1,6 @@
 package de.thb.webbaki.controller.form;
 
+import de.thb.webbaki.entity.Scenario;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.enums.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import javax.xml.stream.events.Comment;
+import java.util.Map;
 
 
 @Data
