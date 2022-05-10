@@ -25,12 +25,21 @@
                             <td><span th:text="${user.sector}"></span></td>
                         </tr>
                         <tr>
+                            <td><b>Branche:</b></td>
+                            <td><span th:text="${user.branche}"></span></td>
+                        </tr>
+                        <tr>
                             <td><b>Unternehmen:</b></td>
                             <td><span th:text="${user.company}"></span></td>
                         </tr>
                         <tr>
                             <td><b>Email-Adresse:</b></td>
                             <td><span th:text="${user.email}"></span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Letzter login:</b></td>
+                            <td><span th:text="${muser.lastLogin.toLocalDate()}"></span><br>
+                                <span th:text="${muser.lastLogin.toLocalTime().toString().substring(0,5)}"></span></td>
                         </tr>
 
                     </table>
