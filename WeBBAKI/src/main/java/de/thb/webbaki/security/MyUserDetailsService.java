@@ -15,7 +15,7 @@ public class MyUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public MyUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         return userRepository.findByEmail(username)
                 .map(user -> MyUserDetails.builder()
@@ -26,6 +26,7 @@ public class MyUserDetailsService implements UserDetailsService {
                         .accountNonExpired(true)
                         .accountNonLocked(true)
                         .credentialsNonExpired(true)
+                        .lastLogin(user.getLastLogin())
                         .build())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
     }

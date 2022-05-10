@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -32,12 +30,16 @@ public class ReportController {
 
 
     @GetMapping("/report")
-    public String showQuestionnaireForm(Model model) {
+    public String showQuestionnaireForm(Model model,Authentication authentication) {
 
         model.addAttribute("report", new ReportFormModel());
 
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
+
+        userService.getUserByEmail(authentication.getName()).ifPresent(
+                userService::setCurrentLogin
+        );
 
         return "report/create_report";
     }
