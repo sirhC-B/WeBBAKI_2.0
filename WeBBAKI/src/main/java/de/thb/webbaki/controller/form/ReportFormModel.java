@@ -1,14 +1,16 @@
 package de.thb.webbaki.controller.form;
 
+import de.thb.webbaki.entity.Scenario;
+import de.thb.webbaki.entity.User;
 import de.thb.webbaki.enums.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.util.Map;
+
 
 @Data
 @Builder
@@ -16,26 +18,25 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ReportFormModel {
 
-
-
+    // get ENUM for Frontend
     @NotNull(message = "Probability null")
     private Probability probability;
-
+    // get ENUM for Frontend
     @NotNull(message = "Impact null")
     private Impact impact;
-
+    // get ENUM for Frontend
     @NotNull(message = "Risk null")
     private Risk risk;
 
-    @NotNull(message = "Date not null")
-    @NotEmpty(message = "Datum leer")
-    private LocalDate date;
-
-    @NotNull(message = "comment not null")
-    @NotEmpty(message = "Branchenkommentierung leer")
     private String comment;
 
-    @NotNull(message = "SzenarioType not null")
-    private SzenarioType szenarioType;
+    // get probability from Frontend as array
+    @NotNull(message = "prob not null")
+    private String[] prob;
+    // get impact from Frontend as array
+    @NotNull(message = "imp not null")
+    private String[] imp;
+
+    private User user;
 
 }

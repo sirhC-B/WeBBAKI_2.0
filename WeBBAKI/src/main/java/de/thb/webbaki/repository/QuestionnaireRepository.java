@@ -1,14 +1,17 @@
 package de.thb.webbaki.repository;
 
 import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.RepositoryDefinition;
-import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RepositoryDefinition(domainClass = Questionnaire.class, idClass = Long.class)
 public interface QuestionnaireRepository extends CrudRepository<Questionnaire, Long> {
 
-    public Optional<Questionnaire> findById(long id);
+    List<Questionnaire> findAllByUser(User user);
+    Questionnaire findById(long id);
+    void deleteQuestionnaireById(long id);
 }

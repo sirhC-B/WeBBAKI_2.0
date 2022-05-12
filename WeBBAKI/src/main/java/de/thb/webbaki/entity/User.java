@@ -3,7 +3,9 @@ package de.thb.webbaki.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -27,6 +29,9 @@ public class User {
     private String email;
     private boolean enabled;
     private boolean tokenExpired;
+    private LocalDateTime lastLogin;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Questionnaire> questionnaire;
 
 }

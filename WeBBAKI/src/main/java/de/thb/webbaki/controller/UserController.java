@@ -2,10 +2,13 @@ package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.security.MyUserDetails;
+import de.thb.webbaki.security.MyUserDetailsService;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +25,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
+    private MyUserDetailsService myUserDetailsService;
     //private final ReportService reportService;
     //private final ProviderService providerService;
 
@@ -85,6 +89,10 @@ public class UserController {
         userService.getUserByEmail(authentication.getName()).ifPresent(
                 user -> model.addAttribute("user", user)
         );
+
+        MyUserDetails muser = myUserDetailsService.loadUserByUsername(authentication.getName());
+        model.addAttribute("muser", muser);
+
 
         return "/account/user_details";
     }

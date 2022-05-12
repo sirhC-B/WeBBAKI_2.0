@@ -2,7 +2,6 @@ package de.thb.webbaki.service;
 
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.entity.User;
-import de.thb.webbaki.enums.SectorEnergie;
 import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
 import lombok.AllArgsConstructor;
@@ -10,6 +9,7 @@ import lombok.Builder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +20,6 @@ import java.util.Optional;
 public class UserService {
     private UserRepository userRepository;      //initialize repository Object
     private PasswordEncoder passwordEncoder;    //Encoding Passwords for registered Users
-
     //Get a List of all Users using userRepository
     public List<User> getAllUsers() {
         return (List<User>) userRepository.findAll();
@@ -85,4 +84,12 @@ public class UserService {
                     .enabled(true)
                     .build());
     }
+
+    public void setCurrentLogin(User u) {
+        u.setLastLogin(LocalDateTime.now());
+        userRepository.save(u);
+    }
+
+
+
 }

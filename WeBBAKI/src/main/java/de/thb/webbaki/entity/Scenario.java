@@ -18,6 +18,7 @@ public class Scenario {
     private long id;
     private String name;
 
+
     @ManyToOne
     @JoinColumn(name = "master_scenario_id", nullable = false)
     private MasterScenario masterScenario;
