@@ -2,8 +2,10 @@ package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.ReportFormModel;
 import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.Scenario;
 import de.thb.webbaki.service.MasterScenarioService;
 import de.thb.webbaki.service.QuestionnaireService;
+import de.thb.webbaki.service.ScenarioService;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ public class ReportController {
 
     private final QuestionnaireService questionnaireService;
     private final MasterScenarioService masterScenarioService;
+    private final ScenarioService scenarioService;
     private final UserService userService;
 
 
@@ -106,6 +109,28 @@ public class ReportController {
         return "redirect:/report/chronic";
     }
 
+    @GetMapping("/report/add_szenario")
+    public String addSzenario(Model model){
+        final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
+        model.addAttribute("masterScenarioList",masterScenarioList);
+
+        Scenario scenario = new Scenario();
+        model.addAttribute("scenario",scenario);
+
+        return "report/add_szenario";
+    }
+
+    @PostMapping("/report/add_szenario")
+    public String submitSzenario(@ModelAttribute("scenario") Scenario scenario){
+        String[] sList = scenario.getName().split(",");
+        scenario.setName(sList[0]);
+        scenario.setMasterScenario(masterScenarioService.getAllMasterScenarios()
+                .get(Integer.parseInt(sList[1])));
+        scenarioService.addScenario(scenario);
+
+
+        return "redirect:/report";
+    }
 
 
 }
