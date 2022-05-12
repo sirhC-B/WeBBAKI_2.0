@@ -32,7 +32,7 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h2>Fragebogen</h2>
+    <h2>Fragebogen</h2><br>
     <form th:object="${report}" th:action="@{/report}" method="post">
     <th:block th:each="masterScenario : ${masterScenarioList}">
     <h5 th:text="${masterScenario.name}"></h5>
@@ -78,7 +78,11 @@
 
     </th:block>
 
-            <h3><label class="form-group shadow-textarea" >Kommentar zum Fragebogen</label></h3>
+        <h5>Extras</h5>
+            <a class="btn btn-outline-secondary" role="button" th:href="@{/report/add_szenario}"><i class="bi bi-plus-circle"></i> neues Szenario anlegen</a>
+        <br><br>
+
+        <h3><label class="form-group shadow-textarea" >Kommentar zum Fragebogen</label></h3>
             <textarea  class="form-control z-depth-1" id="exampleFormControlTextarea6" th:rows="5" th:cols="123" th:field="*{comment}" placeholder="Kommentar bitte hier eingeben..."></textarea>
 
         <div class="col-md-12 mt-2">
