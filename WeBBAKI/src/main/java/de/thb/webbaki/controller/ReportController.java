@@ -2,6 +2,7 @@ package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.ReportFormModel;
 import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.Scenario;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.entity.Scenario;
 import de.thb.webbaki.service.MasterScenarioService;
@@ -27,6 +28,7 @@ public class ReportController {
 
     private final QuestionnaireService questionnaireService;
     private final MasterScenarioService masterScenarioService;
+    private final ScenarioService scenarioService;
     private final UserService userService;
 
 
