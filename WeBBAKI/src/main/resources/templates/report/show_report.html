@@ -2,8 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            for (let i = 0; i < 27; i++) {
+                $('#selectProb' + i).on('change', function () {
+                    var demovalue = $(this).val();
+                    $("div.showQuestion1").hide(); //1. Frage (Sicherheitsarchitektur), um bugs zu verhindern
+                    $("div.showQuestion").hide();
+                    $("#" + demovalue + i).show();
+                });
+            }
+        });
+    </script>
     <style>
         .report-table{
+            width: 100%;
             border-collapse: collapse;
             margin-bottom: 100px;
         }
@@ -24,7 +38,17 @@
             letter-spacing: 1px;
             color: grey;
             padding: 8px;
-        }</style>
+        }
+        .showQuestion1{
+            display:block;
+        }
+        .showQuestion{
+            display:none;
+            padding:10px;
+        }
+
+
+    </style>
 
 
     <title>Report</title>
@@ -52,24 +76,22 @@
                     <tr>
                         <td th:text="${scenario.name}"></td>
                         <td>
-                            <select th:id="selectProb" class="form-select" th:attr="name='prob['+${scenario.id}+']'">
+                            <select th:id="'selectProb' + ${scenario.id}" class="form-select" th:attr="name='prob['+${scenario.id}+']'">
                                 <option th:text="${questMap.get(#vars.scenario.id)[0]}" selected></option>
                                 <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}"
                                         th:value="${probability.value}" th:text="${probability.value}"></option>
                             </select>
                         </td>
-                        <td><select th:id="selectImp" class="form-select" th:attr="name='prob['+${scenario.id}+']'">
+                        <td><select id="selectImp" class="form-select" th:attr="name='prob['+${scenario.id}+']'">
                             <option th:text="${questMap.get(#vars.scenario.id)[1]}" selected></option>
                             <option th:each="impact : ${T(de.thb.webbaki.enums.Impact).values()}"
                                     th:value="${impact.value}" th:text="${impact.value}"></option>
                         </select></td>
-                        <td><select id="showRisk" class="form-select" th:field="*{risk}" >
-                            <option th:each="risk : ${T(de.thb.webbaki.enums.Risk).values()}"
-                                    th:value="${risk}" th:text="${risk.value}"></option>
-                        </select>
+                        <td> <div th:id="'selten'+ ${scenario.id}" class="showQuestion">TEST</div>
                         </td>
 
                     </tr>
+
                 </th:block>
                 <tfoot>
                 </tfoot>
