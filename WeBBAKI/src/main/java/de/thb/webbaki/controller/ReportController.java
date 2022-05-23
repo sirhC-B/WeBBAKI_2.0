@@ -54,14 +54,7 @@ public class ReportController {
         questionnaireService.saveQuestionaire(questionnaireFormModel);
 
 
-        if (result.hasErrors()) {
-            return "report/create_report";
-        }
-        redirectAttributes.addFlashAttribute("success", "Der Fragebogen wurde abgeschickt. \n" +
-                "Unter 'Aktive Aufträge' können Sie einen passenden Provider auswählen");
-
-
-        return "redirect:/home";
+        return "redirect:/report/chronic";
     }
 
 
@@ -96,10 +89,6 @@ public class ReportController {
         return "report/show_report";
     }
 
-    /*
-    Delete Questionnaire by ID
-    Methods Used from QuestionnaireService.java
-    */
 
     @Transactional
     @GetMapping(path = "/report/chronic/{questID}")
