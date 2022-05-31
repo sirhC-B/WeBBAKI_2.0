@@ -1,15 +1,24 @@
 package de.thb.webbaki.service;
 
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
+import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.repository.RoleRepository;
 import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.regex.Matcher;
+
+import javax.swing.text.html.Option;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,8 +26,11 @@ import java.util.Optional;
 @Builder
 @AllArgsConstructor
 @Service
+@Transactional
+@Slf4j
 public class UserService {
     private UserRepository userRepository;      //initialize repository Object
+    private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;    //Encoding Passwords for registered Users
     //Get a List of all Users using userRepository
     public List<User> getAllUsers() {
@@ -32,7 +44,7 @@ public class UserService {
     }
 
     //Getting a specific User by Email
-    public Optional<User> getUserByEmail(String email) {
+    public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
@@ -51,6 +63,7 @@ public class UserService {
                 .company(company)
                 .password(password)
                 .email(email)
+                .roles(Arrays.asList(roleRepository.findByName("KRITISBETREIBER")))
                 .enabled(enabled)
                 .build());
     }
@@ -63,7 +76,7 @@ public class UserService {
 
     //Checking if User already exists by email. Used in registerNewUser()
     public Boolean emailExists(String email) {
-        return userRepository.findByEmail(email).isPresent();
+        return userRepository.findByEmail(email) != null;
     }
 
     /*
@@ -88,6 +101,16 @@ public class UserService {
     public void setCurrentLogin(User u) {
         u.setLastLogin(LocalDateTime.now());
         userRepository.save(u);
+    }
+
+    public void addRoleToUser(String email, String roleName){
+        User user = userRepository.findByEmail(email);
+        Role role = roleRepository.findByName(roleName);
+        user.getRoles().add(role);
+    }
+
+    public Role saveRole(Role role){
+        return null;
     }
 
 

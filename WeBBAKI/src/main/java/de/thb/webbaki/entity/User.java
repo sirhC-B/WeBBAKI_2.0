@@ -4,14 +4,14 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Entity
 @Table
 public class User {
@@ -34,4 +34,21 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Questionnaire> questionnaire;
 
+    @ManyToMany(fetch = FetchType.EAGER) //Fetching roles at the same time users get loaded
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles = new ArrayList<>();
+
+
+    //Roles Getter
+    public Collection<Role> getRoles(){
+        return roles;
+    }
+    public void setRoles(Collection<Role>roles){
+        this.roles = roles;
+    }
 }
