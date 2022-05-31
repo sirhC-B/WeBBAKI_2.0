@@ -86,11 +86,11 @@ public class UserController {
     @GetMapping("/account/user_details")
     public String showUserData(Authentication authentication, Model model) {
 
-        userService.getUserByEmail(authentication.getName()).ifPresent(
+        if (userService.getUserByEmail(authentication.getName()) != null)
                 user -> model.addAttribute("user", user)
         );
 
-        MyUserDetails muser = myUserDetailsService.loadUserByUsername(authentication.getName());
+        MyUserDetails muser = (MyUserDetails) myUserDetailsService.loadUserByUsername(authentication.getName());
         model.addAttribute("muser", muser);
 
 
