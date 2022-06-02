@@ -2,6 +2,7 @@ package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.ReportFormModel;
 import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.User;
 import de.thb.webbaki.entity.Scenario;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.entity.Scenario;
