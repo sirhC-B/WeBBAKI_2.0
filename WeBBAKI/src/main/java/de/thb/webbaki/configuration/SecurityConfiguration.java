@@ -34,7 +34,7 @@ public class SecurityConfiguration {
         return roleHierarchy;
     }
     @Bean
-    public DefaultWebSecurityExpressionHandler webSecurityExpressionHandler(){
+    public DefaultWebSecurityExpressionHandler customSecurityExpressionHandler(){
         DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
         expressionHandler.setRoleHierarchy(roleHierarchy());
         return expressionHandler;

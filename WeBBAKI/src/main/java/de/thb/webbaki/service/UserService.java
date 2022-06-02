@@ -13,12 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.regex.Matcher;
 
-import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,7 +60,7 @@ public class UserService {
                 .company(company)
                 .password(password)
                 .email(email)
-                .roles(Arrays.asList(roleRepository.findByName("KRITISBETREIBER")))
+                .roles(Arrays.asList(roleRepository.findByName("BUNDESADMIN")))
                 .enabled(enabled)
                 .build());
     }
@@ -83,19 +80,24 @@ public class UserService {
         Registering new User with all parameters from User.java
         Using emailExists() to check whether user already exists
      */
-    public void registerNewUser(UserRegisterFormModel form) throws UserAlreadyExistsException {
+    public void registerNewUser(final UserRegisterFormModel form) throws UserAlreadyExistsException {
         if (emailExists(form.getEmail())){
             throw new UserAlreadyExistsException("Es existiert bereits ein Account mit folgender Email-Adresse: " + form.getEmail());
-        } else
-            userRepository.save(User.builder()
-                    .lastName(form.getLastname())
-                    .firstName(form.getFirstname())
-                    .branche(form.getBranche())
-                    .company(form.getCompany())
-                    .password(passwordEncoder.encode(form.getPassword()))
-                    .email(form.getEmail())
-                    .enabled(true)
-                    .build());
+        } else {
+
+            final User user = new User();
+
+            user.setLastName(form.getLastname());
+            user.setFirstName(form.getFirstname());
+            user.setBranche(form.getBranche());
+            user.setCompany(form.getCompany());
+            user.setPassword(passwordEncoder.encode(form.getPassword()));
+            user.setEmail(form.getEmail());
+            user.setRoles(Arrays.asList(roleRepository.findByName("DEFAULT_USER")));
+            user.setEnabled(true);
+
+            userRepository.save(user);
+        }
     }
 
     public void setCurrentLogin(User u) {
@@ -107,10 +109,6 @@ public class UserService {
         User user = userRepository.findByEmail(email);
         Role role = roleRepository.findByName(roleName);
         user.getRoles().add(role);
-    }
-
-    public Role saveRole(Role role){
-        return null;
     }
 
 

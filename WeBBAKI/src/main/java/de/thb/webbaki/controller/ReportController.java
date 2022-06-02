@@ -2,6 +2,7 @@ package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.ReportFormModel;
 import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.User;
 import de.thb.webbaki.entity.Scenario;
 import de.thb.webbaki.service.MasterScenarioService;
 import de.thb.webbaki.service.QuestionnaireService;
@@ -26,7 +27,6 @@ public class ReportController {
 
     private final QuestionnaireService questionnaireService;
     private final MasterScenarioService masterScenarioService;
-    private final ScenarioService scenarioService;
     private final UserService userService;
 
 
@@ -39,9 +39,12 @@ public class ReportController {
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
 
-        userService.getUserByEmail(authentication.getName()).ifPresent(
-                userService::setCurrentLogin
-        );
+        /* TODO
+        Noch nicht fertig. Im Rahmen des BEKO raus.
+
+        User user = userService.getUserByEmail(authentication.getName());
+        user.setLastLogin();
+        */
 
         return "report/create_report";
     }
@@ -50,9 +53,11 @@ public class ReportController {
                                       BindingResult result, Authentication authentication,
                                       RedirectAttributes redirectAttributes) {
 
-        userService.getUserByEmail(authentication.getName()).ifPresent(questionnaireFormModel::setUser);
-        questionnaireService.saveQuestionaire(questionnaireFormModel);
-
+        if (userService.getUserByEmail(authentication.getName()) != null){
+            User user = userService.getUserByEmail(authentication.getName());
+            questionnaireFormModel.setUser(user);
+            questionnaireService.saveQuestionaire(questionnaireFormModel);
+        }
 
         return "redirect:/report/chronic";
     }
@@ -61,14 +66,12 @@ public class ReportController {
     @GetMapping("/report/chronic")
     public String showQuestChronic(Authentication authentication,Model model) {
 
+        if (userService.getUserByEmail(authentication.getName()) != null) {
+            User user = userService.getUserByEmail(authentication.getName());
+            final var questList = questionnaireService.getAllQuestByUser(user.getId());
+            model.addAttribute("questList", questList);
 
-        userService.getUserByEmail(authentication.getName()).ifPresent(
-                user -> {
-                    final var questList = questionnaireService.getAllQuestByUser(user.getId());
-                    model.addAttribute("questList", questList);
-                }
-        );
-
+        }
         return "report/chronic";
     }
 

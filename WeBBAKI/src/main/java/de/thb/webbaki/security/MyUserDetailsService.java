@@ -27,17 +27,17 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        User user = userRepository.findByEmail(email);
-        if (user == null){
-            return new org.springframework.security.core.userdetails.User(
-                    " ", " ", true, true, true, true,
-                    getAuthorities(Arrays.asList(
-                            roleRepository.findByName("KRITISBETREIBER"))));
+        try {
+            final User user = userRepository.findByEmail(email);
+            if (user == null) {
+                throw new UsernameNotFoundException("No user found with username: " + email);
+            }
+
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, getAuthorities(user.getRoles()));
+        } catch (final Exception e) {
+            throw new RuntimeException(e);
         }
-
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, getAuthorities(user.getRoles()));
-
+    }
         /* Vorerst auskommentiert und ersetzt durch obrige Methode.
 
         .map(user -> MyUserDetails.builder()
@@ -53,11 +53,9 @@ public class MyUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
 
          */
-    }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(
-            Collection<Role> roles) {
 
+    private Collection<? extends GrantedAuthority> getAuthorities(final Collection<Role> roles){
         return getGrantedAuthorities(getPrivileges(roles));
     }
 
