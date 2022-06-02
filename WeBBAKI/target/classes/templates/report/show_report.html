@@ -99,8 +99,6 @@
                                         var probValue = $('#selectProb' + i).val();
                                         var impValue = $('#selectImp'+i).val();
                                         let probNum,impNum,result = 0;
-                                        //$("div.showQuestion").hide();
-
                                         switch(probValue){
                                             case 'nie': probNum = 0
                                                 break;
@@ -123,7 +121,6 @@
                                             case 'existenzielle Auswirkungen': impNum = 4
                                                 break;
                                         }
-
                                         result = probNum*impNum;
                                         $("#noRisk"+i).hide();
                                         $("#smallRisk"+i).hide();
