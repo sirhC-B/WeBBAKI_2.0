@@ -1,5 +1,6 @@
 package de.thb.webbaki.controller;
 
+import de.thb.webbaki.entity.User;
 import de.thb.webbaki.security.MyUserDetails;
 import de.thb.webbaki.security.MyUserDetailsService;
 import de.thb.webbaki.security.authority.UserAuthority;
@@ -44,13 +45,10 @@ public class MainController {
     public void logintime(Model model,Authentication authentication) {
         UserDetails muser = myUserDetailsService.loadUserByUsername(authentication.getName());
         model.addAttribute("muser", muser);
-        userService.getUserByEmail(authentication.getName()).ifPresent(
-                user -> {
-                    userService.setCurrentLogin(user);
-                    model.addAttribute("user", user);
+        User user = userService.getUserByEmail(authentication.getName());
+        userService.setCurrentLogin(user);
+        model.addAttribute("user", user);
 
-                }
-        );
+        }
 
-    }
 }
