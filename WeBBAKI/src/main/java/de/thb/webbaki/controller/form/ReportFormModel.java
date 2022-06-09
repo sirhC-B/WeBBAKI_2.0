@@ -1,5 +1,6 @@
 package de.thb.webbaki.controller.form;
 
+import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.Scenario;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.enums.*;
@@ -9,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 import java.util.Map;
 
 
@@ -27,6 +29,8 @@ public class ReportFormModel {
     // get ENUM for Frontend
     @NotNull(message = "Risk null")
     private Risk risk;
+
+    private Collection<Role> roles;
 
     private String comment;
 

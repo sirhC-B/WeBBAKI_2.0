@@ -11,7 +11,8 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table
 public class User {
@@ -32,6 +33,7 @@ public class User {
     private LocalDateTime lastLogin;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private Set<Questionnaire> questionnaire;
 
     @ManyToMany(fetch = FetchType.EAGER) //Fetching roles at the same time users get loaded
