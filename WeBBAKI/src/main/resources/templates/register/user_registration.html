@@ -10,7 +10,8 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="signup-form">
-                    <form th:object="${user}" th:action="@{/register/user}" method="post" class="mt-5 border p-4 bg-light shadow">
+                    <form th:object="${user}" th:action="@{/register/user}" method="post"
+                          class="mt-5 border p-4 bg-light shadow">
                         <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger alert-dismissible">
                             <ul>
                                 <li class="" th:each="err : ${#fields.allErrors()}" th:text="${err}"></li>
@@ -35,27 +36,32 @@
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label>Branche</label>
-                                <select th:id="selectBranch" type="branche" name="branche" class="form-select" >
+                                <select th:id="selectBranch" type="branche" name="branche" class="form-select">
                                     <option value="none" selected disabled hidden>Branche wählen...</option>
                                     <optgroup label="Energie">
-                                    <option th:each="sectorEnergie : ${T(de.thb.webbaki.enums.SectorEnergie).values()}"
-                                            th:value="${sectorEnergie.value}" th:text="${sectorEnergie.value}" ></option>
+                                        <option th:each="sectorEnergie : ${T(de.thb.webbaki.enums.SectorEnergie).values()}"
+                                                th:value="${sectorEnergie.value}"
+                                                th:text="${sectorEnergie.value}"></option>
                                     </optgroup>
                                     <optgroup label="Gesundheit">
                                         <option th:each="sectorGesundheit : ${T(de.thb.webbaki.enums.SectorGesundheit).values()}"
-                                                th:value="${sectorGesundheit}" th:text="${sectorGesundheit.value}"></option>
+                                                th:value="${sectorGesundheit}"
+                                                th:text="${sectorGesundheit.value}"></option>
                                     </optgroup>
                                     <optgroup label="Informationstechnik und Telekommunikation">
                                         <option th:each="sectorInfandTel : ${T(de.thb.webbaki.enums.SectorInfandTel).values()}"
-                                                th:value="${sectorInfandTel}" th:text="${sectorInfandTel.value}"></option>
+                                                th:value="${sectorInfandTel}"
+                                                th:text="${sectorInfandTel.value}"></option>
                                     </optgroup>
                                     <optgroup label="Transport und Verkehr">
                                         <option th:each="sectorTransport : ${T(de.thb.webbaki.enums.SectorTransport).values()}"
-                                                th:value="${sectorTransport}" th:text="${sectorTransport.value}"></option>
+                                                th:value="${sectorTransport}"
+                                                th:text="${sectorTransport.value}"></option>
                                     </optgroup>
                                     <optgroup label="Medien und Kultur">
                                         <option th:each="sectorMedandCult : ${T(de.thb.webbaki.enums.SectorMedandCult).values()}"
-                                                th:value="${sectorMedandCult}" th:text="${sectorMedandCult.value}"></option>
+                                                th:value="${sectorMedandCult}"
+                                                th:text="${sectorMedandCult.value}"></option>
                                     </optgroup>
                                     <optgroup label="Wasser">
                                         <option th:each="sectorWasser : ${T(de.thb.webbaki.enums.SectorWasser).values()}"
@@ -91,11 +97,12 @@
                                 <input type="password" name="confirmPassword" class="form-control"/>
                             </div>
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary float-end" >Registrieren</button>
+                                <button type="submit" class="btn btn-primary float-end">Registrieren</button>
                             </div>
                         </div>
                     </form>
-                    <p class="text-center mt-3 text-secondary">Haben sie einen Account? <a th:href="@{/login}">Jetzt anmelden</a>.
+                    <p class="text-center mt-3 text-secondary">Haben sie einen Account? <a th:href="@{/login}">Jetzt
+                        anmelden</a>.
                     </p>
                 </div>
             </div>
