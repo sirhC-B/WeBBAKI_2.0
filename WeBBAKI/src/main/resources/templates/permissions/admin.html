@@ -8,40 +8,42 @@
 <body>
 <div layout:fragment="content">
     <h2>Admin Dashboard</h2>
-    <form th:object="${users}"></form>
-    <table class="table table-striped table-bordered">
-        <thead class="thead-dark">
-        <tr>
-            <th>ID</th>
-            <th>E-Mail</th>
-            <th>Vorname</th>
-            <th>Nachname</th>
-            <th>Rolle</th>
-            <th>Neue Rolle</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user: ${users}">
-            <td th:text="${user.id}">User ID</td>
-            <td th:text="${user.email}">E-mail</td>
-            <td th:text="${user.firstName}">Vorname</td>
-            <td th:text="${user.lastName}">Nachname</td>
-            <td th:text="${user.getRoles()}">Rollen</td>
-            <th:block>
-            <td><select id="showRisk" class="form-select" th:field="*{roles}">
-                <option value="none">Bitte auswählen:</option>
-                <option th:each="role : ${roles}"
-                        th:value="${role}" th:text="${role}"></option>
-            </select>
-            </td>
-            </th:block>
-        </tr>
-        </tbody>
-    </table>
-    <div class="col-md-12 mt-2">
-        <button type="submit" class="btn btn-primary float-end">Abschicken</button>
-    </div>
+    <form th:object="${users}" th:action="@{/permissions/addRoleToUser}" method="post">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>E-Mail</th>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>Rolle</th>
+                <th>Neue Rolle</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user: ${users}">
+                <td th:text="${user.id}">User ID</td>
+                <td th:text="${user.email}">E-mail</td>
+                <td th:text="${user.firstName}">Vorname</td>
+                <td th:text="${user.lastName}">Nachname</td>
+                <td th:text="${user.getRoles()}">Rollen</td>
+                <th:block>
+                    <td><select id="showRisk" class="form-select" th:field="${roles}">
+                        <option value="none">Bitte auswählen:</option>
+                        <option th:each="role : ${roles}"
+                                th:href="${'/users/edit' + user.id}" th:value="${role}" th:text="${role}">
+                        </option>
+                    </select>
+                    </td>
+                </th:block>
+            </tr>
+            </tbody>
+        </table>
+        <div class="col-md-12 mt-2">
+            <button type="submit" class="btn btn-primary float-end">Abschicken</button>
+        </div>
+    </form>
 
 </div>
 
