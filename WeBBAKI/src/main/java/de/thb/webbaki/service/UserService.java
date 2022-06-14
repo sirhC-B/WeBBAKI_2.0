@@ -18,6 +18,7 @@ import java.util.Arrays;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -107,9 +108,16 @@ public class UserService {
     }
 
     public void addRoleToUser(final UserToRoleFormModel formModel){
-        User user = userRepository.findByEmail(formModel.getUser().getEmail());
-        Role role = roleRepository.findByName(formModel.getRole().getName());
-        user.getRoles().add(role);
+        String[] roles = formModel.getRole();
+        for (int i = 1; i<roles.length; i++ ){
+            if (!Objects.equals(roles[i],"none")) {
+                User user = userRepository.findById(i).get();
+                if (!user.getRoles().contains(roleRepository.findByName(roles[i]))){
+                    user.getRoles().add(roleRepository.findByName(roles[i]));
+                    userRepository.save(user);
+                }
+            }
+        }
     }
 
 

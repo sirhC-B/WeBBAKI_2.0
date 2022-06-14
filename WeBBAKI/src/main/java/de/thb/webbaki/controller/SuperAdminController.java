@@ -1,5 +1,6 @@
 package de.thb.webbaki.controller;
 
+import de.thb.webbaki.controller.form.ReportFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
@@ -34,6 +35,7 @@ public class SuperAdminController implements Comparable {
             }
         });
          */
+        model.addAttribute("roleForm", new UserToRoleFormModel());
         final var roles = roleService.getAllRoles();
         model.addAttribute("roles", roles);
         model.addAttribute("users", users);
@@ -51,12 +53,13 @@ public class SuperAdminController implements Comparable {
         return "permissions/role-to-user";
     }
 
-    @PostMapping("/permissions/addRoleToUser")
+    @PostMapping("/admin")
     public String addRoleToUser(
-            @ModelAttribute("addUserRole") @Valid UserToRoleFormModel userToRoleFormModel, Model model) {
+            @ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel, Model model) {
+        System.out.println(userToRoleFormModel.toString());
         userService.addRoleToUser(userToRoleFormModel);
 
-        return "redirect:permissions/admin";
+        return "redirect:admin";
     }
 
 

@@ -8,7 +8,7 @@
 <body>
 <div layout:fragment="content">
     <h2>Admin Dashboard</h2>
-    <form th:object="${users}" th:action="@{/permissions/addRoleToUser}" method="post">
+    <form th:object="${roleForm}" th:action="@{/admin}" method="post">
         <table class="table table-striped table-bordered">
             <thead class="thead-dark">
             <tr>
@@ -29,10 +29,10 @@
                 <td th:text="${user.lastName}">Nachname</td>
                 <td th:text="${user.getRoles()}">Rollen</td>
                 <th:block>
-                    <td><select id="showRisk" class="form-select" th:field="${roles}">
+                    <td><select id="showRisk" class="form-select" th:attr="name='role['+${user.id}+']'">
                         <option value="none">Bitte auswählen:</option>
                         <option th:each="role : ${roles}"
-                                th:href="${'/users/edit' + user.id}" th:value="${role}" th:text="${role}">
+                                th:value="${role.name}" th:text="${role}">
                         </option>
                     </select>
                     </td>

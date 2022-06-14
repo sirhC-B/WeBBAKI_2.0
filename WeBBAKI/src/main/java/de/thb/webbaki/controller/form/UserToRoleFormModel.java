@@ -16,10 +16,8 @@ import javax.validation.constraints.NotNull;
 public class UserToRoleFormModel {
 
     //Get Role for User
-    @NotNull(message = "Role null")
-    private Role role;
+    private String[] role;
 
     //Get User for Role
-    @NotNull(message = "User null")
-    private User user;
+    private String[] user;
 }
