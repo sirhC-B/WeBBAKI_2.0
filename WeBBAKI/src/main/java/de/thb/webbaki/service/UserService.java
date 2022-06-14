@@ -1,6 +1,7 @@
 package de.thb.webbaki.service;
 
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
+import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.RoleRepository;
@@ -105,9 +106,9 @@ public class UserService {
         userRepository.save(u);
     }
 
-    public void addRoleToUser(String email, String roleName){
-        User user = userRepository.findByEmail(email);
-        Role role = roleRepository.findByName(roleName);
+    public void addRoleToUser(final UserToRoleFormModel formModel){
+        User user = userRepository.findByEmail(formModel.getUser().getEmail());
+        Role role = roleRepository.findByName(formModel.getRole().getName());
         user.getRoles().add(role);
     }
 
