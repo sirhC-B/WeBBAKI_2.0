@@ -2,6 +2,8 @@ package de.thb.webbaki.service;
 
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.entity.Role;
+import de.thb.webbaki.controller.form.UserToRoleFormModel;
+import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.RoleRepository;
 import de.thb.webbaki.repository.UserRepository;
