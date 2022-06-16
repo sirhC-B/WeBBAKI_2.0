@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Snapshot</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Snapshot</h2><br>
+    <form th:action="@{/snap}" method="post">
+        <button type="submit" class="btn btn-primary float-end">Abschicken</button>
+    </form>
+</div>
+
+
+
+</body>
+</html>

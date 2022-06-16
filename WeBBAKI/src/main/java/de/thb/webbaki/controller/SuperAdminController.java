@@ -5,6 +5,7 @@ import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.service.RoleService;
+import de.thb.webbaki.service.SnapshotService;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import java.util.Optional;
 public class SuperAdminController implements Comparable {
     private final UserService userService;
     private final RoleService roleService;
+    private final SnapshotService snapshotService;
 
     @GetMapping("admin")
     public String showAllUsers(Model model) {
@@ -62,7 +64,21 @@ public class SuperAdminController implements Comparable {
         return "redirect:admin";
     }
 
+    @GetMapping("/snap")
+    public String getSnap(Model model){
 
+
+
+        return "snap/snapshot";
+    }
+    @PostMapping("/snap")
+    public String postSnap(Model model){
+        snapshotService.createSnap();
+
+
+        return "redirect:snap";
+
+    }
     @Override
     public int compareTo(Object o) {
         return 0;

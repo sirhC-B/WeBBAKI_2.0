@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mariadb://192.168.210.195:3306/webbaki</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="MariaDB" uuid="577f20dc-d421-4892-b129-7219410890db">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://172.17.0.55:3306/webbakiRole</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

@@ -32,6 +32,10 @@ public class QuestionnaireService {
         return questionnaireRepository.findById(id);
     }
 
+    public Questionnaire getNewestQuestionnaireByUserId(long id){
+        return questionnaireRepository.findFirstByUser_Id(id);
+    }
+
     public List<Questionnaire> getAllQuestByUser(long id) {
         return questionnaireRepository.findAllByUser(userRepository.findById(id).get());
     }
