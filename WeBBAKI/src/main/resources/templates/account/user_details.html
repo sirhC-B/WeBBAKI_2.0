@@ -36,11 +36,13 @@
                             <td><b>Email-Adresse:</b></td>
                             <td><span th:text="${user.email}"></span></td>
                         </tr>
-                        <tr>
+                        <!-- TODO: Fehler mit LastLogin Beheben
+                            <tr>
                             <td><b>Letzter login:</b></td>
                             <td><span th:text="${muser.lastLogin.toLocalDate()}"></span><br>
                                 <span th:text="${muser.lastLogin.toLocalTime().toString().substring(0,5)}"></span></td>
-                        </tr>
+                            </tr>
+                        -->
 
                     </table>
                 </div>
