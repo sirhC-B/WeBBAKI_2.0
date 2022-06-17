@@ -13,7 +13,7 @@ public interface QuestionnaireRepository extends CrudRepository<Questionnaire, L
 
     List<Questionnaire> findAllByUser(User user);
     Questionnaire findById(long id);
-    Questionnaire findFirstByUser_Id(long id);
+    Questionnaire findFirstByUser_IdOrderByIdDesc(long id);
 
 
     void deleteQuestionnaireById(long id);

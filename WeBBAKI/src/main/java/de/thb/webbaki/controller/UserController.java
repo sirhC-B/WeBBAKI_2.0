@@ -88,9 +88,7 @@ public class UserController {
 
             User user = userService.getUserByEmail(authentication.getName());
             model.addAttribute("user", user);
-
-            UserDetails muser = myUserDetailsService.loadUserByUsername(authentication.getName());
-            model.addAttribute("muser", muser);
+            
 
 
             return "/account/user_details";

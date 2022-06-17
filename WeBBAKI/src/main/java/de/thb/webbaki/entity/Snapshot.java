@@ -1,9 +1,12 @@
 package de.thb.webbaki.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -18,8 +21,8 @@ public class Snapshot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String probability;
-    private String impact;
+    private String questionaireIDs;
 
-    private Date date;
+    private LocalDate date;
+
 }

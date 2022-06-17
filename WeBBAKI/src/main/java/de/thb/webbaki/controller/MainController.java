@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Security;
 import java.time.LocalDateTime;
 
 @Controller
@@ -41,14 +42,11 @@ public class MainController {
         } else return "home";
     }
 
-    @GetMapping("/setLoginTime")
+
+    @GetMapping("/setLogout")
     public void logintime(Model model,Authentication authentication) {
-        UserDetails muser = myUserDetailsService.loadUserByUsername(authentication.getName());
-        model.addAttribute("muser", muser);
         User user = userService.getUserByEmail(authentication.getName());
         userService.setCurrentLogin(user);
-        model.addAttribute("user", user);
-
         }
 
 }
