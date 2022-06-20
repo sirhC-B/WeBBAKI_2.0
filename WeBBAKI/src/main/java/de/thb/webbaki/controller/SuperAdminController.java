@@ -2,7 +2,9 @@ package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.ReportFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
+import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.Role;
+import de.thb.webbaki.entity.Snapshot;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.service.RoleService;
 import de.thb.webbaki.service.SnapshotService;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,18 +70,34 @@ public class SuperAdminController implements Comparable {
     @GetMapping("/snap")
     public String getSnap(Model model){
 
+        List<Snapshot> snaps = snapshotService.getAllSnapshots();
+        model.addAttribute("snaps", snaps);
 
+        Snapshot snapName = new Snapshot();
+        model.addAttribute("snapName", snapName);
 
         return "snap/snapshot";
     }
     @PostMapping("/snap")
-    public String postSnap(Model model){
-        snapshotService.createSnap();
+    public String postSnap(Model model, @ModelAttribute("snapName") Snapshot snapName){
+        snapshotService.createSnap(snapName);
 
 
         return "redirect:snap";
 
     }
+
+    @GetMapping("/snap/{snapID}")
+    public String showSnapByID(@PathVariable("snapID") long snapID, Model model) {
+        List<Questionnaire> questionnaires = snapshotService.getAllQuestionnaires(snapID);
+        model.addAttribute("questionnaires", questionnaires);
+
+
+
+        return "snap/details";
+    }
+
+
     @Override
     public int compareTo(Object o) {
         return 0;

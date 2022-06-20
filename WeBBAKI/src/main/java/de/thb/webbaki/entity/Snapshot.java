@@ -6,6 +6,7 @@ import org.hibernate.annotations.ManyToAny;
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
@@ -21,8 +22,11 @@ public class Snapshot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private String name;
+
     private String questionaireIDs;
 
-    private LocalDate date;
+    private LocalDateTime date;
+
 
 }
