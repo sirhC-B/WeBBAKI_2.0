@@ -7,9 +7,37 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h2>Snapshot</h2><br>
+    <h2>Snapshots</h2><br>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Datum</th>
+            <th>Anzahl Frageboegen</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--
+        <tr th:each="i: ${#numbers.sequence(snapList.size() -1,0,-1)}">
+            <td th:text="${snapList[i].id}"></td>
+            <td th:text="${snapList[i].comment}"></td>
+            <td th:text="${snapList[i].date.toLocalDate()}"></td>
+            <td th:text="${snapList[i].date.toLocalTime().toString().substring(0,5)}"></td>
+            <td>
+                <a th:href="@{/report/open/{questID}(questID=${questList[i].id})}">
+                    <button class="btn btn-outline-primary">Details</button>
+                </a>
+            </td>
+        </tr>
+-->
+        </tbody>
+    </table>
+
     <form th:action="@{/snap}" method="post">
-        <button type="submit" class="btn btn-primary float-end">Abschicken</button>
+        <button type="submit" class="btn btn-primary float-end">Snapshot erstellen</button>
     </form>
 </div>
 
