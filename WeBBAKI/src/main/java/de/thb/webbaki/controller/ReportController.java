@@ -42,12 +42,11 @@ public class ReportController {
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
 
-        /* TODO
-        Noch nicht fertig. Im Rahmen des BEKO raus.
+        Questionnaire quest = questionnaireService.getNewestQuestionnaireByUserId(userService.getUserByEmail(authentication.getName()).getId());
+        model.addAttribute("quest", quest);
 
-        User user = userService.getUserByEmail(authentication.getName());
-        user.setLastLogin();
-        */
+        Map<Long, String[]> questMap = questionnaireService.getMapping(quest);
+        model.addAttribute("questMap", questMap);
 
         return "report/create_report";
     }
@@ -92,7 +91,7 @@ public class ReportController {
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
 
-        return "report/show_report";
+        return "report/create_report";
     }
 
 

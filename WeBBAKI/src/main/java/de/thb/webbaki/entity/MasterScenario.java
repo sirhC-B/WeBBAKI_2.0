@@ -4,6 +4,7 @@ package de.thb.webbaki.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -21,5 +22,5 @@ public class MasterScenario {
 
 
     @OneToMany(mappedBy = "masterScenario")
-    private Set<Scenario> scenarios;
+    private List<Scenario> scenarios;
 }

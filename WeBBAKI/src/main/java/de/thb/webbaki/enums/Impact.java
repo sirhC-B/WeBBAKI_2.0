@@ -6,10 +6,10 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public enum Impact {
-    NONE("keine Auswirkungen"),
-    SMALL("geringe Auswirkungen"),
-    HIGH("hohe Auswirkungen"),
-    VERY_HIGH("existenzielle Auswirkungen");
+    NONE("keine"),
+    SMALL("geringe"),
+    HIGH("hohe"),
+    VERY_HIGH("existenzielle");
 
     @Getter
     private final String value;
