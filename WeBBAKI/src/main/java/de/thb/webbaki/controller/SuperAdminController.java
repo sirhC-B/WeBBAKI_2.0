@@ -91,7 +91,7 @@ public class SuperAdminController implements Comparable {
     public String showSnapByID(@PathVariable("snapID") long snapID, Model model) {
         List<Questionnaire> questionnaires = snapshotService.getAllQuestionnaires(snapID);
         model.addAttribute("questionnaires", questionnaires);
-
+        snapshotService.createQuestMap(snapID);
 
 
         return "snap/details";

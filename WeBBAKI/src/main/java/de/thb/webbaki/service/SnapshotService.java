@@ -84,7 +84,7 @@ public class SnapshotService {
             questcount ++;
             for(long i= 1; i <= map.size(); i++){
                 finalMap.put(i, new Long[] {finalMap.get(i)[0] + getProbNum(map.get(i)[0]),finalMap.get(i)[1] + getImpNum(map.get(i)[1])});
-            }
+        }
         }
         for(long i= 1; i <= finalMap.size(); i++){
             finalMap.put(i, new Long[] {finalMap.get(i)[0] / questcount ,finalMap.get(i)[1] / questcount });
@@ -93,12 +93,16 @@ public class SnapshotService {
         return finalMap;
     }
 
-    public Map<Long, Long[]> createQuestMap(long snapID) {
+    public Map<Long, String[]> createQuestMap(long snapID) {
+        Map<Long, Long[]> numMap = calcAverageValues(snapID);
+        Map<Long, String[]> valueMap = new HashMap<>();
+        for(long i= 1; i <= numMap.size(); i++){
+            valueMap.put(i, new String[] {getProbValue(numMap.get(i)[0]),getImpValue(numMap.get(i)[1])});
+            System.out.println(getProbValue(numMap.get(i)[0]) + "-" +  getImpValue(numMap.get(i)[1]));}
+
 
         return null;
     }
-
-
 
         public long getImpNum(String impValue){
         long impNum = 0;
@@ -120,6 +124,26 @@ public class SnapshotService {
 
         return impNum;
     }
+    public String getImpValue(long impNum){
+        String impValue = "";
+
+        switch ((int) impNum) {
+            case 1:
+                impValue = "keine";
+                break;
+            case 2:
+                impValue = "geringe";
+                break;
+            case 3:
+                impValue = "hohe";
+                break;
+            case 4:
+                impValue = "existenzielle";
+                break;
+        }
+        return impValue;
+    }
+
     public long getProbNum(String probValue){
         long probNum = 0;
         switch (probValue) {
@@ -142,4 +166,25 @@ public class SnapshotService {
         return probNum;
     }
 
+    public String getProbValue(long probNum){
+        String probValue = "";
+        switch ((int)probNum) {
+            case 0:
+                probValue = "nie";
+                break;
+            case 1:
+                probValue = "selten";
+                break;
+            case 2:
+                probValue = "mittel";
+                break;
+            case 3:
+                probValue = "haeufig";
+                break;
+            case 4:
+                probValue = "sehr haeufig";
+                break;
+        }
+        return probValue;
+    }
 }
