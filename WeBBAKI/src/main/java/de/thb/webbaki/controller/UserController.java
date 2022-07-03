@@ -1,10 +1,13 @@
 package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
+import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.repository.QuestionnaireRepository;
 import de.thb.webbaki.security.MyUserDetails;
 import de.thb.webbaki.security.MyUserDetailsService;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
+import de.thb.webbaki.service.QuestionnaireService;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +30,9 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private MyUserDetailsService myUserDetailsService;
+    private QuestionnaireService questionnaireService;
+    private QuestionnaireRepository questionnaireRepository;
+
     //private final ReportService reportService;
     //private final ProviderService providerService;
 
@@ -74,6 +81,12 @@ public class UserController {
 
         try {
             userService.registerNewUser(formModel);
+            Questionnaire q = new Questionnaire();
+            q.setUser(userService.getUserByEmail(formModel.getEmail()));
+            q.setDate(LocalDateTime.now());
+            q.setMapping("{1=none;none, 2=none;none, 3=none;none, 4=none;none, 5=none;none, 6=none;none, 7=none;none, 8=none;none, 9=none;none, 10=none;none, 11=none;none, 12=none;none, 13=none;none, 14=none;none, 15=none;none, 16=none;none, 17=none;none, 18=none;none, 19=none;none, 20=none;none, 21=none;none, 22=none;none, 23=none;none, 24=none;none, 25=none;none, 26=none;none, 27=none;none}");
+            questionnaireRepository.save(q);
+
         } catch (UserAlreadyExistsException uaeEx) {
             model.addAttribute("emailError", "Es existiert bereits ein Account mit dieser Email-Adresse.");
             return "register/user_registration";
