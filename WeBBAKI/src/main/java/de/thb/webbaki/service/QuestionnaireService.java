@@ -74,11 +74,9 @@ public class QuestionnaireService {
         rawString = rawString.substring(1, rawString.length() - 1);
 
 
-        Map<Long, String[]> newMap = Arrays.stream(rawString.split(", "))
+        return Arrays.stream(rawString.split(", "))
                 .map(s -> s.split("="))
                 .collect(Collectors.toMap(s -> Long.parseLong(s[0]), s -> s[1].split(";")));
-
-        return newMap;
     }
 
 
