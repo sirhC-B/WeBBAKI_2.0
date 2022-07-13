@@ -125,6 +125,7 @@
                 <tr>
                     <td>#</td>
                     <td>Szeanrien</td>
+                    <td></td>
                     <td>Eintrittswahrscheilichkeit</td>
                     <td>Auswirkung</td>
                     <td>Bedrohungslage</td>
@@ -137,7 +138,27 @@
                     <tr>
                         <td th:text="${scenario.id}"></td>
 
-                        <td th:text="${scenario.name}"></td>
+                        <td th:text="${scenario.name}" ></td>
+                        <td><!-- Button trigger modal -->
+                            <button type="button" class="btn bi bi-info-circle" data-bs-toggle="modal" th:attr="data-bs-target='#infoModal'+${scenario.id}"></button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" th:id="'infoModal' + ${scenario.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel" th:text="${scenario.name}"></h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" th:text="${scenario.description}">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div></td>
+
                         <td>
                             <select th:id="'selectProb' + ${scenario.id}" class="form-select" th:attr="name='prob['+${scenario.id}+']'">
                                 <div th:switch="${questMap.get(#vars.scenario.id)[0]}">

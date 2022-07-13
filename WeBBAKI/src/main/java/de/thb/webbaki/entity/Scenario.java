@@ -4,6 +4,7 @@ import de.thb.webbaki.enums.SzenarioType;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Builder
 @AllArgsConstructor
@@ -17,6 +18,11 @@ public class Scenario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+
+    @Column(length = 1024)
+    @Size(max = 1024)
+    private String description;
+
 
 
     @ManyToOne
