@@ -28,8 +28,9 @@ public class User {
     // authentication
     private String password;
     private String email;
-    private boolean enabled;
-    private boolean tokenExpired;
+    private boolean enabled = false;
+    private boolean tokenExpired = false;
+
     private LocalDateTime lastLogin;
 
     @OneToMany(mappedBy = "user")
@@ -47,10 +48,11 @@ public class User {
 
 
     //Roles Getter
-    public Collection<Role> getRoles(){
+    public Collection<Role> getRoles() {
         return roles;
     }
-    public void setRoles(Collection<Role>roles){
+
+    public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
 }
