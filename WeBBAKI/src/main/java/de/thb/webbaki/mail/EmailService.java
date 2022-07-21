@@ -3,7 +3,6 @@ package de.thb.webbaki.mail;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ public class EmailService implements EmailSender{
 
     private final static Logger LOGGER = LoggerFactory.getLogger(EmailService.class);
 
-    @Autowired
     private final JavaMailSender javaMailSender;
 
     @Override

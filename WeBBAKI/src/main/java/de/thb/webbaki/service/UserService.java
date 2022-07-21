@@ -33,13 +33,17 @@ public class UserService {
     private ConfirmationTokenService confirmationTokenService;
     private EmailSender emailSender;
 
-
+    //Repo Methods --------------------------
     public List<User> getAllUsers() {
         return (List<User>) userRepository.findAll();
     }
 
     public Optional<User> getUserById(long id) {
         return userRepository.findById(id);
+    }
+
+    public Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     public User getUserByEmail(String email) {
@@ -50,8 +54,23 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+
+    /**
+     * Check if email is already in use and existing in DB
+     * @param email to check
+     * @return boolean
+     */
     public Boolean emailExists(String email) {
         return userRepository.findByEmail(email) != null;
+    }
+
+    /**
+     * Check if username is already in use and in DB
+     * @param username to check
+     * @return boolean
+     */
+    public Boolean usernameExists(String username){
+        return userRepository.findByUsername(username).isPresent();
     }
 
     /**
@@ -66,8 +85,6 @@ public class UserService {
                 token, LocalDateTime.now(), LocalDateTime.now().plusDays(3), user);
 
         confirmationTokenService.saveConfirmationToken(confirmationToken);
-
-        //Todo: Send email
 
         return token;
     }
@@ -90,16 +107,36 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(form.getPassword()));
             user.setEmail(form.getEmail());
             user.setRoles(Arrays.asList(roleRepository.findByName("DEFAULT_USER")));
+            user.setUsername(form.getUsername());
             user.setEnabled(false);
 
             userRepository.save(user);
 
             String token = createToken(user); // To create the token of the user
 
-            String link = "http://localhost:8080/register/user/confirm?token" + token;
-            emailSender.send(form.getEmail(), buildEmail(form.getFirstname(), link));
+            String link = "http://localhost:8080/confirmation/confirm?token=" + token;
+            emailSender.send("schrammbox@proton.me", buildEmail(form.getFirstname(), link));
 
         }
+    }
+
+    @Transactional
+    public String confirmToken(String token){
+        ConfirmationToken confirmationToken = confirmationTokenService.getConfirmationToken(token).orElseThrow(() -> new IllegalStateException("Token not found"));
+
+        if(confirmationToken.getConfirmedAt() != null){
+            throw new IllegalStateException("Email already confirmed.");
+        }
+
+        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
+        if(expiredAt.isBefore(LocalDateTime.now())){
+            throw new IllegalStateException("token expired");
+        }
+
+        confirmationTokenService.setConfirmedAt(token);
+        enableUser(confirmationToken.getUser().getEmail());
+
+        return "/confirmation/confirm";
     }
 
     public void setCurrentLogin(User u) {
@@ -143,7 +180,7 @@ public class UserService {
                 "                  \n" +
                 "                    </td>\n" +
                 "                    <td style=\"font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\">\n" +
-                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Confirm your email</span>\n" +
+                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Bestätigung eines neuen WebBaKI-Nutzers</span>\n" +
                 "                    </td>\n" +
                 "                  </tr>\n" +
                 "                </tbody></table>\n" +
@@ -181,7 +218,7 @@ public class UserService {
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
                 "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
                 "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Thank you for registering. Please click on the below link to activate your account: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Activate Now</a> </p></blockquote>\n Link will expire in 15 minutes. <p>See you soon</p>" +
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Es hat sich ein neuer WebBaKI-Nutzer registriert. Der Account kann unter folgendem Link aktiviert werden: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Nutzer verifizieren</a> </p></blockquote>\n Der Link bleibt 3 Tage gültig. " +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +

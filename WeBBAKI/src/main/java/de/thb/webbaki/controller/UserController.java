@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -38,28 +39,6 @@ public class UserController {
         model.addAttribute("userList", userList);
         return "users";
     }
-
-    /* Vorerst auskommentiert, weil Methoder registerUser() übernimmt
-
-    @Deprecated
-    @PostMapping("users")
-    public String addUser(@Valid UserRegisterFormModel form,
-                              BindingResult result) {
-        //if (result.hasErrors()) ... TODO: add error messages here
-        userService.addUser(
-                form.getLastname(),
-                form.getFirstname(),
-                form.getBranche(),
-                form.getCompany() ,
-                "geheimesPassword",
-                form.getEmail() ,
-                false);
-
-
-        return "redirect:/users";
-    }
-
-     */
 
     @GetMapping("register/user")
     public String showRegisterForm(Model model){
@@ -108,16 +87,12 @@ public class UserController {
     @GetMapping("/data/user/reports")
     public String showCustomerOrders(Authentication authentication, Model model) {
 
-        /* REPORTS
-        userService.getUserByEmail(authentication.getName()).ifPresent(
-                user -> {
-                    final var reportList = reportService.getAllReportsByUser(user.getId());
-                    model.addAttribute("reportList", reportList);
-                }
-        );
-        */
-
         return "account/user_reports";
+    }
+
+    @GetMapping(path = "/confirmation/confirm")
+    public String confirm(@RequestParam("token") String token){
+        return userService.confirmToken(token);
     }
 /*
     @GetMapping("/data/customer/orders/details/{orderID}")

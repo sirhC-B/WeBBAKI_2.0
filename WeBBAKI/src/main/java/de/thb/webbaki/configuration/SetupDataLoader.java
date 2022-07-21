@@ -53,8 +53,8 @@ public class SetupDataLoader implements
         final Role adminRole = createRoleIfNotFound("SUPERADMIN", adminPrivileges);
         final Role userRole = createRoleIfNotFound("KRITIS_BETREIBER", userPrivileges);
 
-        createUserIfNotFound("Schramm", "Christian", "Telekommunikation", "UnterBranche Telekom",
-        "Meta", "Passwort", new ArrayList<>(Arrays.asList(adminRole)), "schrammbox@gmail.com");
+        createUserIfNotFound("Schramm", "Christian", "Telekommunikation", "Branche Telekom",
+        "Meta", "Passwort", new ArrayList<>(Arrays.asList(adminRole)), "schrammbox@gmail.com",true);
 
         alreadySetup = true;
 
@@ -85,7 +85,8 @@ public class SetupDataLoader implements
 
     @Transactional
     User createUserIfNotFound(final String lastName, final String firstName, final String sector, final String branche,
-                              final String company, final String password, final Collection<Role> roles, final String email) {
+                              final String company, final String password, final Collection<Role> roles, final String email,
+                              final boolean enabled) {
         User user = userRepository.findByEmail(email);
         if (user == null) {
             user = new User();
@@ -95,6 +96,7 @@ public class SetupDataLoader implements
             user.setBranche(branche);
             user.setCompany(company);
             user.setPassword(passwordEncoder.encode(password));
+            user.setEnabled(enabled);
             user.setEmail(email);
         }
         user.setRoles(roles);

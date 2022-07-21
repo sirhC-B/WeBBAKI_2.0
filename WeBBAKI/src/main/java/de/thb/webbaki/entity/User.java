@@ -24,12 +24,13 @@ public class User {
     private String sector;
     private String branche;
     private String company;
+    private boolean enabled = false;
+    private boolean tokenExpired = false;
 
     // authentication
     private String password;
     private String email;
-    private boolean enabled = false;
-    private boolean tokenExpired = false;
+    private String username;
 
     private LocalDateTime lastLogin;
 
