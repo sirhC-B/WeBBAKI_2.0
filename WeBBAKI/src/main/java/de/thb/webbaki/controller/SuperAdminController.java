@@ -1,6 +1,5 @@
 package de.thb.webbaki.controller;
 
-import de.thb.webbaki.controller.form.ReportFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.Role;
@@ -12,13 +11,9 @@ import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,12 +55,22 @@ public class SuperAdminController implements Comparable {
 
     @PostMapping("/admin")
     public String addRoleToUser(
-            @ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel, Model model) {
+            @ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel) {
         System.out.println(userToRoleFormModel.toString());
         userService.addRoleToUser(userToRoleFormModel);
 
         return "redirect:admin";
     }
+
+    @RequestMapping(value = "/admin", method = RequestMethod.DELETE)
+    public String deleteUserRole(@ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel){
+        System.out.println(userToRoleFormModel.toString());
+        userService.deleteUserRole(userToRoleFormModel);
+
+        return "redirect:admin";
+    }
+
+
 
     @GetMapping("/snap")
     public String getSnap(Model model){

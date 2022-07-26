@@ -12,4 +12,7 @@ public interface RoleRepository extends CrudRepository<Role, Long> {
 
     Role findByName(String name);
     Optional<Role> findById(Long id);
+
+    @Override
+    void delete(Role entity);
 }
