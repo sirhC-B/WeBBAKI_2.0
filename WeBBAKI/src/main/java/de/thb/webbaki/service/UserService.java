@@ -30,6 +30,8 @@ import java.time.LocalDateTime;
 public class UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
+
+    private RoleService roleService;
     private PasswordEncoder passwordEncoder;
     private ConfirmationTokenService confirmationTokenService;
     private EmailSender emailSender;
@@ -149,8 +151,11 @@ public class UserService {
 
     public void addRoleToUser(final UserToRoleFormModel formModel) {
         String[] roles = formModel.getRole();
+        String[] deleteRole = formModel.getDeleteRole();
+        List<Role> allRoles = roleService.getAllRoles();
         for (int i = 1; i < roles.length; i++) {
-            if (!Objects.equals(roles[i], "none")) {
+            if (allRoles.contains(roleRepository.findByName(roles[i]))) {
+                System.out.println(i);
                 User user = userRepository.findById(i).get();
                 if (!user.getRoles().contains(roleRepository.findByName(roles[i]))) {
                     user.getRoles().add(roleRepository.findByName(roles[i]));
@@ -158,19 +163,29 @@ public class UserService {
                 }
             }
         }
+        for (int i = 1; i < deleteRole.length; i++) {
+            if (allRoles.contains(roleRepository.findByName(deleteRole[i]))) {
+                User user = userRepository.findById(i).get();
+                Collection<Role> old = user.getRoles();
+                System.out.println(old);
+                old.remove(roleRepository.findByName(deleteRole[i]));
+                System.out.println(old);
+                //user.setRoles(old);
+                //userRepository.save(user);
+
+            }
+        }
     }
 
     public void deleteUserRole(final UserToRoleFormModel formModel){
-        String[] roles = formModel.getRole();
-        String[] users = formModel.getUser();
-        for (int i = 1; i < roles.length; i++) {
-            if (!Objects.equals(roles[i], "none")) {
-                Role role = roleRepository.findById((long) i).get();
+        String[] deleteRole = formModel.getDeleteRole();
+        for (int i = 1; i < deleteRole.length; i++) {
+            if (!Objects.equals(deleteRole[i], "none") && !Objects.equals(deleteRole[i], null)) {
                 User user = userRepository.findById(i).get();
-                if (role.getUsers().contains(users)) {
-                    user.getRoles().remove(roleRepository.findByName(roles[i]));
-                    roleRepository.save(role);
-                }
+                System.out.println(user);
+                user.getRoles().remove(roleRepository.findByName(deleteRole[i]));
+                userRepository.save(user);
+
             }
         }
     }

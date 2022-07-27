@@ -1,3 +1,4 @@
+
 package de.thb.webbaki.mail;
 
 import org.springframework.context.annotation.Bean;
@@ -12,8 +13,8 @@ public class EmailConfig {
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost();
-        mailSender.setPort();
+        //mailSender.setHost();
+        //mailSender.setPort();
         mailSender.setUsername("");
         mailSender.setPassword("");
 

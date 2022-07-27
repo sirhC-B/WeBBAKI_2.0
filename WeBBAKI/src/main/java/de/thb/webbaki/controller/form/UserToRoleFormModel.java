@@ -18,6 +18,8 @@ public class UserToRoleFormModel {
     //Get Role for User
     private String[] role;
 
+    private String[] deleteRole;
+
     //Get User for Role
     private String[] user;
 }

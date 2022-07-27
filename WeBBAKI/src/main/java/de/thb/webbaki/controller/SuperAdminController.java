@@ -58,17 +58,9 @@ public class SuperAdminController implements Comparable {
             @ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel) {
         System.out.println(userToRoleFormModel.toString());
         userService.addRoleToUser(userToRoleFormModel);
-
         return "redirect:admin";
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.DELETE)
-    public String deleteUserRole(@ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel){
-        System.out.println(userToRoleFormModel.toString());
-        userService.deleteUserRole(userToRoleFormModel);
-
-        return "redirect:admin";
-    }
 
 
 
