@@ -53,8 +53,8 @@ public class SetupDataLoader implements
         final Role adminRole = createRoleIfNotFound("SUPERADMIN", adminPrivileges);
         final Role userRole = createRoleIfNotFound("KRITIS_BETREIBER", userPrivileges);
 
-        createUserIfNotFound("Schramm", "Christian", "Telekommunikation", "UnterBranche Telekom",
-        "Meta", "Passwort", new ArrayList<>(Arrays.asList(adminRole)), "schrammbox@gmail.com");
+        //createUserIfNotFound("Schramm", "Christian", "Telekommunikation", "UnterBranche Telekom",
+        //"Meta", "Passwort", new ArrayList<>(Arrays.asList(adminRole)), "schrammbox@gmail.com");
 
         alreadySetup = true;
 

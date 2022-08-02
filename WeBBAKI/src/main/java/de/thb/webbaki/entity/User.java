@@ -17,7 +17,7 @@ import java.util.Set;
 @Table
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String lastName;
     private String firstName;
@@ -36,15 +36,17 @@ public class User {
     @ToString.Exclude
     private Set<Questionnaire> questionnaire;
 
-    @ManyToMany(fetch = FetchType.EAGER) //Fetching roles at the same time users get loaded
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users") //Fetching roles at the same time users get loaded
     private Collection<Role> roles = new ArrayList<>();
 
+    public void removeRole(Role role) {
+        this.roles.remove(role);
+        role.getUsers().remove(this);
+    }
+    public void addRole(Role role) {
+        this.roles.add(role);
+        role.getUsers().add(this);
+    }
 
     //Roles Getter
     public Collection<Role> getRoles(){

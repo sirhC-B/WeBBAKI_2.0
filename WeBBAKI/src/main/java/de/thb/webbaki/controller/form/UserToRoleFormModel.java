@@ -17,7 +17,7 @@ public class UserToRoleFormModel {
 
     //Get Role for User
     private String[] role;
-
+    private String[] roleDel;
     //Get User for Role
     private String[] user;
 }

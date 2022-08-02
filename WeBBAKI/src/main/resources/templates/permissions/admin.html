@@ -43,6 +43,16 @@
                     </select>
                     </td>
                 </th:block>
+                <th:block>
+                    <td>
+                        <select class="form-select" th:attr="name='roleDel['+${user.id}+']'">
+                            <option value="none">Bitte auswählen:</option>
+                            <option th:each="role : ${user.getRoles()}"
+                                    th:value="${role.name}" th:text="${role}">
+                            </option>
+                        </select>
+                    </td>
+                </th:block>
             </tr>
             </tbody>
         </table>

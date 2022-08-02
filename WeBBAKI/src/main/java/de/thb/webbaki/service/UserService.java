@@ -14,13 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.*;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 
 @Builder
@@ -108,15 +105,27 @@ public class UserService {
         userRepository.save(u);
     }
 
-    public void addRoleToUser(final UserToRoleFormModel formModel){
+    public void addRoleToUser(final UserToRoleFormModel formModel) {
         String[] roles = formModel.getRole();
-        for (int i = 1; i<roles.length; i++ ){
-            if (!Objects.equals(roles[i],"none")) {
+        for (int i = 1; i < roles.length; i++) {
+            if (!Objects.equals(roles[i], "none") && !Objects.equals(roles[i], null)) {
                 User user = userRepository.findById(i).get();
-                if (!user.getRoles().contains(roleRepository.findByName(roles[i]))){
-                    user.getRoles().add(roleRepository.findByName(roles[i]));
-                    userRepository.save(user);
+                if (!user.getRoles().contains(roleRepository.findByName(roles[i]))) {
+                    user.addRole((roleRepository.findByName(roles[i])));
                 }
+            }
+        }
+    }
+
+    public void removeRoleFromUser(final UserToRoleFormModel formModel) {
+        String[] roleDel = formModel.getRoleDel();
+        for (int i = 1; i < roleDel.length; i++) {
+            if (!Objects.equals(roleDel[i], "none") && !Objects.equals(roleDel[i], null)) {
+                User user = userRepository.findById(i).get();
+                Role r = roleRepository.findByName(roleDel[i]);
+                user.removeRole(r);
+
+
             }
         }
     }
