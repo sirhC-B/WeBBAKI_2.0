@@ -1,5 +1,6 @@
 package de.thb.webbaki.controller;
 
+import de.thb.webbaki.controller.form.ReportFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.Role;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,14 +65,12 @@ public class SuperAdminController implements Comparable {
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.DELETE)
-    public String deleteUserRole(@ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel){
+    public String deleteRoleFromUser(@ModelAttribute("roleFormDelete") @Valid UserToRoleFormModel userToRoleFormModel){
         System.out.println(userToRoleFormModel.toString());
-        userService.deleteUserRole(userToRoleFormModel);
+        userService.deleteRoleFromUser(userToRoleFormModel);
 
         return "redirect:admin";
     }
-
-
 
     @GetMapping("/snap")
     public String getSnap(Model model){

@@ -2,7 +2,6 @@ package de.thb.webbaki.service;
 
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
-import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.mail.EmailSender;
 import de.thb.webbaki.mail.confirmation.ConfirmationToken;
@@ -58,7 +57,6 @@ public class UserService {
 
     /**
      * Check if email is already in use and existing in DB
-     *
      * @param email to check
      * @return boolean
      */
@@ -68,11 +66,10 @@ public class UserService {
 
     /**
      * Check if username is already in use and in DB
-     *
      * @param username to check
      * @return boolean
      */
-    public Boolean usernameExists(String username) {
+    public Boolean usernameExists(String username){
         return userRepository.findByUsername(username).isPresent();
     }
 
@@ -124,15 +121,15 @@ public class UserService {
     }
 
     @Transactional
-    public String confirmToken(String token) {
+    public String confirmToken(String token){
         ConfirmationToken confirmationToken = confirmationTokenService.getConfirmationToken(token).orElseThrow(() -> new IllegalStateException("Token not found"));
 
-        if (confirmationToken.getConfirmedAt() != null) {
+        if(confirmationToken.getConfirmedAt() != null){
             throw new IllegalStateException("Email already confirmed.");
         }
 
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
-        if (expiredAt.isBefore(LocalDateTime.now())) {
+        if(expiredAt.isBefore(LocalDateTime.now())){
             throw new IllegalStateException("token expired");
         }
 
@@ -160,16 +157,14 @@ public class UserService {
         }
     }
 
-    public void deleteUserRole(final UserToRoleFormModel formModel){
+    public void deleteRoleFromUser(UserToRoleFormModel formModel){
         String[] roles = formModel.getRole();
-        String[] users = formModel.getUser();
-        for (int i = 1; i < roles.length; i++) {
-            if (!Objects.equals(roles[i], "none")) {
-                Role role = roleRepository.findById((long) i).get();
+        for (int i = 1; i < roles.length; i++){
+            if (!Objects.equals(roles[i], "none")){
                 User user = userRepository.findById(i).get();
-                if (role.getUsers().contains(users)) {
+                if (user.getRoles().contains(roleRepository.findByName(roles[i]))){
                     user.getRoles().remove(roleRepository.findByName(roles[i]));
-                    roleRepository.save(role);
+                    userRepository.save(user);
                 }
             }
         }
@@ -179,6 +174,7 @@ public class UserService {
         return userRepository.enableUser(email);
     }
 
+    //EMAIL FORMULAR
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
@@ -247,5 +243,6 @@ public class UserService {
                 "\n" +
                 "</div></div>";
     }
+
 
 }

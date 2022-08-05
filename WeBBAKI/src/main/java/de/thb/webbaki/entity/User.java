@@ -24,7 +24,7 @@ public class User {
     private String sector;
     private String branche;
     private String company;
-    private boolean enabled = false;
+    private boolean enabled;
     private boolean tokenExpired = false;
 
     // authentication
@@ -45,7 +45,7 @@ public class User {
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles = new ArrayList<>();
+    private Collection<Role> roles;
 
 
     //Roles Getter

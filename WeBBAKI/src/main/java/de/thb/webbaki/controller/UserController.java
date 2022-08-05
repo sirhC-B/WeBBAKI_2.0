@@ -31,7 +31,6 @@ public class UserController {
     private QuestionnaireRepository questionnaireRepository;
 
 
-
     @Deprecated
     @GetMapping("users")
     public String showUsers(Model model) {
@@ -41,18 +40,18 @@ public class UserController {
     }
 
     @GetMapping("register/user")
-    public String showRegisterForm(Model model){
+    public String showRegisterForm(Model model) {
         UserRegisterFormModel formModel = new UserRegisterFormModel();
-        model.addAttribute("user",formModel);
+        model.addAttribute("user", formModel);
         return "register/user_registration";
     }
 
     @PostMapping("register/user")
     public String registerUser(
             @ModelAttribute("user") @Valid UserRegisterFormModel formModel, BindingResult result,
-            Model model){
+            Model model) {
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "register/user_registration";
         }
 
@@ -76,12 +75,11 @@ public class UserController {
     @GetMapping("/account/user_details")
     public String showUserData(Authentication authentication, Model model) {
 
-            User user = userService.getUserByEmail(authentication.getName());
-            model.addAttribute("user", user);
-            
+        User user = userService.getUserByEmail(authentication.getName());
+        model.addAttribute("user", user);
 
 
-            return "/account/user_details";
+        return "/account/user_details";
     }
 
     @GetMapping("/data/user/reports")
@@ -91,9 +89,11 @@ public class UserController {
     }
 
     @GetMapping(path = "/confirmation/confirm")
-    public String confirm(@RequestParam("token") String token){
+    public String confirm(@RequestParam("token") String token) {
+
         return userService.confirmToken(token);
-    }
+
+        }
 /*
     @GetMapping("/data/customer/orders/details/{orderID}")
     public String showCustomerOrdersDetail(@PathVariable("orderID") long orderID, Model model) {
@@ -125,7 +125,7 @@ public class UserController {
     }
 */
 
-}
+    }
 
 
 

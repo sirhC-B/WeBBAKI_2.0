@@ -13,16 +13,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class SetupDataLoader implements
         ApplicationListener<ContextRefreshedEvent> {
 
-    private boolean alreadySetup = false;
+    boolean alreadySetup = false;
 
     @Autowired
     private UserRepository userRepository;
@@ -38,26 +35,32 @@ public class SetupDataLoader implements
 
     @Override
     @Transactional
-    public void onApplicationEvent(final ContextRefreshedEvent event) {
+    public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        if (alreadySetup) {
+        if (alreadySetup)
             return;
-        }
-        final Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
-        final Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
-        final Privilege passwordPrivilege = createPrivilegeIfNotFound("CHANGE_PASSWORD_PRIVILEGE");
 
-        final List<Privilege> adminPrivileges = new ArrayList<>(Arrays.asList(readPrivilege, writePrivilege, passwordPrivilege));
-        final List<Privilege> userPrivileges = new ArrayList<>(Arrays.asList(readPrivilege, passwordPrivilege));
+        Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
+        Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
+        Privilege changePassword = createPrivilegeIfNotFound("CHANGE_PASSWORD_PRIVILEGE");
+        Privilege confirmUserPrivilege = createPrivilegeIfNotFound("CONFIRM_USER_PRIVILEGE");
 
-        final Role adminRole = createRoleIfNotFound("SUPERADMIN", adminPrivileges);
-        final Role userRole = createRoleIfNotFound("KRITIS_BETREIBER", userPrivileges);
 
-        createUserIfNotFound("Schramm", "Christian", "Telekommunikation", "Branche Telekom",
-        "Meta", "Passwort", new ArrayList<>(Arrays.asList(adminRole)), "schrammbox@gmail.com",true);
+        List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege, changePassword, confirmUserPrivilege);
+        List<Privilege> userPrivileges = Arrays.asList(readPrivilege, changePassword);
+
+        Role superAdmin = createRoleIfNotFound("SUPERADMIN", adminPrivileges);
+        Role defaultUser = createRoleIfNotFound("DEFAULT_USER", userPrivileges);
+        Role branchenAdmin = createRoleIfNotFound("BRANCHENADMIN", userPrivileges);
+        Role sektorenAdmin = createRoleIfNotFound("SEKTORENADMIN", userPrivileges);
+        Role bundesAdmin = createRoleIfNotFound("BUNDESADMIN", userPrivileges);
+        Role geschäftsstelle = createRoleIfNotFound("GESCHÄFTSSTELLE", userPrivileges);
+        Role kritisBetreiber = createRoleIfNotFound("KRITIS_BETREIBER", userPrivileges);
+
+        createUserIfNotFound("Christian", "Schramm", "Passwort", "schrammbox@gmail.com",
+                new ArrayList<>(Arrays.asList(superAdmin)), true);
 
         alreadySetup = true;
-
     }
 
     @Transactional
@@ -72,7 +75,8 @@ public class SetupDataLoader implements
     }
 
     @Transactional
-    Role createRoleIfNotFound(String name, Collection<Privilege> privileges) {
+    Role createRoleIfNotFound(
+            String name, Collection<Privilege> privileges) {
 
         Role role = roleRepository.findByName(name);
         if (role == null) {
@@ -84,24 +88,20 @@ public class SetupDataLoader implements
     }
 
     @Transactional
-    User createUserIfNotFound(final String lastName, final String firstName, final String sector, final String branche,
-                              final String company, final String password, final Collection<Role> roles, final String email,
-                              final boolean enabled) {
+    User createUserIfNotFound(String firstName, String lastName, String password, String email, Collection<Role> roles,
+                              boolean enabled){
         User user = userRepository.findByEmail(email);
-        if (user == null) {
+        if(user == null){
             user = new User();
-            user.setLastName(lastName);
             user.setFirstName(firstName);
-            user.setSector(sector);
-            user.setBranche(branche);
-            user.setCompany(company);
+            user.setLastName(lastName);
             user.setPassword(passwordEncoder.encode(password));
-            user.setEnabled(enabled);
             user.setEmail(email);
-        }
-        user.setRoles(roles);
-        user = userRepository.save(user);
+            user.setRoles(roles);
+            user.setEnabled(enabled);
 
+            userRepository.save(user);
+        }
         return user;
     }
 }

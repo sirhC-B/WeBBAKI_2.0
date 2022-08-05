@@ -4,15 +4,12 @@ import de.thb.webbaki.entity.Role;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.RepositoryDefinition;
 
-import java.util.Collection;
 import java.util.Optional;
 
 @RepositoryDefinition(domainClass = Role.class, idClass = Long.class)
 public interface RoleRepository extends CrudRepository<Role, Long> {
 
+    void removeById(long id);
     Role findByName(String name);
     Optional<Role> findById(Long id);
-
-    @Override
-    void delete(Role entity);
 }

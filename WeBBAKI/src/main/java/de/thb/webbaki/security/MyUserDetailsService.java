@@ -5,21 +5,24 @@ import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.RoleRepository;
 import de.thb.webbaki.repository.UserRepository;
-import de.thb.webbaki.security.authority.UserAuthority;
-import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import javax.transaction.Transactional;
+import java.util.*;
 
 @AllArgsConstructor
+@Service
+@Transactional
+@Getter
+@Setter
 public class MyUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -33,29 +36,16 @@ public class MyUserDetailsService implements UserDetailsService {
                 throw new UsernameNotFoundException("No user found with username: " + email);
             }
 
-            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, getAuthorities(user.getRoles()));
+            return new org.springframework.security.core.userdetails.User(
+                    user.getEmail(), user.getPassword(), user.isEnabled(), true, true,
+                    true, getAuthorities(user.getRoles()));
+
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }
     }
-        /* Vorerst auskommentiert und ersetzt durch obrige Methode.
 
-        .map(user -> MyUserDetails.builder()
-                        .username(user.getEmail())
-                        .password(user.getPassword())
-                        .authorities(List.of(new UserAuthority()))
-                        .enabled(user.isEnabled())
-                        .accountNonExpired(true)
-                        .accountNonLocked(true)
-                        .credentialsNonExpired(true)
-                        .lastLogin(user.getLastLogin())
-                        .build())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
-
-         */
-
-
-    private Collection<? extends GrantedAuthority> getAuthorities(final Collection<Role> roles){
+    private Collection<? extends GrantedAuthority> getAuthorities(final Collection<Role> roles) {
         return getGrantedAuthorities(getPrivileges(roles));
     }
 
