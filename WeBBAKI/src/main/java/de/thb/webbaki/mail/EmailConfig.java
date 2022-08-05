@@ -1,3 +1,4 @@
+
 package de.thb.webbaki.mail;
 
 import org.springframework.context.annotation.Bean;
@@ -12,10 +13,10 @@ public class EmailConfig {
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("mail.th-brandenburg.de");
-        mailSender.setPort(25);
-        mailSender.setUsername("schrammc");
-        mailSender.setPassword("Sch2730ramm");
+        //mailSender.setHost();
+        //mailSender.setPort();
+        mailSender.setUsername("");
+        mailSender.setPassword("");
 
         Properties mailProperties = mailSender.getJavaMailProperties();
         mailProperties.put("mail.transport.protocol", "smtp");

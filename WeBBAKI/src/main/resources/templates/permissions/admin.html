@@ -23,8 +23,8 @@
                 <th>Vorname</th>
                 <th>Nachname</th>
                 <th>Rolle</th>
-                <th>Neue Rolle</th>
-                <th>Rolle löschen</th>
+                <th th:width="250px">Neue Rolle</th>
+                <th th:width="250px">Rolle löschen</th>
             </tr>
             </thead>
             <tbody>
@@ -35,24 +35,25 @@
                 <td th:text="${user.lastName}">Nachname</td>
                 <td th:text="${user.getRoles()}">Rollen</td>
                 <th:block>
-                    <td><select id="showRisk" class="form-select" th:attr="name='role['+${user.id}+']'">
-                        <option value="none">Bitte auswählen:</option>
-                        <option th:each="role : ${roles}"
-                                th:value="${role.name}" th:text="${role}">
-                        </option>
-                    </select>
+                    <td>
+                        <select id="showRisk" class="form-select" th:attr="name='role['+${user.id}+']'">
+                            <option value="none">Bitte auswählen:</option>
+                            <option th:each="role : ${roles}"
+                                    th:value="${role.name}" th:text="${role}">
+                            </option>
+                        </select>
                     </td>
                 </th:block>
-                <form th:object="${roleFormDelete}" th:action="@{/admin}" th:method="post">
+                <th:block>
                     <td>
-                        <select id="showRisk2" class="form-select" th:attr="name='role['+${user.id}+']'">
+                        <select class="form-select" th:attr="name='role['+${user.id}+']'">
                             <option value="none">Bitte auswählen:</option>
                             <option th:each="role : ${user.getRoles()}"
                                     th:value="${role.name}" th:text="${role}">
                             </option>
                         </select>
                     </td>
-                </form>
+                </th:block>
             </tr>
             </tbody>
         </table>
