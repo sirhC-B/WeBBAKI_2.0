@@ -62,18 +62,8 @@ public class SuperAdminController implements Comparable {
         return "redirect:admin";
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.DELETE)
-    public String deleteUserRole(@ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel){
-        System.out.println(userToRoleFormModel.toString());
-        userService.deleteUserRole(userToRoleFormModel);
-
-        return "redirect:admin";
-    }
-
-
-
     @GetMapping("/snap")
-    public String getSnap(Model model){
+    public String getSnap(Model model) {
 
         List<Snapshot> snaps = snapshotService.getAllSnapshots();
         model.addAttribute("snaps", snaps);
@@ -83,8 +73,9 @@ public class SuperAdminController implements Comparable {
 
         return "snap/snapshot";
     }
+
     @PostMapping("/snap")
-    public String postSnap(Model model, @ModelAttribute("snapName") Snapshot snapName){
+    public String postSnap(Model model, @ModelAttribute("snapName") Snapshot snapName) {
         snapshotService.createSnap(snapName);
 
 

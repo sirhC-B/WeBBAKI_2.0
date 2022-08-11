@@ -1,9 +1,7 @@
 package de.thb.webbaki.security;
 
 import de.thb.webbaki.security.authority.UserAuthority;
-import lombok.Builder;
-import lombok.ToString;
-import lombok.Value;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,6 +23,7 @@ public class MyUserDetails implements UserDetails {
     boolean accountNonLocked;
     boolean credentialsNonExpired;
     boolean enabled;
+    boolean enabledByUser;
     LocalDateTime lastLogin;
     Collection<? extends GrantedAuthority> authorities;
 
@@ -36,4 +35,5 @@ public class MyUserDetails implements UserDetails {
 
         return list;
     }
+
 }

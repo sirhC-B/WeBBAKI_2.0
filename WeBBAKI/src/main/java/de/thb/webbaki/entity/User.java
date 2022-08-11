@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
@@ -24,15 +23,15 @@ public class User {
     private String sector;
     private String branche;
     private String company;
-    private boolean enabled;
     private boolean tokenExpired = false;
+    private LocalDateTime lastLogin;
+    private boolean enabled = false;
+    private boolean enabledByUser = false;
 
     // authentication
     private String password;
     private String email;
     private String username;
-
-    private LocalDateTime lastLogin;
 
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
@@ -56,4 +55,5 @@ public class User {
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
+
 }

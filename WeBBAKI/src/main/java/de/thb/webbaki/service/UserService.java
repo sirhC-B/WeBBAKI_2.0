@@ -2,7 +2,6 @@ package de.thb.webbaki.service;
 
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
-import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.mail.EmailSender;
 import de.thb.webbaki.mail.confirmation.ConfirmationToken;
@@ -43,18 +42,9 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public Optional<User> getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-
-    public void deleteUserById(long id) {
-        userRepository.deleteById(id);
-    }
-
 
     /**
      * Check if email is already in use and existing in DB
@@ -67,13 +57,13 @@ public class UserService {
     }
 
     /**
-     * Check if username is already in use and in DB
+     * Check if User himself already confirmed his confirmation link in email
      *
-     * @param username to check
-     * @return boolean
+     * @param email to send to
+     * @return true if he already confirmed himself, else false
      */
-    public Boolean usernameExists(String username) {
-        return userRepository.findByUsername(username).isPresent();
+    public Boolean userIsEnabled(String email) {
+        return userRepository.enabledByUser(email) != 0;
     }
 
     /**
@@ -92,9 +82,9 @@ public class UserService {
         return token;
     }
 
-    /*
-        Registering new User with all parameters from User.java
-        Using emailExists() to check whether user already exists
+    /**
+     * Registering new User with all parameters from User.java
+     * Using emailExists() to check whether user already exists
      */
     public void registerNewUser(final UserRegisterFormModel form) throws UserAlreadyExistsException {
         if (emailExists(form.getEmail())) {
@@ -112,19 +102,21 @@ public class UserService {
             user.setRoles(Arrays.asList(roleRepository.findByName("DEFAULT_USER")));
             user.setUsername(form.getUsername());
             user.setEnabled(false);
+            user.setEnabledByUser(false);
 
             userRepository.save(user);
 
             String token = createToken(user); // To create the token of the user
 
             String link = "http://localhost:8080/confirmation/confirm?token=" + token;
-            emailSender.send("schrammbox@proton.me", buildEmail(form.getFirstname(), link));
+
+            emailSender.send(user.getEmail(), buildEmail(form.getFirstname(), link));
 
         }
     }
 
     @Transactional
-    public String confirmToken(String token) {
+    public String confirmTokenByUser(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService.getConfirmationToken(token).orElseThrow(() -> new IllegalStateException("Token not found"));
 
         if (confirmationToken.getConfirmedAt() != null) {
@@ -136,10 +128,31 @@ public class UserService {
             throw new IllegalStateException("token expired");
         }
 
-        confirmationTokenService.setConfirmedAt(token);
-        enableUser(confirmationToken.getUser().getEmail());
+        enabledByUser(confirmationToken.getUser().getEmail());
+        emailSender.send("schrammbox@proton.me", buildEmail("Christian", "http://localhost:8080/confirmation/confirm?token="+token));
 
-        return "/confirmation/confirm";
+        return "/confirmation/confirmedByUser";
+    }
+
+    @Transactional
+    public String confirmTokenByAdmin(String token) {
+        ConfirmationToken confirmationToken = confirmationTokenService.getConfirmationToken(token).orElseThrow(() -> new IllegalStateException("Token not found."));
+
+        if (confirmationToken.getConfirmedAt() != null){
+            throw new IllegalStateException("Email already confirmed.");
+        }
+
+        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
+        if (expiredAt.isBefore(LocalDateTime.now())){
+            throw new IllegalStateException("Token expired.");
+        }
+
+        if(userIsEnabled(confirmationToken.getUser().getEmail())) {
+            confirmationTokenService.setConfirmedAt(token);
+            enableUser(confirmationToken.getUser().getEmail());
+        }
+
+        return "/confirmation/confirmedByAdmin";
     }
 
     public void setCurrentLogin(User u) {
@@ -151,7 +164,8 @@ public class UserService {
         String[] roles = formModel.getRole();
         for (int i = 1; i < roles.length; i++) {
             if (!Objects.equals(roles[i], "none")) {
-                User user = userRepository.findById(i).get();
+                User user = userRepository.findById(i).orElse(null);
+                assert user != null;
                 if (!user.getRoles().contains(roleRepository.findByName(roles[i]))) {
                     user.getRoles().add(roleRepository.findByName(roles[i]));
                     userRepository.save(user);
@@ -160,24 +174,16 @@ public class UserService {
         }
     }
 
-    public void deleteUserRole(final UserToRoleFormModel formModel){
-        String[] roles = formModel.getRole();
-        String[] users = formModel.getUser();
-        for (int i = 1; i < roles.length; i++) {
-            if (!Objects.equals(roles[i], "none")) {
-                Role role = roleRepository.findById((long) i).get();
-                User user = userRepository.findById(i).get();
-                if (role.getUsers().contains(users)) {
-                    user.getRoles().remove(roleRepository.findByName(roles[i]));
-                    roleRepository.save(role);
-                }
-            }
-        }
-    }
-
     public int enableUser(String email) {
         return userRepository.enableUser(email);
     }
+
+    public int enabledByUser(String email) {
+        return userRepository.enabledByUser(email);
+    }
+
+
+    // ------------------------------MAILS TO USER AND ADMIN --------------------------------------------------------
 
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
