@@ -46,6 +46,14 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    public User getUserByEmailOrUsername(String username, String email) {
+        if (username != null) {
+            return userRepository.findByUsername(username);
+        } else {
+            return userRepository.findByEmail(email);
+        }
+    }
+
     /**
      * Check if email is already in use and existing in DB
      *
@@ -54,16 +62,6 @@ public class UserService {
      */
     public Boolean emailExists(String email) {
         return userRepository.findByEmail(email) != null;
-    }
-
-    /**
-     * Check if User himself already confirmed his confirmation link in email
-     *
-     * @param email to send to
-     * @return true if he already confirmed himself, else false
-     */
-    public Boolean userIsEnabled(String email) {
-        return userRepository.enabledByUser(email) != 0;
     }
 
     /**
@@ -78,7 +76,6 @@ public class UserService {
                 token, LocalDateTime.now(), LocalDateTime.now().plusDays(3), user);
 
         confirmationTokenService.saveConfirmationToken(confirmationToken);
-
         return token;
     }
 
@@ -102,7 +99,6 @@ public class UserService {
             user.setRoles(Arrays.asList(roleRepository.findByName("DEFAULT_USER")));
             user.setUsername(form.getUsername());
             user.setEnabled(false);
-            user.setEnabledByUser(false);
 
             userRepository.save(user);
 
@@ -110,14 +106,14 @@ public class UserService {
 
             String link = "http://localhost:8080/confirmation/confirm?token=" + token;
 
-            emailSender.send(user.getEmail(), buildEmail(form.getFirstname(), link));
+            emailSender.send("schrammbox@proton.me", buildEmail("Christian", link));
 
         }
     }
 
     @Transactional
-    public String confirmTokenByUser(String token) {
-        ConfirmationToken confirmationToken = confirmationTokenService.getConfirmationToken(token).orElseThrow(() -> new IllegalStateException("Token not found"));
+    public String confirmToken(String token) throws IllegalStateException {
+        ConfirmationToken confirmationToken = confirmationTokenService.getConfirmationToken(token);
 
         if (confirmationToken.getConfirmedAt() != null) {
             throw new IllegalStateException("Email already confirmed.");
@@ -126,33 +122,12 @@ public class UserService {
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
         if (expiredAt.isBefore(LocalDateTime.now())) {
             throw new IllegalStateException("token expired");
-        }
+        } else
 
-        enabledByUser(confirmationToken.getUser().getEmail());
-        emailSender.send("schrammbox@proton.me", buildEmail("Christian", "http://localhost:8080/confirmation/confirm?token="+token));
+        confirmationTokenService.setConfirmedAt(token);
+        enableUser(confirmationToken.getUser().getEmail());
 
-        return "/confirmation/confirmedByUser";
-    }
-
-    @Transactional
-    public String confirmTokenByAdmin(String token) {
-        ConfirmationToken confirmationToken = confirmationTokenService.getConfirmationToken(token).orElseThrow(() -> new IllegalStateException("Token not found."));
-
-        if (confirmationToken.getConfirmedAt() != null){
-            throw new IllegalStateException("Email already confirmed.");
-        }
-
-        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
-        if (expiredAt.isBefore(LocalDateTime.now())){
-            throw new IllegalStateException("Token expired.");
-        }
-
-        if(userIsEnabled(confirmationToken.getUser().getEmail())) {
-            confirmationTokenService.setConfirmedAt(token);
-            enableUser(confirmationToken.getUser().getEmail());
-        }
-
-        return "/confirmation/confirmedByAdmin";
+        return "/confirmation/confirm";
     }
 
     public void setCurrentLogin(User u) {
@@ -176,10 +151,6 @@ public class UserService {
 
     public int enableUser(String email) {
         return userRepository.enableUser(email);
-    }
-
-    public int enabledByUser(String email) {
-        return userRepository.enabledByUser(email);
     }
 
 

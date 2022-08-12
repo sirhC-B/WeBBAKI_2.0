@@ -20,7 +20,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     User findByEmail(String email);
     Optional<User> findById(long id);
-    Optional<User> findByUsername(String username);
+    User findByUsername(String username);
+
+    User findByUsernameOrEmail(String username, String email);
 
     @Transactional
     @Modifying
@@ -28,9 +30,4 @@ public interface UserRepository extends CrudRepository<User, Long> {
             "SET a.enabled = TRUE WHERE a.email = ?1")
     int enableUser(String email);
 
-    @Transactional
-    @Modifying
-    @Query("UPDATE User a " +
-            "SET a.enabledByUser = TRUE WHERE a.email = ?1")
-    int enabledByUser(String email);
 }

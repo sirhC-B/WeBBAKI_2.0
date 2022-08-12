@@ -169,3 +169,12 @@ td a {
 td a:hover {
     text-decoration: none;
 }
+
+/* WIDTH OF ELEMENTS */
+.report-select{
+    width: 20%;
+}
+
+.report-szenario{
+    width:50%;
+}

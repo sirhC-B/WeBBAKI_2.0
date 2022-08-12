@@ -26,7 +26,6 @@ public class User {
     private boolean tokenExpired = false;
     private LocalDateTime lastLogin;
     private boolean enabled = false;
-    private boolean enabledByUser = false;
 
     // authentication
     private String password;

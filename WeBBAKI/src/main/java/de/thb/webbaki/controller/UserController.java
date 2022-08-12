@@ -88,17 +88,12 @@ public class UserController {
         return "account/user_reports";
     }
 
-    @GetMapping(path = "/confirmation/confirmedByUser")
-    public String confirmedByUser(@RequestParam("token") String token) {
-
-        return userService.confirmTokenByUser(token);
+    @GetMapping(path = "/confirmation/confirm")
+    public String confirm(@RequestParam("token") String token) {
+        return userService.confirmToken(token);
 
     }
 
-    @GetMapping(path = "/confirmation/confirmedByAdmin")
-    public String confirmedByAdmin(@RequestParam("token") String token){
-        return userService.confirmTokenByAdmin(token);
-    }
 /*
     @GetMapping("/data/customer/orders/details/{orderID}")
     public String showCustomerOrdersDetail(@PathVariable("orderID") long orderID, Model model) {
