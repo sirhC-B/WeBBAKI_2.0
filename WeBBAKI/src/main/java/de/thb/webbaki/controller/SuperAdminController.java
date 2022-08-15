@@ -6,6 +6,7 @@ import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.Snapshot;
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.service.MasterScenarioService;
 import de.thb.webbaki.service.RoleService;
 import de.thb.webbaki.service.SnapshotService;
 import de.thb.webbaki.service.UserService;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -28,7 +30,7 @@ public class SuperAdminController implements Comparable {
     private final UserService userService;
     private final RoleService roleService;
     private final SnapshotService snapshotService;
-
+    private final MasterScenarioService masterScenarioService;
     @GetMapping("admin")
     public String showAllUsers(Model model) {
         final var users = userService.getAllUsers();
@@ -89,10 +91,15 @@ public class SuperAdminController implements Comparable {
 
     @GetMapping("/snap/{snapID}")
     public String showSnapByID(@PathVariable("snapID") long snapID, Model model) {
-        List<Questionnaire> questionnaires = snapshotService.getAllQuestionnaires(snapID);
-        model.addAttribute("questionnaires", questionnaires);
-        snapshotService.createQuestMap(snapID);
+        final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
+        model.addAttribute("masterScenarioList",masterScenarioList);
 
+        List<Questionnaire> questionnaires = snapshotService.getAllQuestionnaires(snapID);
+        Optional<Snapshot> snap = snapshotService.getSnapshotByID(snapID);
+        model.addAttribute("snap", snap);
+        model.addAttribute("questionnaires", questionnaires);
+        Map<Long, String[]> valueMap = snapshotService.createQuestMap(snapID);
+        model.addAttribute("valueMap", valueMap);
 
         return "snap/details";
     }

@@ -101,7 +101,7 @@ public class SnapshotService {
             System.out.println(getProbValue(numMap.get(i)[0]) + "-" +  getImpValue(numMap.get(i)[1]));}
 
 
-        return null;
+        return valueMap;
     }
 
         public long getImpNum(String impValue){
