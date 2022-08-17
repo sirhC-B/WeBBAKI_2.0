@@ -17,6 +17,16 @@ public interface ConfirmationTokenRepository extends CrudRepository<Confirmation
 
     User getUserById(long id);
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE ConfirmationToken c " + "SET c.userConfirmation = ?2" + "WHERE c.token = ?1")
+    int setConfirmedByUser(String token);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE ConfirmationToken c " + "SET c.adminConfirmation = ?2" + "WHERE c.token = ?1")
+    int setConfirmedByAdmin(String token);
+
 
     @Transactional
     @Modifying
@@ -25,17 +35,4 @@ public interface ConfirmationTokenRepository extends CrudRepository<Confirmation
             "WHERE c.token = ?1")
     int setConfirmedAt(String token, LocalDateTime ConfirmedAt);
 
-    @Transactional
-    @Modifying
-    @Query("UPDATE ConfirmationToken c " +
-            "SET c.userConfirmation = TRUE " +
-            "WHERE c.token = ?1")
-    Boolean enabledByUser(String token);
-
-    @Transactional
-    @Modifying
-    @Query("UPDATE ConfirmationToken c " +
-            "SET c.adminConfirmation = TRUE " +
-            "WHERE c.token = ?1")
-    Boolean enabledByAdmin(String token);
 }

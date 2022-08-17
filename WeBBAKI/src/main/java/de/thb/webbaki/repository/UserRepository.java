@@ -22,8 +22,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findById(long id);
     User findByUsername(String username);
 
-    User findByUsernameOrEmail(String username, String email);
-
     @Transactional
     @Modifying
     @Query("UPDATE User a " +

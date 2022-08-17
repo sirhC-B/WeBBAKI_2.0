@@ -46,14 +46,6 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public User getUserByEmailOrUsername(String username, String email) {
-        if (username != null) {
-            return userRepository.findByUsername(username);
-        } else {
-            return userRepository.findByEmail(email);
-        }
-    }
-
     /**
      * Check if email is already in use and existing in DB
      *
@@ -104,9 +96,16 @@ public class UserService {
 
             String token = createToken(user); // To create the token of the user
 
-            String link = "http://localhost:8080/confirmation/confirm?token=" + token;
 
-            emailSender.send("schrammbox@proton.me", buildEmail("Christian", link));
+            String userLink = "http://localhost:8080/confirmation/confirmByUser?token=" + token;
+            String adminLink = "http://localhost:8080/confirmation/confirmByAdmin?token=" + token;
+
+            //Email to Superadmin
+            emailSender.send("schrammbox@proton.me", buildEmail("Christian", adminLink));
+
+            //Email to new registered user
+            emailSender.send(form.getEmail(), buildEmail(form.getFirstname(), userLink));
+
 
         }
     }
@@ -124,8 +123,8 @@ public class UserService {
             throw new IllegalStateException("token expired");
         } else
 
-        confirmationTokenService.setConfirmedAt(token);
-        enableUser(confirmationToken.getUser().getEmail());
+            confirmationTokenService.setConfirmedAt(token);
+        enableUser(confirmationToken.getUser().getEmail(), token);
 
         return "/confirmation/confirm";
     }
@@ -135,6 +134,12 @@ public class UserService {
         userRepository.save(u);
     }
 
+    /**
+     * USED IN SUPERADMIN DASHBOARD
+     * Superadmin can add Roles to specific Users
+     *
+     * @param formModel to get Userdata, especially roles from user
+     */
     public void addRoleToUser(final UserToRoleFormModel formModel) {
         String[] roles = formModel.getRole();
         for (int i = 1; i < roles.length; i++) {
@@ -149,8 +154,63 @@ public class UserService {
         }
     }
 
-    public int enableUser(String email) {
-        return userRepository.enableUser(email);
+    /**
+     * Using USERDETAILS -> Enabling User in Spring security
+     * User is enabled if user_confirmation && admin_confirmation == TRUE
+     *
+     * @param email to get the user
+     * @param token to get the according token
+     * @return value TRUE or FALSE based on INTEGER value (0 = false, 1 = true)
+     */
+    public int enableUser(String email, String token) {
+
+        if (confirmationTokenService.accessGranted(token)) {
+            return userRepository.enableUser(email);
+        } else return 0;
+    }
+
+    /**
+     * Setting user_confirmation TRUE or False
+     *
+     * @param token to get matching ConfirmationToken
+     * @return value TRUE or FALSE based on bit value (0 = false, 1 = true)
+     */
+    public int userConfirmation(String token) {
+        return confirmationTokenService.setConfirmedByUser(token);
+    }
+
+    /**
+     * Setting admin_confirmation TRUE or False
+     *
+     * @param token to get matching ConfirmationToken
+     * @return value TRUE or FALSE based on bit value (0 = false, 1 = true)
+     */
+    public int adminConfirmation(String token) {
+        return confirmationTokenService.setConfirmedByAdmin(token);
+    }
+
+    /**
+     * Setting user_confirmation TRUE or False and getting HTML Page with confirmation Details
+     * using method public int userConfirmation(String token)
+     *
+     * @param token to get matching ConfirmationToken
+     * @return value TRUE or FALSE based on bit value (0 = false, 1 = true)
+     */
+    public String confirmUser(String token) {
+        adminConfirmation(token);
+        return "confirmation/confirmedByUser";
+    }
+
+    /**
+     * Setting admin_confirmation TRUE or False and getting HTML Page with confirmation Details
+     * using method public int adminConfirmation(String token)
+     *
+     * @param token to get matching ConfirmationToken
+     * @return value TRUE or FALSE based on bit value (0 = false, 1 = true)
+     */
+    public String confirmAdmin(String token) {
+        userConfirmation(token);
+        return "confirmation/confirmedByAdmin";
     }
 
 

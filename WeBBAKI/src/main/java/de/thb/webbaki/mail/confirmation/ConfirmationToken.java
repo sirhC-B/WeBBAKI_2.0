@@ -35,7 +35,7 @@ public class ConfirmationToken {
     @Column(nullable = false)
     private Boolean adminConfirmation = false;
 
-    @ManyToOne
+    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id")
     private User user;
 

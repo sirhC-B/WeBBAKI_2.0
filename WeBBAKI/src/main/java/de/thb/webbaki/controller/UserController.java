@@ -88,8 +88,19 @@ public class UserController {
         return "account/user_reports";
     }
 
+    @GetMapping(path = "/confirmation/confirmByUser")
+    public String userConfirmation(@RequestParam("token") String token){
+        return userService.confirmUser(token);
+    }
+
+    @GetMapping(path = "/confirmation/confirmByAdmin")
+    public String adminConfirmation(@RequestParam("token") String token){
+        return userService.confirmAdmin(token);
+    }
+
     @GetMapping(path = "/confirmation/confirm")
     public String confirm(@RequestParam("token") String token) {
+
         return userService.confirmToken(token);
 
     }

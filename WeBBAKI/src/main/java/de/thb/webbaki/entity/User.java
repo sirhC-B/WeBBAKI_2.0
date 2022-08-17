@@ -1,10 +1,12 @@
 package de.thb.webbaki.entity;
 
+import de.thb.webbaki.mail.confirmation.ConfirmationToken;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -26,6 +28,10 @@ public class User {
     private boolean tokenExpired = false;
     private LocalDateTime lastLogin;
     private boolean enabled = false;
+
+    @OneToMany
+    @JoinColumn(referencedColumnName = "id")
+    private List<ConfirmationToken> token;
 
     // authentication
     private String password;
