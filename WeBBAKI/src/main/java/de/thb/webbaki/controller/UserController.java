@@ -3,6 +3,7 @@ package de.thb.webbaki.controller;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.mail.confirmation.ConfirmationTokenService;
 import de.thb.webbaki.repository.QuestionnaireRepository;
 import de.thb.webbaki.security.MyUserDetailsService;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
@@ -29,6 +30,7 @@ public class UserController {
     private MyUserDetailsService myUserDetailsService;
     private QuestionnaireService questionnaireService;
     private QuestionnaireRepository questionnaireRepository;
+    private ConfirmationTokenService confirmationTokenService;
 
 
     @Deprecated
@@ -58,7 +60,7 @@ public class UserController {
         try {
             userService.registerNewUser(formModel);
             Questionnaire q = new Questionnaire();
-            q.setUser(userService.getUserByEmail(formModel.getEmail()));
+            q.setUser(userService.getUserByUsername(formModel.getUsername()));
             q.setDate(LocalDateTime.now());
             q.setMapping("{1=none;none, 2=none;none, 3=none;none, 4=none;none, 5=none;none, 6=none;none, 7=none;none, 8=none;none, 9=none;none, 10=none;none, 11=none;none, 12=none;none, 13=none;none, 14=none;none, 15=none;none, 16=none;none, 17=none;none, 18=none;none, 19=none;none, 20=none;none, 21=none;none, 22=none;none, 23=none;none, 24=none;none, 25=none;none, 26=none;none, 27=none;none}");
             questionnaireRepository.save(q);
@@ -100,7 +102,7 @@ public class UserController {
 
     @GetMapping(path = "/confirmation/confirm")
     public String confirm(@RequestParam("token") String token) {
-
+        userService.confirmAdmin(token);
         return userService.confirmToken(token);
 
     }

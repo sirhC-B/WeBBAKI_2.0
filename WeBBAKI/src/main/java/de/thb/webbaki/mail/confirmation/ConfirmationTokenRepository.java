@@ -19,12 +19,12 @@ public interface ConfirmationTokenRepository extends CrudRepository<Confirmation
 
     @Transactional
     @Modifying
-    @Query("UPDATE ConfirmationToken c " + "SET c.userConfirmation = ?2" + "WHERE c.token = ?1")
+    @Query("UPDATE ConfirmationToken c " + "SET c.userConfirmation = TRUE " + "WHERE c.token = ?1")
     int setConfirmedByUser(String token);
 
     @Transactional
     @Modifying
-    @Query("UPDATE ConfirmationToken c " + "SET c.adminConfirmation = ?2" + "WHERE c.token = ?1")
+    @Query("UPDATE ConfirmationToken c " + "SET c.adminConfirmation = TRUE " + "WHERE c.token = ?1")
     int setConfirmedByAdmin(String token);
 
 

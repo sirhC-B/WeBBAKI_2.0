@@ -57,7 +57,7 @@ public class SetupDataLoader implements
         Role geschäftsstelle = createRoleIfNotFound("GESCHÄFTSSTELLE", userPrivileges);
         Role kritisBetreiber = createRoleIfNotFound("KRITIS_BETREIBER", userPrivileges);
 
-        createUserIfNotFound("Christian", "Schramm", "Passwort", "schrammbox@gmail.com",
+        createUserIfNotFound("Christian", "Schramm", "Passwort", "schrammbox@gmail.com", "schrammbox",
                 new ArrayList<>(Arrays.asList(superAdmin)), true);
 
         alreadySetup = true;
@@ -88,15 +88,16 @@ public class SetupDataLoader implements
     }
 
     @Transactional
-    User createUserIfNotFound(String firstName, String lastName, String password, String email, Collection<Role> roles,
+    User createUserIfNotFound(String firstName, String lastName, String password, String email, String username, Collection<Role> roles,
                               boolean enabled){
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findByUsername(username);
         if(user == null){
             user = new User();
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setPassword(passwordEncoder.encode(password));
             user.setEmail(email);
+            user.setUsername(username);
             user.setRoles(roles);
             user.setEnabled(enabled);
 

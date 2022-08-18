@@ -46,6 +46,10 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    public User getUserByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
+
     /**
      * Check if email is already in use and existing in DB
      *
@@ -55,6 +59,8 @@ public class UserService {
     public Boolean emailExists(String email) {
         return userRepository.findByEmail(email) != null;
     }
+
+    public Boolean usernameExists(String username){return userRepository.findByUsername(username) != null;}
 
     /**
      * @param user is used to create new user -> forwarded to registerNewUser
@@ -76,7 +82,7 @@ public class UserService {
      * Using emailExists() to check whether user already exists
      */
     public void registerNewUser(final UserRegisterFormModel form) throws UserAlreadyExistsException {
-        if (emailExists(form.getEmail())) {
+        if (usernameExists(form.getUsername())) {
             throw new UserAlreadyExistsException("Es existiert bereits ein Account mit folgender Email-Adresse: " + form.getEmail());
         } else {
 
@@ -98,7 +104,7 @@ public class UserService {
 
 
             String userLink = "http://localhost:8080/confirmation/confirmByUser?token=" + token;
-            String adminLink = "http://localhost:8080/confirmation/confirmByAdmin?token=" + token;
+            String adminLink = "http://localhost:8080/confirmation/confirm?token=" + token;
 
             //Email to Superadmin
             emailSender.send("schrammbox@proton.me", buildEmail("Christian", adminLink));
@@ -197,7 +203,7 @@ public class UserService {
      * @return value TRUE or FALSE based on bit value (0 = false, 1 = true)
      */
     public String confirmUser(String token) {
-        adminConfirmation(token);
+        userConfirmation(token);
         return "confirmation/confirmedByUser";
     }
 
@@ -209,8 +215,8 @@ public class UserService {
      * @return value TRUE or FALSE based on bit value (0 = false, 1 = true)
      */
     public String confirmAdmin(String token) {
-        userConfirmation(token);
-        return "confirmation/confirmedByAdmin";
+        adminConfirmation(token);
+        return "confirmation/confirm";
     }
 
 

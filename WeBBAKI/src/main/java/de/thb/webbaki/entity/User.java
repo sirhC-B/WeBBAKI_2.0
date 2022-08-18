@@ -36,6 +36,7 @@ public class User {
     // authentication
     private String password;
     private String email;
+
     private String username;
 
     @OneToMany(mappedBy = "user")
