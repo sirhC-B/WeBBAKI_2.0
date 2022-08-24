@@ -56,5 +56,9 @@ public class UserRegisterFormModel {
     @Email
     private String email;
 
+    @NotNull(message = "username not null")
+    @NotEmpty(message = "Username darf nicht leer sein")
+    private String username;
+
 
 }

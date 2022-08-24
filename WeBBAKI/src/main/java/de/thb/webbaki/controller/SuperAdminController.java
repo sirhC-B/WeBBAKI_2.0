@@ -1,6 +1,5 @@
 package de.thb.webbaki.controller;
 
-import de.thb.webbaki.controller.form.ReportFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.Role;
@@ -12,13 +11,9 @@ import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +63,7 @@ public class SuperAdminController implements Comparable {
     }
 
     @GetMapping("/snap")
-    public String getSnap(Model model){
+    public String getSnap(Model model) {
 
         List<Snapshot> snaps = snapshotService.getAllSnapshots();
         model.addAttribute("snaps", snaps);
@@ -78,8 +73,9 @@ public class SuperAdminController implements Comparable {
 
         return "snap/snapshot";
     }
+
     @PostMapping("/snap")
-    public String postSnap(Model model, @ModelAttribute("snapName") Snapshot snapName){
+    public String postSnap(Model model, @ModelAttribute("snapName") Snapshot snapName) {
         snapshotService.createSnap(snapName);
 
 

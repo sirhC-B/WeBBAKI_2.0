@@ -4,11 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Created DeleteQuestionnaire Method&#10;&#10;NOT FINISHED YET">
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Mail confirmation works!&#10;Login with username works!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/account/user_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/account/user_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/configuration/SetupDataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/configuration/SetupDataLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/controller/ReportController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/controller/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/QuestionnaireService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/ScenarioService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/add_szenario.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/create_report.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,17 +29,21 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="JavaScript File" />
+        <option value="Interface" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev/questionaireSaving" />
+        <entry key="$PROJECT_DIR$" value="dev/MailConfirmation" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
@@ -63,36 +77,51 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/cs11/.m2/repository/org/springframework/security/spring-security-core/5.5.7/spring-security-core-5.5.7.jar",
-    "settings.editor.selected.configurable": "configurable.group.tools",
-    "spring.configuration.checksum": "1414bbe933792e16d677468e5cad7cba"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/cs11/IdeaProjects/de.itconsult24-main&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.tools&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;1414bbe933792e16d677468e5cad7cba&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mariadb&quot;,
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/images" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/css" />
+      <recent name="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/" />
+      <recent name="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/confirmation" />
+      <recent name="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/register" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="de.thb.webbaki.mail" />
+      <recent name="de.thb.webbaki.mail.confirmation" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.WeBBAKIApplication">
+    <configuration name="master_scenario.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="3c174c9c-221e-4fdb-b372-151ff9ed4976/schema/NewWebbaki/table/master_scenario.sql" />
+      <script-mode>FILE</script-mode>
+      <method v="2" />
     </configuration>
     <configuration name="WeBBAKIApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="WeBBAKI" />
@@ -101,6 +130,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Database Script.master_scenario.sql" />
+        <item itemvalue="Database Script.master_scenario.sql" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -119,6 +154,18 @@
       <workItem from="1653461997031" duration="813000" />
       <workItem from="1655402464990" duration="233000" />
       <workItem from="1655403920939" duration="6014000" />
+      <workItem from="1658065615649" duration="33000" />
+      <workItem from="1658065664185" duration="2507000" />
+      <workItem from="1658073612722" duration="9895000" />
+      <workItem from="1658150499166" duration="7877000" />
+      <workItem from="1658234891443" duration="3241000" />
+      <workItem from="1658407788053" duration="10618000" />
+      <workItem from="1659029530624" duration="4867000" />
+      <workItem from="1659349133368" duration="13976000" />
+      <workItem from="1659802025918" duration="4365000" />
+      <workItem from="1660166251542" duration="12452000" />
+      <workItem from="1660220371660" duration="33117000" />
+      <workItem from="1660673162857" duration="18471000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -141,7 +188,42 @@
       <option name="project" value="LOCAL" />
       <updated>1652024080571</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Created Token and Email Functions in package mail/">
+      <created>1658169434532</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1658169434532</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Email Sending works and Design">
+      <created>1660286948939</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1660286948939</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Email Sending works and Design">
+      <created>1660287303202</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1660287303202</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Email-Sending, Frontend, Password Chars">
+      <created>1660492985963</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1660492985963</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Mail confirmation">
+      <created>1660749393854</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1660749393854</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,7 +245,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="origin/dev/MailConfirmation" />
                       </list>
                     </value>
                   </entry>
@@ -179,6 +261,11 @@
         <entry key="Branch">
           <value>
             <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/dev/MailConfirmation" />
+                </option>
+              </RecentGroup>
               <RecentGroup>
                 <option name="FILTER_VALUES">
                   <option value="origin/develop_new" />
@@ -200,6 +287,21 @@
     <MESSAGE value="FINAL&#10;-start js part" />
     <MESSAGE value="-start der sektorunterteiling" />
     <MESSAGE value="Created DeleteQuestionnaire Method&#10;&#10;NOT FINISHED YET" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created DeleteQuestionnaire Method&#10;&#10;NOT FINISHED YET" />
+    <MESSAGE value="Created Token and Email Functions in package mail/" />
+    <MESSAGE value="Email Sending works and Design" />
+    <MESSAGE value="Email-Sending, Frontend, Password Chars" />
+    <MESSAGE value="Mail confirmation" />
+    <MESSAGE value="Mail confirmation works!&#10;Login with username works!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mail confirmation works!&#10;Login with username works!" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.UnsupportedOperationException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

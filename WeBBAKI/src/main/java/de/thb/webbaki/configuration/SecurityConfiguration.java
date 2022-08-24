@@ -20,7 +20,6 @@ public class SecurityConfiguration {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
 
-
     @Bean
     public MyUserDetailsService userDetailsService() {
         return new MyUserDetailsService(userRepository, roleRepository);
@@ -29,7 +28,7 @@ public class SecurityConfiguration {
     @Bean
     public RoleHierarchy roleHierarchy(){
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        String hierarchy = "SUPERADMIN > BUNDESADMIN \n BUNDESADMIN > KRITISBETREIBER";
+        String hierarchy = "SUPERADMIN > BUNDESADMIN \n BUNDESADMIN > KRITISBETREIBER \n KRITISBETREIBER > DEFAULT_USER";
         roleHierarchy.setHierarchy(hierarchy);
         return roleHierarchy;
     }
