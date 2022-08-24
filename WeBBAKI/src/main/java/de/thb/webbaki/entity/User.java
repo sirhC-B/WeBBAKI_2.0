@@ -18,7 +18,8 @@ import java.util.Set;
 @Table
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String lastName;
     private String firstName;

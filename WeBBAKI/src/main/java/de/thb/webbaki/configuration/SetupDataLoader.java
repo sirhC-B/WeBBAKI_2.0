@@ -1,5 +1,10 @@
 package de.thb.webbaki.configuration;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 import de.thb.webbaki.entity.Privilege;
 import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
@@ -11,15 +16,12 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import javax.transaction.Transactional;
-import java.util.*;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
-public class SetupDataLoader implements
-        ApplicationListener<ContextRefreshedEvent> {
+public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
-    boolean alreadySetup = false;
+    private boolean alreadySetup = false;
 
     @Autowired
     private UserRepository userRepository;
@@ -33,76 +35,68 @@ public class SetupDataLoader implements
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    // API
+
     @Override
     @Transactional
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-
-        if (alreadySetup)
+    public void onApplicationEvent(final ContextRefreshedEvent event) {
+        if (alreadySetup) {
             return;
+        }
 
-        Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
-        Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
-        Privilege changePassword = createPrivilegeIfNotFound("CHANGE_PASSWORD_PRIVILEGE");
-        Privilege confirmUserPrivilege = createPrivilegeIfNotFound("CONFIRM_USER_PRIVILEGE");
+        // == create initial privileges
+        final Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
+        final Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
+        final Privilege passwordPrivilege = createPrivilegeIfNotFound("CHANGE_PASSWORD_PRIVILEGE");
 
+        // == create initial roles
+        final List<Privilege> adminPrivileges = new ArrayList<>(Arrays.asList(readPrivilege, writePrivilege, passwordPrivilege));
+        final List<Privilege> userPrivileges = new ArrayList<>(Arrays.asList(readPrivilege, passwordPrivilege));
+        final Role adminRole = createRoleIfNotFound("SUPERADMIN", adminPrivileges);
+        createRoleIfNotFound("ROLE_USER", userPrivileges);
 
-        List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege, changePassword, confirmUserPrivilege);
-        List<Privilege> userPrivileges = Arrays.asList(readPrivilege, changePassword);
-
-        Role superAdmin = createRoleIfNotFound("SUPERADMIN", adminPrivileges);
-        Role defaultUser = createRoleIfNotFound("DEFAULT_USER", userPrivileges);
-        Role branchenAdmin = createRoleIfNotFound("BRANCHENADMIN", userPrivileges);
-        Role sektorenAdmin = createRoleIfNotFound("SEKTORENADMIN", userPrivileges);
-        Role bundesAdmin = createRoleIfNotFound("BUNDESADMIN", userPrivileges);
-        Role geschäftsstelle = createRoleIfNotFound("GESCHÄFTSSTELLE", userPrivileges);
-        Role kritisBetreiber = createRoleIfNotFound("KRITIS_BETREIBER", userPrivileges);
-
-        //createUserIfNotFound("Christian", "Schramm", "Passwort", "schrammbox@gmail.com", "schrammbox",
-          //      new ArrayList<>(Arrays.asList(superAdmin)), true);
+        // == create initial user
+        createUserIfNotFound("schrammbox@gmail.com", "Christian", "Schramm", "Passwort1234",
+                new ArrayList<>(Arrays.asList(adminRole)));
 
         alreadySetup = true;
     }
 
     @Transactional
-    Privilege createPrivilegeIfNotFound(String name) {
-
+    Privilege createPrivilegeIfNotFound(final String name) {
         Privilege privilege = privilegeRepository.findByName(name);
         if (privilege == null) {
             privilege = new Privilege(name);
-            privilegeRepository.save(privilege);
+            privilege = privilegeRepository.save(privilege);
         }
         return privilege;
     }
 
     @Transactional
-    Role createRoleIfNotFound(
-            String name, Collection<Privilege> privileges) {
-
+    Role createRoleIfNotFound(final String name, final Collection<Privilege> privileges) {
         Role role = roleRepository.findByName(name);
         if (role == null) {
             role = new Role(name);
-            role.setPrivileges(privileges);
-            roleRepository.save(role);
         }
+        role.setPrivileges(privileges);
+        role = roleRepository.save(role);
         return role;
     }
 
     @Transactional
-    User createUserIfNotFound(String firstName, String lastName, String password, String email, String username, Collection<Role> roles,
-                              boolean enabled){
-        User user = userRepository.findByUsername(username);
-        if(user == null){
+    User createUserIfNotFound(final String email, final String firstName, final String lastName, final String password, final Collection<Role> roles) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
             user = new User();
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setPassword(passwordEncoder.encode(password));
             user.setEmail(email);
-            user.setUsername(username);
-            user.setRoles(roles);
-            user.setEnabled(enabled);
-
-            userRepository.save(user);
+            user.setEnabled(true);
         }
+        user.setRoles(roles);
+        user = userRepository.save(user);
         return user;
     }
+
 }
