@@ -26,6 +26,7 @@ public class User {
     private String company;
 
     // authentication
+    private String username;
     private String password;
     private String email;
     private boolean enabled;
