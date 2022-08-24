@@ -57,8 +57,8 @@ public class SetupDataLoader implements
         Role geschäftsstelle = createRoleIfNotFound("GESCHÄFTSSTELLE", userPrivileges);
         Role kritisBetreiber = createRoleIfNotFound("KRITIS_BETREIBER", userPrivileges);
 
-        createUserIfNotFound("Christian", "Schramm", "Passwort", "schrammbox@gmail.com", "schrammbox",
-                new ArrayList<>(Arrays.asList(superAdmin)), true);
+        //createUserIfNotFound("Christian", "Schramm", "Passwort", "schrammbox@gmail.com", "schrammbox",
+          //      new ArrayList<>(Arrays.asList(superAdmin)), true);
 
         alreadySetup = true;
     }
