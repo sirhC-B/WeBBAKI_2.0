@@ -39,7 +39,15 @@ public class ConfirmationToken {
     @JoinColumn(referencedColumnName = "id")
     private User user;
 
-    public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, User user){
+    public boolean accessGranted(String token) {
+        if (this.adminConfirmation && this.userConfirmation) {
+            user.setEnabled(true);
+            return true;
+        }else
+            return false;
+    }
+
+    public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, User user) {
         setToken(token);
         setCreatedAt(createdAt);
         setExpiresAt(expiresAt);

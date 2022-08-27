@@ -5,9 +5,7 @@ import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.mail.confirmation.ConfirmationTokenService;
 import de.thb.webbaki.repository.QuestionnaireRepository;
-import de.thb.webbaki.security.MyUserDetailsService;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
-import de.thb.webbaki.service.QuestionnaireService;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -27,11 +25,8 @@ import java.util.List;
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
-    private MyUserDetailsService myUserDetailsService;
-    private QuestionnaireService questionnaireService;
     private QuestionnaireRepository questionnaireRepository;
     private ConfirmationTokenService confirmationTokenService;
-
 
     @Deprecated
     @GetMapping("users")
@@ -85,19 +80,14 @@ public class UserController {
     }
 
     @GetMapping("/data/user/reports")
-    public String showCustomerOrders(Authentication authentication, Model model) {
+    public String showCustomerOrders() {
 
         return "account/user_reports";
     }
 
     @GetMapping(path = "/confirmation/confirmByUser")
-    public String userConfirmation(@RequestParam("token") String token){
+    public String userConfirmation(@RequestParam("token") String token) {
         return userService.confirmUser(token);
-    }
-
-    @GetMapping(path = "/confirmation/confirmByAdmin")
-    public String adminConfirmation(@RequestParam("token") String token){
-        return userService.confirmAdmin(token);
     }
 
     @GetMapping(path = "/confirmation/confirm")

@@ -2,9 +2,7 @@ package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Questionnaire;
-import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.Snapshot;
-import de.thb.webbaki.entity.User;
 import de.thb.webbaki.service.RoleService;
 import de.thb.webbaki.service.SnapshotService;
 import de.thb.webbaki.service.UserService;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -24,7 +21,7 @@ public class SuperAdminController implements Comparable {
     private final RoleService roleService;
     private final SnapshotService snapshotService;
 
-    @GetMapping("admin")
+    @RequestMapping(value = "admin", method = RequestMethod.GET)
     public String showAllUsers(Model model) {
         final var users = userService.getAllUsers();
         /* If sorting of usernames needed
@@ -43,19 +40,9 @@ public class SuperAdminController implements Comparable {
         return "permissions/admin";
     }
 
-    @GetMapping("/admin/edit/{id}")
-    public String editUser(@PathVariable("id") Long id, Model model) {
-        Optional<User> user = userService.getUserById(id);
-        List<Role> listRoles = roleService.getAllRoles();
-        model.addAttribute("user", user);
-        model.addAttribute("listRoles", listRoles);
-
-        return "permissions/role-to-user";
-    }
-
+    @RequestMapping(value = "/admin", method = RequestMethod.POST)
     @PostMapping("/admin")
-    public String addRoleToUser(
-            @ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel) {
+    public String addRoleToUser(@ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel) {
         System.out.println(userToRoleFormModel.toString());
         userService.addRoleToUser(userToRoleFormModel);
         userService.removeRoleFromUser(userToRoleFormModel);
@@ -74,8 +61,13 @@ public class SuperAdminController implements Comparable {
         return "snap/snapshot";
     }
 
+    @GetMapping("confirmation/userDenied")
+    public String userDenied(){
+        return "confirmation/userDenied";
+    }
+
     @PostMapping("/snap")
-    public String postSnap(Model model, @ModelAttribute("snapName") Snapshot snapName) {
+    public String postSnap(@ModelAttribute("snapName") Snapshot snapName) {
         snapshotService.createSnap(snapName);
 
 

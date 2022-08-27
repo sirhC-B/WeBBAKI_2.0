@@ -6,7 +6,6 @@ import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.RoleRepository;
 import de.thb.webbaki.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -52,23 +51,6 @@ public class MyUserDetailsService implements UserDetailsService {
         }
     }
 
-    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
-
-        try {
-            final User user = userRepository.findByEmail(email);
-            if (user == null) {
-                throw new UsernameNotFoundException("No user found with username: " + email);
-            }
-
-            return new org.springframework.security.core.userdetails.User(
-                    user.getEmail(), user.getPassword(), user.isEnabled(), true, true,
-                    true, getAuthorities(user.getRoles()));
-
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private Collection<? extends GrantedAuthority> getAuthorities(final Collection<Role> roles) {
         return getGrantedAuthorities(getPrivileges(roles));
     }
@@ -94,4 +76,5 @@ public class MyUserDetailsService implements UserDetailsService {
         }
         return authorities;
     }
+
 }

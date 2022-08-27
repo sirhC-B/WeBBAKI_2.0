@@ -8,7 +8,6 @@ import org.springframework.data.repository.RepositoryDefinition;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @RepositoryDefinition(domainClass = ConfirmationToken.class, idClass = Long.class)
 public interface ConfirmationTokenRepository extends CrudRepository<ConfirmationToken, Long> {

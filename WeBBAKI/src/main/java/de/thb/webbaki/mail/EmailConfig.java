@@ -23,7 +23,7 @@ public class EmailConfig {
         mailProperties.put("mail.smtp.auth", "true");
         mailProperties.put("mail.smtp.starttls.enable", "true");
         mailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        mailProperties.put("mail.debug", "true");
+        mailProperties.put("mail.debug", "false");
         mailSender.setJavaMailProperties(mailProperties);
         return mailSender;
     }

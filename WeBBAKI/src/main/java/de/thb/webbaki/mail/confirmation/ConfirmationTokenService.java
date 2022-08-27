@@ -92,8 +92,5 @@ public class ConfirmationTokenService {
         return confirmationTokenRepository.setConfirmedByAdmin(token);
     }
 
-    public boolean accessGranted(String token){
-        return this.confirmedByAdmin(token) && this.confirmedByUser(token);
-    }
 
 }

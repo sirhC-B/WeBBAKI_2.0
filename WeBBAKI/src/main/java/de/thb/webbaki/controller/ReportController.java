@@ -49,8 +49,7 @@ public class ReportController {
     }
     @PostMapping("/report")
     public String submitQuestionnaire(@ModelAttribute("report") @Valid ReportFormModel questionnaireFormModel,
-                                      BindingResult result, Authentication authentication,
-                                      RedirectAttributes redirectAttributes) {
+                                      Authentication authentication) {
 
         if (userService.getUserByEmail(authentication.getName()) != null){
             User user = userService.getUserByEmail(authentication.getName());
@@ -94,7 +93,7 @@ public class ReportController {
 
     @Transactional
     @GetMapping(path = "/report/chronic/{questID}")
-    public String deleteQuestionnaireByID(@PathVariable("questID") long questID, RedirectAttributes redirectAttributes){
+    public String deleteQuestionnaireByID(@PathVariable("questID") long questID){
         questionnaireService.delQuest(questID);
 
         return "redirect:/report/chronic";

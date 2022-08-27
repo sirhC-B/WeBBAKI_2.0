@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head>
     <title>Report</title>
 </head>
 <body onload="calc();">
 <div layout:fragment="content">
-    <div class="container">
+    <div>
         <h2>Fragebogen</h2><br>
         <form th:object="${report}" th:action="@{/report}" method="post">
 
@@ -74,17 +75,20 @@
                             <td class="report-select">
                                 <select th:id="'selectImp'+ ${scenario.id}" class="form-select"
                                         th:attr="name='imp['+${scenario.id}+']'">
-                                <div th:switch="${questMap.get(#vars.scenario.id)[1]}">
-                                    <option th:case="'none'" value="none" selected>Bitte wählen...</option>
-                                    <option th:case="*" th:text="${questMap.get(#vars.scenario.id)[1]}"
-                                            selected></option>
-                                </div>
-                                <option th:each="impact : ${T(de.thb.webbaki.enums.Impact).values()}"
-                                        th:value="${impact.value}" th:text="${impact.value}"></option>
-                            </select>
+                                    <div th:switch="${questMap.get(#vars.scenario.id)[1]}">
+                                        <option th:case="'none'" value="none" selected>Bitte wählen...</option>
+                                        <option th:case="*" th:text="${questMap.get(#vars.scenario.id)[1]}"
+                                                selected></option>
+                                    </div>
+                                    <option th:each="impact : ${T(de.thb.webbaki.enums.Impact).values()}"
+                                            th:value="${impact.value}" th:text="${impact.value}"></option>
+                                </select>
                             </td>
                             <td>
-                                <div th:id="'noRisk'+ ${scenario.id}" class="showQuestion">keine</div>
+                                <div th:id="'noRisk'+ ${scenario.id}"
+                                     onchange="createBackgroundColor('noRisk' )" class="showQuestion">
+                                    keine
+                                </div>
                                 <div th:id="'smallRisk'+ ${scenario.id}" class="showQuestion">geringe</div>
                                 <div th:id="'increasedRisk'+ ${scenario.id}" class="showQuestion">erhoehte</div>
                                 <div th:id="'highRisk'+ ${scenario.id}" class="showQuestion">hohe</div>
@@ -125,5 +129,11 @@
         </form>
     </div>
 </div>
+<script>
+    function createBackgroundColor(id) {
+        let element = document.getElementById(id)
+        element.style.backgroundColor = "green";
+    }
+</script>
 </body>
 </html>

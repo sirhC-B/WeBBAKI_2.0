@@ -1,25 +1,15 @@
 package de.thb.webbaki.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "role")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Role {
-
-    public Role(String name){
-        this.setName(name);
-    }
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,16 +17,8 @@ public class Role {
 
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
+    @ManyToMany(mappedBy = "roles")
     private Collection<User> users;
-
-
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(

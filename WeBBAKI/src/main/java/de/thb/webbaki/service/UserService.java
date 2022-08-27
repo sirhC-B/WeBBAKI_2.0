@@ -39,29 +39,17 @@ public class UserService {
         return (List<User>) userRepository.findAll();
     }
 
-    public Optional<User> getUserById(long id) {
-        return userRepository.findById(id);
-    }
-
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    public User getUserByUsername(String username){
+    public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    /**
-     * Check if email is already in use and existing in DB
-     *
-     * @param email to check
-     * @return boolean
-     */
-    public Boolean emailExists(String email) {
-        return userRepository.findByEmail(email) != null;
+    public Boolean usernameExists(String username) {
+        return userRepository.findByUsername(username) != null;
     }
-
-    public Boolean usernameExists(String username){return userRepository.findByUsername(username) != null;}
 
     /**
      * @param user is used to create new user -> forwarded to registerNewUser
@@ -82,7 +70,7 @@ public class UserService {
      * Registering new User with all parameters from User.java
      * Using emailExists() to check whether user already exists
      */
-    public void registerNewUser(final UserRegisterFormModel form) throws UserAlreadyExistsException {
+    public User registerNewUser(final UserRegisterFormModel form) throws UserAlreadyExistsException {
         if (usernameExists(form.getUsername())) {
             throw new UserAlreadyExistsException("Es existiert bereits ein Account mit folgender Email-Adresse: " + form.getEmail());
         } else {
@@ -99,8 +87,6 @@ public class UserService {
             user.setUsername(form.getUsername());
             user.setEnabled(false);
 
-            userRepository.save(user);
-
             String token = createToken(user); // To create the token of the user
 
 
@@ -108,12 +94,12 @@ public class UserService {
             String adminLink = "http://localhost:8080/confirmation/confirm?token=" + token;
 
             //Email to Superadmin
-            emailSender.send("schrammbox@proton.me", buildEmail("Christian", adminLink));
+            emailSender.send("schrammbox@proton.me", buildAdminEmail("Christian", adminLink));
 
             //Email to new registered user
-            emailSender.send(form.getEmail(), buildEmail(form.getFirstname(), userLink));
+            emailSender.send(form.getEmail(), buildUserEmail(form.getFirstname(), userLink));
 
-
+            return userRepository.save(user);
         }
     }
 
@@ -128,48 +114,13 @@ public class UserService {
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
         if (expiredAt.isBefore(LocalDateTime.now())) {
             throw new IllegalStateException("token expired");
-        } else
-
+        } else {
             confirmationTokenService.setConfirmedAt(token);
+            confirmAdmin(token);
+        }
         enableUser(confirmationToken.getUser().getEmail(), token);
 
         return "/confirmation/confirm";
-    }
-
-    public void setCurrentLogin(User u) {
-        u.setLastLogin(LocalDateTime.now());
-        userRepository.save(u);
-    }
-
-    /**
-     * USED IN SUPERADMIN DASHBOARD
-     * Superadmin can add Roles to specific Users
-     *
-     * @param formModel to get Userdata, especially roles from user
-     */
-    public void addRoleToUser(final UserToRoleFormModel formModel) {
-        String[] roles = formModel.getRole();
-        for (int i = 1; i < roles.length; i++) {
-            if (!Objects.equals(roles[i], "none") && !Objects.equals(roles[i], null)) {
-                User user = userRepository.findById(i).get();
-                if (!user.getRoles().contains(roleRepository.findByName(roles[i]))) {
-                    user.addRole((roleRepository.findByName(roles[i])));
-                }
-            }
-        }
-    }
-
-    public void removeRoleFromUser(final UserToRoleFormModel formModel) {
-        String[] roleDel = formModel.getRoleDel();
-        for (int i = 1; i < roleDel.length; i++) {
-            if (!Objects.equals(roleDel[i], "none") && !Objects.equals(roleDel[i], null)) {
-                User user = userRepository.findById(i).get();
-                Role r = roleRepository.findByName(roleDel[i]);
-                user.removeRole(r);
-
-
-            }
-        }
     }
 
     /**
@@ -182,9 +133,9 @@ public class UserService {
      */
     public int enableUser(String email, String token) {
 
-        if (confirmationTokenService.accessGranted(token)) {
+        if (confirmationTokenService.getConfirmationToken(token).accessGranted(token)) {
             return userRepository.enableUser(email);
-        } else return 0;
+        } else return -1;
     }
 
     /**
@@ -231,10 +182,119 @@ public class UserService {
         return "confirmation/confirm";
     }
 
+    public void setCurrentLogin(User u) {
+        u.setLastLogin(LocalDateTime.now());
+        userRepository.save(u);
+    }
 
-    // ------------------------------MAILS TO USER AND ADMIN --------------------------------------------------------
+    /**
+     * USED IN SUPERADMIN DASHBOARD
+     * Superadmin can add Roles to specific Users
+     *
+     * @param formModel to get Userdata, especially roles from user
+     */
+    public void addRoleToUser(final UserToRoleFormModel formModel) {
+        String[] roles = formModel.getRole();
+        for (int i = 1; i < roles.length; i++) {
+            if (!Objects.equals(roles[i], "none") && !Objects.equals(roles[i], null)) {
+                User user = userRepository.findById(i).get();
+                if (!user.getRoles().contains(roleRepository.findByName(roles[i]))) {
+                    user.addRole((roleRepository.findByName((roles[i]))));
+                }
+            }
+        }
+    }
 
-    private String buildEmail(String name, String link) {
+    /**
+     * USED IN SUPERADMIN DASHBOARD
+     * Superadmin can delete Roles to specific Users
+     *
+     * @param formModel to get Userdata, especially roles from user
+     */
+    public void removeRoleFromUser(final UserToRoleFormModel formModel) {
+        String[] roleDel = formModel.getRoleDel();
+        for (int i = 1; i < roleDel.length; i++) {
+            if (!Objects.equals(roleDel[i], "none") && !Objects.equals(roleDel[i], null)) {
+                User user = userRepository.findById(i).get();
+                Role r = roleRepository.findByName(roleDel[i]);
+                user.removeRole(r);
+
+
+            }
+        }
+    }
+
+    private String buildAdminEmail(String name, String link) {
+        return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
+                "\n" +
+                "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
+                "\n" +
+                "  <table role=\"presentation\" width=\"100%\" style=\"border-collapse:collapse;min-width:100%;width:100%!important\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
+                "    <tbody><tr>\n" +
+                "      <td width=\"100%\" height=\"53\" bgcolor=\"#0b0c0c\">\n" +
+                "        \n" +
+                "        <table role=\"presentation\" width=\"100%\" style=\"border-collapse:collapse;max-width:580px\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\">\n" +
+                "          <tbody><tr>\n" +
+                "            <td width=\"70\" bgcolor=\"#0b0c0c\" valign=\"middle\">\n" +
+                "                <table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse\">\n" +
+                "                  <tbody><tr>\n" +
+                "                    <td style=\"padding-left:10px\">\n" +
+                "                  \n" +
+                "                    </td>\n" +
+                "                    <td style=\"font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\">\n" +
+                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Bestätigung eines neuen WebBaKI-Nutzers</span>\n" +
+                "                    </td>\n" +
+                "                  </tr>\n" +
+                "                </tbody></table>\n" +
+                "              </a>\n" +
+                "            </td>\n" +
+                "          </tr>\n" +
+                "        </tbody></table>\n" +
+                "        \n" +
+                "      </td>\n" +
+                "    </tr>\n" +
+                "  </tbody></table>\n" +
+                "  <table role=\"presentation\" class=\"m_-6186904992287805515content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;max-width:580px;width:100%!important\" width=\"100%\">\n" +
+                "    <tbody><tr>\n" +
+                "      <td width=\"10\" height=\"10\" valign=\"middle\"></td>\n" +
+                "      <td>\n" +
+                "        \n" +
+                "                <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse\">\n" +
+                "                  <tbody><tr>\n" +
+                "                    <td bgcolor=\"#1D70B8\" width=\"100%\" height=\"10\"></td>\n" +
+                "                  </tr>\n" +
+                "                </tbody></table>\n" +
+                "        \n" +
+                "      </td>\n" +
+                "      <td width=\"10\" valign=\"middle\" height=\"10\"></td>\n" +
+                "    </tr>\n" +
+                "  </tbody></table>\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "  <table role=\"presentation\" class=\"m_-6186904992287805515content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;max-width:580px;width:100%!important\" width=\"100%\">\n" +
+                "    <tbody><tr>\n" +
+                "      <td height=\"30\"><br></td>\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
+                "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
+                "        \n" +
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Es hat sich ein neuer WebBaKI-Nutzer registriert. Der Account kann unter folgendem Link aktiviert oder abgelehnt werden: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Nutzer verifizieren</a><span style=\"padding: 0px 10px\"></span> <a href=\"http://localhost:8080/confirmation/userDenied\">Nutzer ablehnen</a></p></blockquote>\n Der Link bleibt 3 Tage gültig. " +
+                "        \n" +
+                "      </td>\n" +
+                "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "      <td height=\"30\"><br></td>\n" +
+                "    </tr>\n" +
+                "  </tbody></table><div class=\"yj6qo\"></div><div class=\"adL\">\n" +
+                "\n" +
+                "</div></div>";
+    }
+
+    // ------------------------------MAIL TO USER --------------------------------------------------------
+    private String buildUserEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
                 "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +

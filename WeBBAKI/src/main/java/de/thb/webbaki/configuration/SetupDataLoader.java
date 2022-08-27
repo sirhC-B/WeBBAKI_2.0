@@ -53,8 +53,8 @@ public class SetupDataLoader implements
         final Role adminRole = createRoleIfNotFound("SUPERADMIN", adminPrivileges);
         final Role userRole = createRoleIfNotFound("KRITIS_BETREIBER", userPrivileges);
 
-        //createUserIfNotFound("Schramm", "Christian", "Telekommunikation", "UnterBranche Telekom",
-        //"Meta", "Passwort", new ArrayList<>(Arrays.asList(adminRole)), "schrammbox@gmail.com");
+        createUserIfNotFound("Schramm", "Christian", "Telekommunikation", "UnterBranche Telekom",
+        "Meta", "Passwort1234", Arrays.asList(adminRole), "schrammbox@gmail.com", true, "schrammbox");
 
         alreadySetup = true;
 
@@ -76,7 +76,7 @@ public class SetupDataLoader implements
 
         Role role = roleRepository.findByName(name);
         if (role == null) {
-            role = new Role(name);
+            role = new Role();
             role.setPrivileges(privileges);
             roleRepository.save(role);
         }
@@ -85,7 +85,8 @@ public class SetupDataLoader implements
 
     @Transactional
     User createUserIfNotFound(final String lastName, final String firstName, final String sector, final String branche,
-                              final String company, final String password, final Collection<Role> roles, final String email) {
+                              final String company, final String password, final Collection<Role> roles, final String email,
+                              final boolean enabled, final String username) {
         User user = userRepository.findByEmail(email);
         if (user == null) {
             user = new User();
@@ -94,10 +95,13 @@ public class SetupDataLoader implements
             user.setSector(sector);
             user.setBranche(branche);
             user.setCompany(company);
+            user.setRoles(roles);
             user.setPassword(passwordEncoder.encode(password));
+            user.setEnabled(enabled);
+            user.setUsername(username);
             user.setEmail(email);
         }
-        user.setRoles(roles);
+
         user = userRepository.save(user);
 
         return user;
