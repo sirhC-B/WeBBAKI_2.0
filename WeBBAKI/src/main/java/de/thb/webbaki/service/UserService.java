@@ -94,7 +94,9 @@ public class UserService {
             String adminLink = "http://localhost:8080/confirmation/confirm?token=" + token;
 
             //Email to Superadmin
-            emailSender.send("schrammbox@proton.me", buildAdminEmail("Christian", adminLink));
+            emailSender.send("schrammbox@proton.me", buildAdminEmail("Christian", adminLink,
+                                                                                form.getFirstname(), form.getLastname(),
+                                                                                form.getEmail(), form.getBranche(), form.getCompany()));
 
             //Email to new registered user
             emailSender.send(form.getEmail(), buildUserEmail(form.getFirstname(), userLink));
@@ -224,143 +226,164 @@ public class UserService {
         }
     }
 
-    private String buildAdminEmail(String name, String link) {
-        return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
+    private String buildAdminEmail(String name, String link, String userFirstname, String userLastname,
+                                   String userEmail, String userBranche, String userCompany) {
+        return "<!DOCTYPE html>\n" +
+                "<html lang=\"de\" dir=\"ltr\">\n" +
+                "  <head>\n" +
+                "    <meta charset=\"utf-8\">\n" +
+                "    <title></title>\n" +
+                "  </head>\n" +
                 "\n" +
-                "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
+                "  <style>\n" +
+                "    p{\n" +
+                "      font-size:16px;\n" +
+                "    }\n" +
                 "\n" +
-                "  <table role=\"presentation\" width=\"100%\" style=\"border-collapse:collapse;min-width:100%;width:100%!important\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
-                "    <tbody><tr>\n" +
-                "      <td width=\"100%\" height=\"53\" bgcolor=\"#0b0c0c\">\n" +
-                "        \n" +
-                "        <table role=\"presentation\" width=\"100%\" style=\"border-collapse:collapse;max-width:580px\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\">\n" +
-                "          <tbody><tr>\n" +
-                "            <td width=\"70\" bgcolor=\"#0b0c0c\" valign=\"middle\">\n" +
-                "                <table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse\">\n" +
-                "                  <tbody><tr>\n" +
-                "                    <td style=\"padding-left:10px\">\n" +
-                "                  \n" +
-                "                    </td>\n" +
-                "                    <td style=\"font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\">\n" +
-                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Bestätigung eines neuen WebBaKI-Nutzers</span>\n" +
-                "                    </td>\n" +
-                "                  </tr>\n" +
-                "                </tbody></table>\n" +
-                "              </a>\n" +
-                "            </td>\n" +
+                "    html {\n" +
+                "      font-family: sans-serif;\n" +
+                "      text-align:center;\n" +
+                "      align-content:center;\n" +
+                "    }\n" +
+                "\n" +
+                "    table {\n" +
+                "      width:560px;\n" +
+                "      border-collapse: collapse;\n" +
+                "      border: 2px solid rgb(200,200,200);\n" +
+                "      letter-spacing: 1px;\n" +
+                "      font-size: 0.9rem;\n" +
+                "    }\n" +
+                "\n" +
+                "    td, th {\n" +
+                "      border: 1px solid rgb(190,190,190);\n" +
+                "      padding: 10px 20px;\n" +
+                "    }\n" +
+                "\n" +
+                "    th {\n" +
+                "      background-color: rgb(235,235,235);\n" +
+                "    }\n" +
+                "\n" +
+                "    td {\n" +
+                "      text-align: center;\n" +
+                "    }\n" +
+                "\n" +
+                "    tr:nth-child(even) td {\n" +
+                "      background-color: rgb(250,250,250);\n" +
+                "    }\n" +
+                "\n" +
+                "    tr:nth-child(odd) td {\n" +
+                "      background-color: rgb(245,245,245);\n" +
+                "    }\n" +
+                "\n" +
+                "    caption {\n" +
+                "      padding: 10px;\n" +
+                "    }\n" +
+                "  </style>\n" +
+                "\n" +
+                "  <body>\n" +
+                "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Neue Registrierung auf WebBaKI</h2>\n" +
+                "    <p>Hallo "+name+",</p>\n" +
+                "    <p>Es hat sich ein neuer WebBaKI-Nutzer registriert. Infos zum Nutzer:</p>\n" +
+                "    <div class=\"tabledata\" style=\"display:flex;align-items:center; justify-content:center\">\n" +
+                "      <table style=\"\">\n" +
+                "          <tr>\n" +
+                "            <td>Vorname</td>\n" +
+                "            <td>"+userFirstname+"</td>\n" +
                 "          </tr>\n" +
-                "        </tbody></table>\n" +
-                "        \n" +
-                "      </td>\n" +
-                "    </tr>\n" +
-                "  </tbody></table>\n" +
-                "  <table role=\"presentation\" class=\"m_-6186904992287805515content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;max-width:580px;width:100%!important\" width=\"100%\">\n" +
-                "    <tbody><tr>\n" +
-                "      <td width=\"10\" height=\"10\" valign=\"middle\"></td>\n" +
-                "      <td>\n" +
-                "        \n" +
-                "                <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse\">\n" +
-                "                  <tbody><tr>\n" +
-                "                    <td bgcolor=\"#1D70B8\" width=\"100%\" height=\"10\"></td>\n" +
-                "                  </tr>\n" +
-                "                </tbody></table>\n" +
-                "        \n" +
-                "      </td>\n" +
-                "      <td width=\"10\" valign=\"middle\" height=\"10\"></td>\n" +
-                "    </tr>\n" +
-                "  </tbody></table>\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "  <table role=\"presentation\" class=\"m_-6186904992287805515content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;max-width:580px;width:100%!important\" width=\"100%\">\n" +
-                "    <tbody><tr>\n" +
-                "      <td height=\"30\"><br></td>\n" +
-                "    </tr>\n" +
-                "    <tr>\n" +
-                "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
-                "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
-                "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Es hat sich ein neuer WebBaKI-Nutzer registriert. Der Account kann unter folgendem Link aktiviert oder abgelehnt werden: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Nutzer verifizieren</a><span style=\"padding: 0px 10px\"></span> <a href=\"http://localhost:8080/confirmation/userDenied\">Nutzer ablehnen</a></p></blockquote>\n Der Link bleibt 3 Tage gültig. " +
-                "        \n" +
-                "      </td>\n" +
-                "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
-                "    </tr>\n" +
-                "    <tr>\n" +
-                "      <td height=\"30\"><br></td>\n" +
-                "    </tr>\n" +
-                "  </tbody></table><div class=\"yj6qo\"></div><div class=\"adL\">\n" +
-                "\n" +
-                "</div></div>";
+                "          <tr>\n" +
+                "            <td>Nachname</td>\n" +
+                "            <td>"+userLastname+"</td>\n" +
+                "          </tr>\n" +
+                "          <tr>\n" +
+                "            <td>Firma</td>\n" +
+                "            <td>"+userCompany+"</td>\n" +
+                "          </tr>\n" +
+                "          <tr>\n" +
+                "            <td>Email</td>\n" +
+                "            <td>"+userEmail+"</td>\n" +
+                "          </tr>\n" +
+                "          <tr>\n" +
+                "            <td>Branche</td>\n" +
+                "            <td>"+userBranche+"</td>\n" +
+                "          </tr>\n" +
+                "      </table>\n" +
+                "    </div>\n" +
+                "    <p>Der Account kann unter folgendem Link aktiviert oder abgelehnt werden:</p>\n" +
+                "      <p>\n" +
+                "        <a href="+link+">Nutzer verifizieren</a>\n" +
+                "        <span></span>\n" +
+                "        <a href=\"http://localhost:8080/confirmation/userDenied\">Nutzer ablehnen</a>\n" +
+                "      </p>\n" +
+                "    <p>Der Link bleibt 3 Tage gültig.</p>\n" +
+                "  </body>\n" +
+                "</html>\n";
     }
 
     // ------------------------------MAIL TO USER --------------------------------------------------------
     private String buildUserEmail(String name, String link) {
-        return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
+        return "<!DOCTYPE html>\n" +
+                "<html lang=\"de\" dir=\"ltr\">\n" +
+                "  <head>\n" +
+                "    <meta charset=\"utf-8\">\n" +
+                "    <title></title>\n" +
+                "  </head>\n" +
                 "\n" +
-                "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
+                "  <style>\n" +
+                "    p{\n" +
+                "      font-size:16px;\n" +
+                "    }\n" +
                 "\n" +
-                "  <table role=\"presentation\" width=\"100%\" style=\"border-collapse:collapse;min-width:100%;width:100%!important\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
-                "    <tbody><tr>\n" +
-                "      <td width=\"100%\" height=\"53\" bgcolor=\"#0b0c0c\">\n" +
-                "        \n" +
-                "        <table role=\"presentation\" width=\"100%\" style=\"border-collapse:collapse;max-width:580px\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\">\n" +
-                "          <tbody><tr>\n" +
-                "            <td width=\"70\" bgcolor=\"#0b0c0c\" valign=\"middle\">\n" +
-                "                <table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse\">\n" +
-                "                  <tbody><tr>\n" +
-                "                    <td style=\"padding-left:10px\">\n" +
-                "                  \n" +
-                "                    </td>\n" +
-                "                    <td style=\"font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\">\n" +
-                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Bestätigung eines neuen WebBaKI-Nutzers</span>\n" +
-                "                    </td>\n" +
-                "                  </tr>\n" +
-                "                </tbody></table>\n" +
-                "              </a>\n" +
-                "            </td>\n" +
-                "          </tr>\n" +
-                "        </tbody></table>\n" +
-                "        \n" +
-                "      </td>\n" +
-                "    </tr>\n" +
-                "  </tbody></table>\n" +
-                "  <table role=\"presentation\" class=\"m_-6186904992287805515content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;max-width:580px;width:100%!important\" width=\"100%\">\n" +
-                "    <tbody><tr>\n" +
-                "      <td width=\"10\" height=\"10\" valign=\"middle\"></td>\n" +
-                "      <td>\n" +
-                "        \n" +
-                "                <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse\">\n" +
-                "                  <tbody><tr>\n" +
-                "                    <td bgcolor=\"#1D70B8\" width=\"100%\" height=\"10\"></td>\n" +
-                "                  </tr>\n" +
-                "                </tbody></table>\n" +
-                "        \n" +
-                "      </td>\n" +
-                "      <td width=\"10\" valign=\"middle\" height=\"10\"></td>\n" +
-                "    </tr>\n" +
-                "  </tbody></table>\n" +
+                "    html {\n" +
+                "      font-family: sans-serif;\n" +
+                "      text-align:center;\n" +
+                "      align-content:center;\n" +
+                "    }\n" +
                 "\n" +
+                "    table {\n" +
+                "      width:560px;\n" +
+                "      border-collapse: collapse;\n" +
+                "      border: 2px solid rgb(200,200,200);\n" +
+                "      letter-spacing: 1px;\n" +
+                "      font-size: 0.9rem;\n" +
+                "    }\n" +
                 "\n" +
+                "    td, th {\n" +
+                "      border: 1px solid rgb(190,190,190);\n" +
+                "      padding: 10px 20px;\n" +
+                "    }\n" +
                 "\n" +
-                "  <table role=\"presentation\" class=\"m_-6186904992287805515content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;max-width:580px;width:100%!important\" width=\"100%\">\n" +
-                "    <tbody><tr>\n" +
-                "      <td height=\"30\"><br></td>\n" +
-                "    </tr>\n" +
-                "    <tr>\n" +
-                "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
-                "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
-                "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Es hat sich ein neuer WebBaKI-Nutzer registriert. Der Account kann unter folgendem Link aktiviert werden: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Nutzer verifizieren</a> </p></blockquote>\n Der Link bleibt 3 Tage gültig. " +
-                "        \n" +
-                "      </td>\n" +
-                "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
-                "    </tr>\n" +
-                "    <tr>\n" +
-                "      <td height=\"30\"><br></td>\n" +
-                "    </tr>\n" +
-                "  </tbody></table><div class=\"yj6qo\"></div><div class=\"adL\">\n" +
+                "    th {\n" +
+                "      background-color: rgb(235,235,235);\n" +
+                "    }\n" +
                 "\n" +
-                "</div></div>";
+                "    td {\n" +
+                "      text-align: center;\n" +
+                "    }\n" +
+                "\n" +
+                "    tr:nth-child(even) td {\n" +
+                "      background-color: rgb(250,250,250);\n" +
+                "    }\n" +
+                "\n" +
+                "    tr:nth-child(odd) td {\n" +
+                "      background-color: rgb(245,245,245);\n" +
+                "    }\n" +
+                "\n" +
+                "    caption {\n" +
+                "      padding: 10px;\n" +
+                "    }\n" +
+                "  </style>\n" +
+                "\n" +
+                "  <body>\n" +
+                "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Neue Registrierung auf WebBaKI</h2>\n" +
+                "    <p>Hallo "+name+",</p>\n" +
+                "    <p>Vielen Dank für die Registrierung. Bitte bestätige deine Email unter folgendem Link:</p>\n" +
+                "      <p>\n" +
+                "        <a href="+link+">Verifizieren</a>\n" +
+                "        <span></span>\n" +
+                "      </p>\n" +
+                "    <p>Der Link bleibt 3 Tage gültig.</p>\n" +
+                "  </body>\n" +
+                "</html>\n";
     }
 
 }
