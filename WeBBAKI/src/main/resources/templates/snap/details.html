@@ -8,23 +8,25 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h2>Snapshot Details</h2><br>
-    <table class="table table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Datum</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="i: ${#numbers.sequence(questionnaires.size() -1,0,-1)}">
-            <td th:text="${questionnaires[i].id}"></td>
-            <td th:text="${questionnaires[i].user.email}"></td>
-            <td th:text="${questionnaires[i].date.toLocalDate().toString() + ' ' + questionnaires[i].date.toLocalTime().toString().substring(0,5)}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <h2>Snapshot Details</h2><br>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Datum</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i: ${#numbers.sequence(questionnaires.size() -1,0,-1)}">
+                <td th:text="${questionnaires[i].id}"></td>
+                <td th:text="${questionnaires[i].user.email}"></td>
+                <td th:text="${questionnaires[i].date.toLocalDate().toString() + ' ' + questionnaires[i].date.toLocalTime().toString().substring(0,5)}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

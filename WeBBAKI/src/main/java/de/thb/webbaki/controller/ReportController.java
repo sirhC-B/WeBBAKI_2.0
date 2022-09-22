@@ -4,14 +4,11 @@ import de.thb.webbaki.controller.form.ReportFormModel;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.entity.Scenario;
-import de.thb.webbaki.entity.User;
-import de.thb.webbaki.entity.Scenario;
 import de.thb.webbaki.service.MasterScenarioService;
 import de.thb.webbaki.service.QuestionnaireService;
 import de.thb.webbaki.service.ScenarioService;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,8 +49,7 @@ public class ReportController {
     }
     @PostMapping("/report")
     public String submitQuestionnaire(@ModelAttribute("report") @Valid ReportFormModel questionnaireFormModel,
-                                      BindingResult result, Authentication authentication,
-                                      RedirectAttributes redirectAttributes) {
+                                      Authentication authentication) {
 
         if (userService.getUserByEmail(authentication.getName()) != null){
             User user = userService.getUserByEmail(authentication.getName());
@@ -97,7 +93,7 @@ public class ReportController {
 
     @Transactional
     @GetMapping(path = "/report/chronic/{questID}")
-    public String deleteQuestionnaireByID(@PathVariable("questID") long questID, RedirectAttributes redirectAttributes){
+    public String deleteQuestionnaireByID(@PathVariable("questID") long questID){
         questionnaireService.delQuest(questID);
 
         return "redirect:/report/chronic";
