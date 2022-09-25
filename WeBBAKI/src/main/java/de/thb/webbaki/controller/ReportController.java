@@ -52,8 +52,8 @@ public class ReportController {
                                       BindingResult result, Authentication authentication,
                                       RedirectAttributes redirectAttributes) {
 
-        if (userService.getUserByEmail(authentication.getName()) != null){
-            User user = userService.getUserByEmail(authentication.getName());
+        if (userService.getUserByUsername(authentication.getName()) != null){
+            User user = userService.getUserByUsername(authentication.getName());
             questionnaireFormModel.setUser(user);
             questionnaireService.saveQuestionaire(questionnaireFormModel);
         }
