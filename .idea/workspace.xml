@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="User Authorization /admin.html">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/ReportController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/create_report.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/create_report.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,6 +62,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75"
+  }
+}]]></component>
   <component name="RunManager">
     <configuration name="WeBBAKIApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="WeBBAKI" />

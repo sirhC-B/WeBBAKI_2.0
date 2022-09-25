@@ -49,7 +49,8 @@ public class ReportController {
     }
     @PostMapping("/report")
     public String submitQuestionnaire(@ModelAttribute("report") @Valid ReportFormModel questionnaireFormModel,
-                                      Authentication authentication) {
+                                      BindingResult result, Authentication authentication,
+                                      RedirectAttributes redirectAttributes) {
 
         if (userService.getUserByEmail(authentication.getName()) != null){
             User user = userService.getUserByEmail(authentication.getName());
