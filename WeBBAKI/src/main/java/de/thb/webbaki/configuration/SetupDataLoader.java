@@ -56,6 +56,9 @@ public class SetupDataLoader implements
         createUserIfNotFound("Schramm", "Christian", "Telekommunikation", "UnterBranche Telekom",
         "Meta", "Passwort1234", Arrays.asList(adminRole), "schrammbox@gmail.com", true, "schrammbox");
 
+        createUserIfNotFound("Schönberg", "Leon", "Telekommunikation", "UnterBranche Telekom",
+                "Meta", "Passwort1234", Arrays.asList(adminRole), "schoenbe@th-brandenburg.de", true, "schoenbe");
+
         alreadySetup = true;
 
     }
