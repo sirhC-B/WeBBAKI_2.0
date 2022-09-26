@@ -53,14 +53,12 @@ public class ReportController {
                                       RedirectAttributes redirectAttributes) {
 
         if (userService.getUserByUsername(authentication.getName()) != null){
-            User user = userService.getUserByUsername(authentication.getName());
+            User user = userService.getUserByEmail(authentication.getName());
             questionnaireFormModel.setUser(user);
             questionnaireService.saveQuestionaire(questionnaireFormModel);
         }
-
         return "redirect:/report/chronic";
     }
-
 
     @GetMapping("/report/chronic")
     public String showQuestChronic(Authentication authentication,Model model) {
@@ -94,7 +92,7 @@ public class ReportController {
 
     @Transactional
     @GetMapping(path = "/report/chronic/{questID}")
-    public String deleteQuestionnaireByID(@PathVariable("questID") long questID){
+    public String deleteQuestionnaireByID(@PathVariable("questID") long questID, RedirectAttributes redirectAttributes){
         questionnaireService.delQuest(questID);
 
         return "redirect:/report/chronic";

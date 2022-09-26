@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Report saving works">
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Register 1 Email -&gt; n usernames works.&#10;&#10;Login only with usernames anymore though">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/ReportController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/create_report.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/create_report.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/repository/QuestionnaireRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/repository/QuestionnaireRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/security/MyUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/security/MyUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/QuestionnaireService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/QuestionnaireService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +70,9 @@
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75"
+    "RequestMappingsPanelWidth1": "75",
+    "WebServerToolWindowFactoryState": "false",
+    "spring.configuration.checksum": "1414bbe933792e16d677468e5cad7cba"
   }
 }]]></component>
   <component name="RunManager">
@@ -95,6 +101,7 @@
       <workItem from="1653461997031" duration="813000" />
       <workItem from="1655402464990" duration="233000" />
       <workItem from="1655403920939" duration="6014000" />
+      <workItem from="1664181139935" duration="5540000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -131,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664101963159</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Report saving works">
+      <created>1664103089132</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1664103089132</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,6 +206,25 @@
     <MESSAGE value="Created DeleteQuestionnaire Method&#10;&#10;NOT FINISHED YET" />
     <MESSAGE value="User Authorization /admin.html" />
     <MESSAGE value="Report saving works" />
-    <option name="LAST_COMMIT_MESSAGE" value="Report saving works" />
+    <MESSAGE value="Register 1 Email -&gt; n usernames works.&#10;&#10;Login only with usernames anymore though" />
+    <option name="LAST_COMMIT_MESSAGE" value="Register 1 Email -&gt; n usernames works.&#10;&#10;Login only with usernames anymore though" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint enabled="true" log-message="true" log-stack="true" type="java-exception">
+          <properties>
+            <catch-class-filters>
+              <class-filter pattern="de.thb.webbaki.entity.Questionnaire" />
+              <class-filter pattern="de.thb.webbaki.service.QuestionnaireService" />
+              <class-filter pattern="de.thb.webbaki.repository.QuestionnaireRepository" />
+              <class-filter pattern="de.thb.webbaki.controller.ReportController" />
+              <class-filter pattern="de.thb.webbaki.controller.form.ReportFormModel" />
+            </catch-class-filters>
+            <option name="catch-filters-enabled" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

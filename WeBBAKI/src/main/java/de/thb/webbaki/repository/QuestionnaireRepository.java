@@ -15,6 +15,5 @@ public interface QuestionnaireRepository extends CrudRepository<Questionnaire, L
     Questionnaire findById(long id);
     Questionnaire findFirstByUser_IdOrderByIdDesc(long id);
 
-
     void deleteQuestionnaireById(long id);
 }
