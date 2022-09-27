@@ -39,7 +39,7 @@ public class ReportController {
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
 
-        Questionnaire quest = questionnaireService.getNewestQuestionnaireByUserId(userService.getUserByEmail(authentication.getName()).getId());
+        Questionnaire quest = questionnaireService.getNewestQuestionnaireByUserId(userService.getUserByUsername(authentication.getName()).getId());
         model.addAttribute("quest", quest);
 
         Map<Long, String[]> questMap = questionnaireService.getMapping(quest);
@@ -53,7 +53,7 @@ public class ReportController {
                                       RedirectAttributes redirectAttributes) {
 
         if (userService.getUserByUsername(authentication.getName()) != null){
-            User user = userService.getUserByEmail(authentication.getName());
+            User user = userService.getUserByUsername(authentication.getName());
             questionnaireFormModel.setUser(user);
             questionnaireService.saveQuestionaire(questionnaireFormModel);
         }
@@ -63,8 +63,8 @@ public class ReportController {
     @GetMapping("/report/chronic")
     public String showQuestChronic(Authentication authentication,Model model) {
 
-        if (userService.getUserByEmail(authentication.getName()) != null) {
-            User user = userService.getUserByEmail(authentication.getName());
+        if (userService.getUserByUsername(authentication.getName()) != null) {
+            User user = userService.getUserByUsername(authentication.getName());
             final var questList = questionnaireService.getAllQuestByUser(user.getId());
             model.addAttribute("questList", questList);
 
