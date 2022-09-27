@@ -90,7 +90,7 @@ public class SetupDataLoader implements
     User createUserIfNotFound(final String lastName, final String firstName, final String sector, final String branche,
                               final String company, final String password, final Collection<Role> roles, final String email,
                               final boolean enabled, final String username) {
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             user = new User();
             user.setLastName(lastName);
