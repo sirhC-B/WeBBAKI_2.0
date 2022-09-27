@@ -1,6 +1,6 @@
 package de.thb.webbaki.controller;
 
-import de.thb.webbaki.controller.form.ReportFormModel;
+import de.thb.webbaki.controller.form.ThreatMatrixFormModel;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.entity.Scenario;
@@ -34,7 +34,7 @@ public class ReportController {
     @GetMapping("/report")
     public String showQuestionnaireForm(Model model,Authentication authentication) {
 
-        model.addAttribute("report", new ReportFormModel());
+        model.addAttribute("report", new ThreatMatrixFormModel());
 
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
@@ -48,7 +48,7 @@ public class ReportController {
         return "report/create_report";
     }
     @PostMapping("/report")
-    public String submitQuestionnaire(@ModelAttribute("report") @Valid ReportFormModel questionnaireFormModel,
+    public String submitQuestionnaire(@ModelAttribute("report") @Valid ThreatMatrixFormModel questionnaireFormModel,
                                       BindingResult result, Authentication authentication,
                                       RedirectAttributes redirectAttributes) {
 
@@ -82,7 +82,7 @@ public class ReportController {
         model.addAttribute("questMap", questMap);
 
         // NEEDED
-        model.addAttribute("report", new ReportFormModel());
+        model.addAttribute("report", new ThreatMatrixFormModel());
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
 

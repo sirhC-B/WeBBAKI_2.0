@@ -1,6 +1,6 @@
 package de.thb.webbaki.service;
 
-import de.thb.webbaki.controller.form.ReportFormModel;
+import de.thb.webbaki.controller.form.ThreatMatrixFormModel;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.repository.QuestionnaireRepository;
 import de.thb.webbaki.repository.ScenarioRepository;
@@ -50,7 +50,7 @@ public class QuestionnaireService {
     }
 
 
-    public Questionnaire saveQuestionaire(ReportFormModel form) {
+    public Questionnaire saveQuestionaire(ThreatMatrixFormModel form) {
         String[] prob = form.getProb();
         String[] imp = form.getImp();
 

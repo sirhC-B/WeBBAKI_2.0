@@ -93,11 +93,32 @@ nav {
     font-weight: 500;
 }
 
+/*Report Navigation stuff*/
+/* only use hover effect if the width is > 990px*/
+@media only screen and (min-width: 990px) {
+    .dropdown-li:hover {
+        background-color: aliceblue;
+    }
+}
+/*--------------*/
+
 /* NAVBAR CUSTOMIZATION FOR DIFFERENT DEVICES */
 @media only screen and (max-width: 990px) {
     header {
         height: 450px;
     }
+
+    /*Report Navigation stuff*/
+    #dropdown-ul{
+        background-color: rgb(250,250,250);
+        width: 50%;
+    }
+
+    /*show nav in the foreground*/
+    #navbarNav{
+        z-index: 2;
+    }
+    /*--------------*/
 
     .navbar-collapse {
         background-color: #f8f9fa;
@@ -128,27 +149,27 @@ footer {
 
 /* STARTSEITE NACH LOGIN */
 
-/* CSS FOR create_report.html  */
+/* CSS FOR create_threatmatrix.html  */
 
-.report-table {
+.threatmatrix-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 100px;
 }
 
-.report-table thead tr {
+.threatmatrix-table thead tr {
     border-bottom: 1px dashed grey;
 }
 
-.report-table tfoot tr {
+.threatmatrix-table tfoot tr {
     border-bottom: 1px dashed grey;
 }
 
-.report-table tbody tr {
+.threatmatrix-table tbody tr {
     border-bottom: 1px solid black;
 }
 
-.report-table thead tr td {
+.threatmatrix-table thead tr td {
     font-size: 16px;
     letter-spacing: 1px;
     color: grey;
@@ -173,10 +194,10 @@ td a:hover {
 }
 
 /* WIDTH OF ELEMENTS */
-.report-select{
+.threatmatrix-select{
     width: 20%;
 }
 
-.report-szenario{
+.threatmatrix-szenario{
     width:50%;
 }
