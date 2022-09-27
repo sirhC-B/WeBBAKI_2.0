@@ -4,24 +4,24 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <style>
-        .report-table{
+        .threatmatrix-table{
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 100px;
         }
 
-        .report-table thead tr{
+        .threatmatrix-table thead tr{
             border-bottom: 1px dashed grey;
         }
 
-        .report-table tfoot tr{
+        .threatmatrix-table tfoot tr{
             border-bottom: 1px dashed grey;
         }
-        .report-table tbody tr{
+        .threatmatrix-table tbody tr{
             border-bottom: 1px solid black;
         }
 
-        .report-table thead tr td{
+        .threatmatrix-table thead tr td{
             font-size:16px;
             letter-spacing: 1px;
             color: grey;
@@ -109,18 +109,18 @@
         });
     </script>
 
-    <title>Report</title>
+    <title>Bedrohungsmatrix</title>
 
 </head>
 <body onload="calc();">
 <div layout:fragment="content" class="container">
     <h2>Fragebogen</h2><br>
-    <form th:object="${report}" th:action="@{/report}" method="post">
+    <form th:object="${threatmatrix}" th:action="@{/templates/threatmatrix}" method="post">
 
         <th:block th:each="masterScenario : ${masterScenarioList}">
             <h5 th:text="${masterScenario.name}"></h5>
 
-            <table class="report-table">
+            <table class="threatmatrix-table">
                 <thead>
                 <tr>
                     <td>#</td>
@@ -181,7 +181,7 @@
         </th:block>
         <!-- Szenario hinzu!
         <h5>Extras</h5>
-            <a class="btn btn-outline-secondary" role="button" th:href="@{/report/add_szenario}"><i class="bi bi-plus-circle"></i> neues Szenario anlegen</a>
+            <a class="btn btn-outline-secondary" role="button" th:href="@{/threatmatrix/add_szenario}"><i class="bi bi-plus-circle"></i> neues Szenario anlegen</a>
         <br><br>
         -->
         <h3><label class="form-group shadow-textarea" >Kommentar zum Fragebogen</label></h3>

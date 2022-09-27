@@ -30,10 +30,10 @@
                 <td th:text="${questList[i].date.toLocalDate()}"></td>
                 <td th:text="${questList[i].date.toLocalTime().toString().substring(0,5)}"></td>
                 <td>
-                    <a th:href="@{/report/open/{questID}(questID=${questList[i].id})}">
+                    <a th:href="@{/threatmatrix/open/{questID}(questID=${questList[i].id})}">
                         <button class="btn btn-outline-primary">Details</button>
                     </a>
-                    <a th:href="@{/report/chronic/{questID}(questID=${questList[i].id})}">
+                    <a th:href="@{/threatmatrix/chronic/{questID}(questID=${questList[i].id})}">
                         <button class="btn btn-outline-danger"><span class="bi bi-trash"></span>Löschen</button>
                     </a>
                 </td>

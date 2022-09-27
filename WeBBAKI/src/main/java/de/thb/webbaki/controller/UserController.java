@@ -79,10 +79,10 @@ public class UserController {
         return "/account/user_details";
     }
 
-    @GetMapping("/data/user/reports")
+    @GetMapping("/data/user/threatmatrices")
     public String showCustomerOrders() {
 
-        return "account/user_reports";
+        return "account/user_threatmatrices";
     }
 
     @GetMapping(path = "/confirmation/confirmByUser")
