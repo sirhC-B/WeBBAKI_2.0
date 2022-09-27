@@ -115,7 +115,7 @@
 <body onload="calc();">
 <div layout:fragment="content" class="container">
     <h2>Fragebogen</h2><br>
-    <form th:object="${threatmatrix}" th:action="@{/templates/threatmatrix}" method="post">
+    <form th:object="${threatmatrix}" th:action="@{/threatmatrix}" method="post">
 
         <th:block th:each="masterScenario : ${masterScenarioList}">
             <h5 th:text="${masterScenario.name}"></h5>
