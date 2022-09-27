@@ -13,7 +13,7 @@ public class ReportController {
       return "report";
     }
 
-    @GetMapping("test")
+    /*@GetMapping("test")
     public void getPdf(HttpServletResponse response){
         try {
             ServletOutputStream outputStream = response.getOutputStream();
@@ -22,5 +22,5 @@ public class ReportController {
         }catch (Exception e){
 
         }
-    }
+    }*/
 }
