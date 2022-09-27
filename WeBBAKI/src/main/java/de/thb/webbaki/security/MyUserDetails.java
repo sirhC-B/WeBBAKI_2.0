@@ -36,4 +36,9 @@ public class MyUserDetails implements UserDetails {
         return list;
     }
 
+    @Override
+    public String getUsername(){
+        return username;
+    }
+
 }

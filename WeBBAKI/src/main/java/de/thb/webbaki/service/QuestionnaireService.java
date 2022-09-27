@@ -24,15 +24,15 @@ public class QuestionnaireService {
     private final UserRepository userRepository;
     private final ScenarioRepository scenarioRepository;
 
-    public Questionnaire getEmptyQuestionnaire(){
+    public Questionnaire getEmptyQuestionnaire() {
         return new Questionnaire();
     }
 
-    public Questionnaire getQuestionnaire(long id){
+    public Questionnaire getQuestionnaire(long id) {
         return questionnaireRepository.findById(id);
     }
 
-    public Questionnaire getNewestQuestionnaireByUserId(long id){
+    public Questionnaire getNewestQuestionnaireByUserId(long id) {
         return questionnaireRepository.findFirstByUser_IdOrderByIdDesc(id);
     }
 
@@ -45,19 +45,18 @@ public class QuestionnaireService {
     Used Repository-Method deleteQuestionnaireById from
     @QuestionnaireRepository
      */
-    public void delQuest(long id){
+    public void delQuest(long id) {
         questionnaireRepository.deleteQuestionnaireById(id);
     }
 
 
-    public void saveQuestionaire(ReportFormModel form){
+    public Questionnaire saveQuestionaire(ReportFormModel form) {
         String[] prob = form.getProb();
         String[] imp = form.getImp();
 
         Map<Long, String> map = new HashMap<>();
-        for (long i = 1; i < prob.length; i++)
-        {
-            map.put(i, prob[(int)i] +';'+ imp[(int)i]);
+        for (long i = 1; i < prob.length; i++) {
+            map.put(i, prob[(int) i] + ';' + imp[(int) i]);
         }
 
         final var questionnaire = questionnaireRepository.save(Questionnaire.builder()
@@ -66,25 +65,22 @@ public class QuestionnaireService {
                 .mapping(map.toString())
                 .comment(form.getComment())
                 .build());
-    };
 
-    public Map<Long, String[]> getMapping(Questionnaire quest){
-        if(quest != null) {
-            String rawString = quest.getMapping();
-            // CUT "{" & "}"
-            rawString = rawString.substring(1, rawString.length() - 1);
-
-
-            Map<Long, String[]> newMap = Arrays.stream(rawString.split(", "))
-                    .map(s -> s.split("="))
-                    .collect(Collectors.toMap(s -> Long.parseLong(s[0]), s -> s[1].split(";")));
-
-            return newMap;
-        }else return null;
-
+        return questionnaire;
     }
 
+    public Map<Long, String[]> getMapping(Questionnaire quest) {
+        String rawString = quest.getMapping();
+        // CUT "{" & "}"
+        rawString = rawString.substring(1, rawString.length() - 1);
 
+
+        Map<Long, String[]> newMap = Arrays.stream(rawString.split(", "))
+                .map(s -> s.split("="))
+                .collect(Collectors.toMap(s -> Long.parseLong(s[0]), s -> s[1].split(";")));
+
+        return newMap;
+    }
 
 
 }

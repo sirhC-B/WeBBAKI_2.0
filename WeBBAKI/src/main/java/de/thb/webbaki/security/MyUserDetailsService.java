@@ -29,21 +29,17 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Transactional
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         try {
-            User user = userRepository.findByEmail(email);
-
-            if(user == null) {
-                user = userRepository.findByUsername(email);
-            }
+            User user = userRepository.findByUsername(username);
 
             if (user == null) {
-                throw new UsernameNotFoundException("No user found with username: " + email);
+                throw new UsernameNotFoundException("No user found with username: " + username);
             }
 
             return new org.springframework.security.core.userdetails.User(
-                    user.getEmail(), user.getPassword(), user.isEnabled(), true, true,
+                    user.getUsername(), user.getPassword(), user.isEnabled(), true, true,
                     true, getAuthorities(user.getRoles()));
 
         } catch (final Exception e) {
