@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Add a ReportController and Reportemplate.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/ReportController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/css/layout_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/css/layout_style.css" afterDir="false" />
-    </list>
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Pdf im Controller." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -119,7 +115,7 @@
       <workItem from="1664206985050" duration="32000" />
       <workItem from="1664207044848" duration="14041000" />
       <workItem from="1664274490238" duration="765000" />
-      <workItem from="1664286281656" duration="2077000" />
+      <workItem from="1664286281656" duration="2417000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -170,7 +166,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664282005377</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Pdf im Controller.">
+      <created>1664288664758</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1664288664759</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,6 +236,7 @@
     <MESSAGE value="Report saving works" />
     <MESSAGE value="Change &quot;report&quot; to threatmatrix. So it is possible to use the right words. The report is the collection of fata from all the newest threatmatrices." />
     <MESSAGE value="Add a ReportController and Reportemplate." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add a ReportController and Reportemplate." />
+    <MESSAGE value="Pdf im Controller." />
+    <option name="LAST_COMMIT_MESSAGE" value="Pdf im Controller." />
   </component>
 </project>
