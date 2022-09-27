@@ -53,6 +53,20 @@
                     <a class="nav-link" href="/report">Bedrohungsmatrix</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <div  class="dropdown" id="dropdown-div" >
+                        <a class="dropdown-toggle nav-link" id="dropdown-a" type="button" aria-expanded="false" data-toggle="dropdown">Report</a>
+
+                        <ul class="dropdown-menu" id="dropdown-ul">
+                            <li class="dropdown-li">
+                                <a href="/report" class="nav-link">Sektor</a>
+                            </li>
+                            <li class="dropdown-li">
+                                <a href="/report" class="nav-link">Branche</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" href="/account/user_details">Konto</a>
                 </li>
             </ul>

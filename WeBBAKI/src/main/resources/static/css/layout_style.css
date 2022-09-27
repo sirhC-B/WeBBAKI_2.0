@@ -93,11 +93,32 @@ nav {
     font-weight: 500;
 }
 
+/*Leons stuff*/
+/* only use hover effect if the width is > 990px*/
+@media only screen and (min-width: 990px) {
+    .dropdown-li:hover {
+        background-color: aliceblue;
+    }
+}
+/*--------------*/
+
 /* NAVBAR CUSTOMIZATION FOR DIFFERENT DEVICES */
 @media only screen and (max-width: 990px) {
     header {
         height: 450px;
     }
+
+    /*Leons stuff*/
+    #dropdown-ul{
+        background-color: rgb(250,250,250);
+        width: 50%;
+    }
+
+    /*show nav in the foreground*/
+    #navbarNav{
+        z-index: 2;
+    }
+    /*--------------*/
 
     .navbar-collapse {
         background-color: #f8f9fa;
