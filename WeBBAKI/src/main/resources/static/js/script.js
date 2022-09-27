@@ -8,7 +8,7 @@ $(document).ready(function () {
         });
     }
 
-    //create hover-effect for the report nav element
+    //create hover-effect for the threatmatrix nav element
     $('#dropdown-div').hover(function() {
             $("#dropdown-div").addClass("show");
             $("#dropdown-ul").addClass("show");

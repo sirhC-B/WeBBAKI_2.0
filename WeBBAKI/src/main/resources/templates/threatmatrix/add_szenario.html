@@ -3,23 +3,23 @@
       layout:decorate="~{layout.html}">
 <head>
         <style>
-            .report-table{
+            .threatmatrix-table{
                 border-collapse: collapse;
                 margin-bottom: 100px;
             }
 
-            .report-table thead tr{
+            .threatmatrix-table thead tr{
                 border-bottom: 1px dashed grey;
             }
 
-            .report-table tfoot tr{
+            .threatmatrix-table tfoot tr{
                 border-bottom: 1px dashed grey;
             }
-            .report-table tbody tr{
+            .threatmatrix-table tbody tr{
                 border-bottom: 1px solid black;
             }
 
-            .report-table thead tr td{
+            .threatmatrix-table thead tr td{
                 font-size:16px;
                 letter-spacing: 1px;
                 color: grey;
@@ -30,10 +30,10 @@
 <body>
 <div layout:fragment="content">
     <h2>Neues Szenario hinzufuegen</h2><br>
-    <form th:object="${scenario}" th:action="@{/report/add_szenario}" method="post">
+    <form th:object="${scenario}" th:action="@{/threatmatrix/add_szenario}" method="post">
             <h5></h5>
 
-            <table class="report-table">
+            <table class="threatmatrix-table">
                 <thead>
                 <tr>
                     <td>Szeanrien Name</td>

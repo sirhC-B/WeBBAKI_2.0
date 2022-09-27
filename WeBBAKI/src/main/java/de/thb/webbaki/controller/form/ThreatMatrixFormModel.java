@@ -1,7 +1,6 @@
 package de.thb.webbaki.controller.form;
 
 import de.thb.webbaki.entity.Role;
-import de.thb.webbaki.entity.Scenario;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.enums.*;
 import lombok.AllArgsConstructor;
@@ -11,14 +10,13 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
-import java.util.Map;
 
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReportFormModel {
+public class ThreatMatrixFormModel {
 
     // get ENUM for Frontend
     @NotNull(message = "Probability null")

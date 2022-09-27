@@ -1,6 +1,6 @@
 package de.thb.webbaki.controller;
 
-import de.thb.webbaki.controller.form.ReportFormModel;
+import de.thb.webbaki.controller.form.ThreatMatrixFormModel;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.entity.Scenario;
@@ -22,7 +22,7 @@ import java.util.Map;
 
 @Controller
 @AllArgsConstructor
-public class ReportController {
+public class ThreatMatrixController {
 
     private final QuestionnaireService questionnaireService;
     private final MasterScenarioService masterScenarioService;
@@ -31,10 +31,10 @@ public class ReportController {
 
 
 
-    @GetMapping("/report")
+    @GetMapping("/threatmatrix")
     public String showQuestionnaireForm(Model model,Authentication authentication) {
 
-        model.addAttribute("report", new ReportFormModel());
+        model.addAttribute("threatmatrix", new ThreatMatrixFormModel());
 
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
@@ -45,10 +45,10 @@ public class ReportController {
         Map<Long, String[]> questMap = questionnaireService.getMapping(quest);
         model.addAttribute("questMap", questMap);
 
-        return "report/create_report";
+        return "threatmatrix/create_threatmatrix";
     }
-    @PostMapping("/report")
-    public String submitQuestionnaire(@ModelAttribute("report") @Valid ReportFormModel questionnaireFormModel,
+    @PostMapping("/threatmatrix")
+    public String submitQuestionnaire(@ModelAttribute("threatmatrix") @Valid ThreatMatrixFormModel questionnaireFormModel,
                                       BindingResult result, Authentication authentication,
                                       RedirectAttributes redirectAttributes) {
 
@@ -58,11 +58,11 @@ public class ReportController {
             questionnaireService.saveQuestionaire(questionnaireFormModel);
         }
 
-        return "redirect:/report/chronic";
+        return "redirect:/threatmatrix/chronic";
     }
 
 
-    @GetMapping("/report/chronic")
+    @GetMapping("/threatmatrix/chronic")
     public String showQuestChronic(Authentication authentication,Model model) {
 
         if (userService.getUserByEmail(authentication.getName()) != null) {
@@ -71,11 +71,11 @@ public class ReportController {
             model.addAttribute("questList", questList);
 
         }
-        return "report/chronic";
+        return "threatmatrix/chronic";
     }
 
-    @GetMapping("/report/open/{questID}")
-    public String showReportByID(@PathVariable("questID") long questID, Model model) {
+    @GetMapping("/threatmatrix/open/{questID}")
+    public String showThreatMatrixByID(@PathVariable("questID") long questID, Model model) {
 
         Questionnaire quest = questionnaireService.getQuestionnaire(questID);
         model.addAttribute("quest", quest);
@@ -84,23 +84,23 @@ public class ReportController {
         model.addAttribute("questMap", questMap);
 
         // NEEDED
-        model.addAttribute("report", new ReportFormModel());
+        model.addAttribute("threatmatrix", new ThreatMatrixFormModel());
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
 
-        return "report/create_report";
+        return "threatmatrix/create_threatmatrix";
     }
 
 
     @Transactional
-    @GetMapping(path = "/report/chronic/{questID}")
+    @GetMapping(path = "/threatmatrix/chronic/{questID}")
     public String deleteQuestionnaireByID(@PathVariable("questID") long questID){
         questionnaireService.delQuest(questID);
 
-        return "redirect:/report/chronic";
+        return "redirect:/threatmatrix/chronic";
     }
 
-    @GetMapping("/report/add_szenario")
+    @GetMapping("/threatmatrix/add_szenario")
     public String addSzenario(Model model){
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
@@ -108,10 +108,10 @@ public class ReportController {
         Scenario scenario = new Scenario();
         model.addAttribute("scenario",scenario);
 
-        return "report/add_szenario";
+        return "threatmatrix/add_szenario";
     }
 
-    @PostMapping("/report/add_szenario")
+    @PostMapping("/threatmatrix/add_szenario")
     public String submitSzenario(@ModelAttribute("scenario") Scenario scenario){
         String[] sList = scenario.getName().split(",");
         scenario.setName(sList[0]);
@@ -120,7 +120,7 @@ public class ReportController {
         scenarioService.addScenario(scenario);
 
 
-        return "redirect:/report";
+        return "redirect:/threatmatrix";
     }
 
 
