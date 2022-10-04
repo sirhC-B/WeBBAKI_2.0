@@ -33,7 +33,6 @@ public class SnapshotService {
         for (long i = 1; i < userList.size(); i++){
             long userID = userList.get((int)i).getId();
 
-
             Questionnaire quest = questionnaireService.getNewestQuestionnaireByUserId(userID);
             if(quest != null) {
                 questIDs.add(quest.getId());
@@ -83,7 +82,7 @@ public class SnapshotService {
             Map<Long, String[]> map = questionnaireService.getMapping(quest);
             questcount ++;
             for(long i= 1; i <= map.size(); i++){
-                finalMap.put(i, new Long[] {finalMap.get(i)[0] + getProbNum(map.get(i)[0]),finalMap.get(i)[1] + getImpNum(map.get(i)[1])});
+                finalMap.put(i, new Long[] {finalMap.get(i)[0] + questionnaireService.getProbabilityLongFromString(map.get(i)[0]),finalMap.get(i)[1] + questionnaireService.getImpactLongFromString(map.get(i)[1])});
         }
         }
         for(long i= 1; i <= finalMap.size(); i++){
@@ -97,94 +96,10 @@ public class SnapshotService {
         Map<Long, Long[]> numMap = calcAverageValues(snapID);
         Map<Long, String[]> valueMap = new HashMap<>();
         for(long i= 1; i <= numMap.size(); i++){
-            valueMap.put(i, new String[] {getProbValue(numMap.get(i)[0]),getImpValue(numMap.get(i)[1])});
-            System.out.println(getProbValue(numMap.get(i)[0]) + "-" +  getImpValue(numMap.get(i)[1]));}
+            valueMap.put(i, new String[] {questionnaireService.getProbabilityStringFromLong(numMap.get(i)[0]), questionnaireService.getImpactStringFromLong(numMap.get(i)[1])});
+            System.out.println(questionnaireService.getProbabilityStringFromLong(numMap.get(i)[0]) + "-" +  questionnaireService.getImpactStringFromLong(numMap.get(i)[1]));}
 
 
         return null;
-    }
-
-        public long getImpNum(String impValue){
-        long impNum = 0;
-
-        switch (impValue) {
-            case "keine":
-                impNum = 1;
-                break;
-            case "geringe":
-                impNum = 2;
-                break;
-            case "hohe":
-                impNum = 3;
-                break;
-            case "existenzielle":
-                impNum = 4;
-                break;
-        }
-
-        return impNum;
-    }
-    public String getImpValue(long impNum){
-        String impValue = "";
-
-        switch ((int) impNum) {
-            case 1:
-                impValue = "keine";
-                break;
-            case 2:
-                impValue = "geringe";
-                break;
-            case 3:
-                impValue = "hohe";
-                break;
-            case 4:
-                impValue = "existenzielle";
-                break;
-        }
-        return impValue;
-    }
-
-    public long getProbNum(String probValue){
-        long probNum = 0;
-        switch (probValue) {
-            case "nie":
-                probNum = 0;
-                break;
-            case "selten":
-                probNum = 1;
-                break;
-            case "mittel":
-                probNum = 2;
-                break;
-            case "haeufig":
-                probNum = 3;
-                break;
-            case "sehr haeufig":
-                probNum = 4;
-                break;
-        }
-        return probNum;
-    }
-
-    public String getProbValue(long probNum){
-        String probValue = "";
-        switch ((int)probNum) {
-            case 0:
-                probValue = "nie";
-                break;
-            case 1:
-                probValue = "selten";
-                break;
-            case 2:
-                probValue = "mittel";
-                break;
-            case 3:
-                probValue = "haeufig";
-                break;
-            case 4:
-                probValue = "sehr haeufig";
-                break;
-        }
-        return probValue;
     }
 }

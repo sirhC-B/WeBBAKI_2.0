@@ -10,10 +10,7 @@ import lombok.Builder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -80,6 +77,126 @@ public class QuestionnaireService {
                 .collect(Collectors.toMap(s -> Long.parseLong(s[0]), s -> s[1].split(";")));
 
         return newMap;
+    }
+
+    public long getImpactLongFromString(String impValue){
+        long impNum = -1;
+
+        switch (impValue) {
+            case "keine":
+                impNum = 1;
+                break;
+            case "geringe":
+                impNum = 2;
+                break;
+            case "hohe":
+                impNum = 3;
+                break;
+            case "existenzielle":
+                impNum = 4;
+                break;
+        }
+
+        return impNum;
+    }
+    public String getImpactStringFromLong(long impNum){
+        String impValue = "";
+
+        switch ((int) impNum) {
+            case 1:
+                impValue = "keine";
+                break;
+            case 2:
+                impValue = "geringe";
+                break;
+            case 3:
+                impValue = "hohe";
+                break;
+            case 4:
+                impValue = "existenzielle";
+                break;
+        }
+        return impValue;
+    }
+
+    public long getProbabilityLongFromString(String probValue){
+        long probNum = -1;
+        switch (probValue) {
+            case "nie":
+                probNum = 0;
+                break;
+            case "selten":
+                probNum = 1;
+                break;
+            case "mittel":
+                probNum = 2;
+                break;
+            case "haeufig":
+                probNum = 3;
+                break;
+            case "sehr haeufig":
+                probNum = 4;
+                break;
+        }
+        return probNum;
+    }
+
+    public String getProbabilityStringFromLong(long probNum){
+        String probValue = "";
+        switch ((int)probNum) {
+            case 0:
+                probValue = "nie";
+                break;
+            case 1:
+                probValue = "selten";
+                break;
+            case 2:
+                probValue = "mittel";
+                break;
+            case 3:
+                probValue = "haeufig";
+                break;
+            case 4:
+                probValue = "sehr haeufig";
+                break;
+        }
+        return probValue;
+    }
+
+    /**
+     *
+     * @param impact
+     * @param probability
+     * @return ThreatSituation based on table from UP KRITIS
+     */
+    public long getThreatSituation(long impact, long probability) {
+        if(impact == -1 || probability == -1){
+            return -1;
+        }else if(probability < 4 || impact > 2){
+            return impact * probability;
+        }else{
+            if(impact == 2) {
+                return 6;
+            }else{
+                return 3;
+            }
+        }
+    }
+
+    /**
+     *
+     * @param questMap
+     * @return is the Queue of Threadsituations as Long Value
+     */
+    public Queue<Long> getThreatSituationQueueFromMapping(Map<Long, String[]> questMap){
+        Queue<Long> threatSituationQueue = new LinkedList<Long>();
+        for(long i = 1; i <= questMap.size(); i++ ){
+            final long probability = getProbabilityLongFromString(questMap.get(i)[0]);
+            final long impact = getImpactLongFromString(questMap.get(i)[1]);
+
+            threatSituationQueue.add(getThreatSituation(impact, probability));
+        }
+        return threatSituationQueue;
     }
 
 
