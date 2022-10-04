@@ -28,3 +28,19 @@
     display:none;
     padding:10px;
 }
+td a {
+    text-decoration: none;
+}
+
+td a:hover {
+    text-decoration: none;
+}
+
+/* WIDTH OF ELEMENTS */
+.threatmatrix-select{
+    width: 20%;
+}
+
+.threatmatrix-szenario{
+    width:50%;
+}
