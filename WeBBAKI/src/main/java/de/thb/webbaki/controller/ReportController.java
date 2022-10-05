@@ -38,8 +38,6 @@ public class ReportController {
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
 
-
-        //TODO abfangen fehler, wenn es kein Questionary gibt?
         final User user = userService.getUserByUsername(authentication.getName());
         final Questionnaire newestQuestionaire = questionnaireService.getNewestQuestionnaireByUserId(user.getId());
         final Map<Long, String[]> questMap = questionnaireService.getMapping(newestQuestionaire);
@@ -50,7 +48,7 @@ public class ReportController {
     }
 
     @GetMapping("report/download")
-    public void downloadPdf(HttpServletResponse response, Authentication authentication){
+    public void downloadPdf(HttpServletResponse response, Authentication authentication) throws IOException{
 
         response.setContentType("application/pdf");
         String headerKey = "Content-Disposition";
@@ -61,19 +59,14 @@ public class ReportController {
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         context.setVariable("masterScenarioList",masterScenarioList);
 
-        //TODO abfangen fehler, wenn es kein Questionary gibt?
         final User user = userService.getUserByUsername(authentication.getName());
         final Questionnaire newestQuestionaire = questionnaireService.getNewestQuestionnaireByUserId(user.getId());
         final Map<Long, String[]> questMap = questionnaireService.getMapping(newestQuestionaire);
         Queue<ThreatSituation> threatSituationQueue = questionnaireService.getThreatSituationQueueFromMapping(questMap);
         context.setVariable("threatSituationQueue", threatSituationQueue);
-        try {
-            reportService.generatePdfFromHtml(reportService.parseThymeleafTemplateToHtml("report/report", context),
+
+        reportService.generatePdfFromHtml(reportService.parseThymeleafTemplateToHtml("report/report", context),
                     response.getOutputStream());
-        } catch (IOException e) {
-            //TODO add better error handling
-            e.printStackTrace();
-        }
 
     }
 
