@@ -1,5 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org" >
 <body>
+    <h1 style="width: 100%; text-align: center; margin: 2em 0;padding: 1em 0">Dein Report</h1>
     <div th:fragment="report">
         <th:block th:each="masterScenario: ${masterScenarioList}" >
             <h5 th:text="${masterScenario.name}"></h5>
@@ -12,12 +13,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <th:block th:each="scenario, iStat: ${masterScenario.scenarios}">
+                    <th:block th:each="scenario: ${masterScenario.scenarios}">
                         <tr>
                             <td style="border-bottom: 1px solid grey;" th:text="${scenario.id}"></td>
 
                             <td style="border-bottom: 1px solid grey;" th:text="${scenario.name}"></td>
-                            <td style="border-bottom: 1px solid grey;" th:text="${threatSituationQueue.poll()}"></td>
+
+                            <!--Get next value from the Queue and parse the next element based on the value(the td)-->
+                            <th:block th:with="value=${threatSituationQueue.poll()}">
+                                <td style="border-bottom: 1px solid grey;">
+                                    <div th:style='${"float: left; width: 100%; height: 100%; text-align: center; border: black solid 1px; background-color: " + value.getColor() + ";"}'>
+                                        <div th:text="${value.getSymbol()}"></div>
+                                        <div style="clear: both; border-top: black solid 1px;" th:if="${value.getValue() != -1}" th:text="${value.getValue()}"></div>
+                                    </div>
+                                </td>
+
+                            </th:block>
                         </tr>
                     </th:block>
                 </tbody>

@@ -2,6 +2,7 @@ package de.thb.webbaki.service;
 
 import de.thb.webbaki.controller.form.ThreatMatrixFormModel;
 import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.enums.ThreatSituation;
 import de.thb.webbaki.repository.QuestionnaireRepository;
 import de.thb.webbaki.repository.ScenarioRepository;
 import de.thb.webbaki.repository.UserRepository;
@@ -169,7 +170,7 @@ public class QuestionnaireService {
      * @param probability
      * @return ThreatSituation based on table from UP KRITIS
      */
-    public long getThreatSituation(long impact, long probability) {
+    public long getThreatSituationLong(long impact, long probability) {
         if(impact == -1 || probability == -1){
             return -1;
         }else if(probability < 4 || impact > 2){
@@ -188,13 +189,13 @@ public class QuestionnaireService {
      * @param questMap
      * @return is the Queue of Threadsituations as Long Value
      */
-    public Queue<Long> getThreatSituationQueueFromMapping(Map<Long, String[]> questMap){
-        Queue<Long> threatSituationQueue = new LinkedList<Long>();
+    public Queue<ThreatSituation> getThreatSituationQueueFromMapping(Map<Long, String[]> questMap){
+        Queue<ThreatSituation> threatSituationQueue = new LinkedList<ThreatSituation>();
         for(long i = 1; i <= questMap.size(); i++ ){
             final long probability = getProbabilityLongFromString(questMap.get(i)[0]);
             final long impact = getImpactLongFromString(questMap.get(i)[1]);
 
-            threatSituationQueue.add(getThreatSituation(impact, probability));
+            threatSituationQueue.add(ThreatSituation.getThreatSituationFromValue(getThreatSituationLong(impact, probability)));
         }
         return threatSituationQueue;
     }

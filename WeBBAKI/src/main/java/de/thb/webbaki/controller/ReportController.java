@@ -2,6 +2,7 @@ package de.thb.webbaki.controller;
 
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.enums.ThreatSituation;
 import de.thb.webbaki.service.MasterScenarioService;
 import de.thb.webbaki.service.QuestionnaireService;
 import de.thb.webbaki.service.ReportService;
@@ -13,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
@@ -43,7 +43,7 @@ public class ReportController {
         final User user = userService.getUserByUsername(authentication.getName());
         final Questionnaire newestQuestionaire = questionnaireService.getNewestQuestionnaireByUserId(user.getId());
         final Map<Long, String[]> questMap = questionnaireService.getMapping(newestQuestionaire);
-        Queue<Long> threatSituationQueue = questionnaireService.getThreatSituationQueueFromMapping(questMap);
+        Queue<ThreatSituation> threatSituationQueue = questionnaireService.getThreatSituationQueueFromMapping(questMap);
         model.addAttribute("threatSituationQueue", threatSituationQueue);
 
         return "report/report_container";
@@ -65,7 +65,7 @@ public class ReportController {
         final User user = userService.getUserByUsername(authentication.getName());
         final Questionnaire newestQuestionaire = questionnaireService.getNewestQuestionnaireByUserId(user.getId());
         final Map<Long, String[]> questMap = questionnaireService.getMapping(newestQuestionaire);
-        Queue<Long> threatSituationQueue = questionnaireService.getThreatSituationQueueFromMapping(questMap);
+        Queue<ThreatSituation> threatSituationQueue = questionnaireService.getThreatSituationQueueFromMapping(questMap);
         context.setVariable("threatSituationQueue", threatSituationQueue);
         try {
             reportService.generatePdfFromHtml(reportService.parseThymeleafTemplateToHtml("report/report", context),

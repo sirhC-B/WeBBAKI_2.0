@@ -34,6 +34,14 @@ public class ReportService {
         return templateEngine.process("templates/" + template, context);
     }
 
+    /**
+     * All styles in the html have to be inline.
+     * Not closed elements like <br> and <link> have to be closed like this
+     * <br></br> and <link></link>
+     * @param html
+     * @param outputStream
+     * @throws IOException
+     */
     public void generatePdfFromHtml(String html, OutputStream outputStream) throws IOException {
         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
         ITextRenderer renderer = new ITextRenderer();
