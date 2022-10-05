@@ -1,0 +1,16 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Report</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container">
+                <a type="button" class="btn btn-primary" href="/report/download" style="margin-bottom: 2em;"> Download</a>
+                <div th:replace="report/report :: report"></div>
+            </div>
+        </div>
+    </body>
+</html>
