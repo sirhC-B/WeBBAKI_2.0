@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Error hochpropagieren im ReportController.">
-      <change afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/ThreatSituation.java" afterDir="false" />
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Adds all possible report(except for sector). And only for the html.">
+      <change afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/Exceptions/WrongPathException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/ReportController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/enums/ThreatSituation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/QuestionnaireService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/QuestionnaireService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/layout.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/controller/ReportController.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/controller/ReportController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/enums/ThreatSituation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/QuestionnaireService$QuestionnaireServiceBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/QuestionnaireService$QuestionnaireServiceBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/QuestionnaireService.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/QuestionnaireService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +124,7 @@
       <workItem from="1664859754462" duration="3262000" />
       <workItem from="1664866368368" duration="113000" />
       <workItem from="1664867831236" duration="22271000" />
-      <workItem from="1664947962691" duration="24595000" />
+      <workItem from="1664947962691" duration="25298000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -244,7 +238,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664984130921</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Adds all possible report(except for sector). And only for the html.">
+      <created>1665061758794</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1665061758794</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -313,7 +314,8 @@
     <MESSAGE value="Better Design for the Report. Moreover a enum for the ThreadSituation was added." />
     <MESSAGE value="Add all possible Reports to the drop-down-menu." />
     <MESSAGE value="Error hochpropagieren im ReportController." />
-    <option name="LAST_COMMIT_MESSAGE" value="Error hochpropagieren im ReportController." />
+    <MESSAGE value="Adds all possible report(except for sector). And only for the html." />
+    <option name="LAST_COMMIT_MESSAGE" value="Adds all possible report(except for sector). And only for the html." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

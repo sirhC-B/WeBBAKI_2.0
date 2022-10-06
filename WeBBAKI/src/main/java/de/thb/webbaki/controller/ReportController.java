@@ -3,6 +3,7 @@ package de.thb.webbaki.controller;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.service.*;
+import de.thb.webbaki.service.Exceptions.WrongPathException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -39,32 +40,27 @@ public class ReportController {
         String username = authentication.getName();
         Queue<ThreatSituation> threatSituationQueue;
 
-        if(reportBasis.equals("company") || reportBasis.equals("branche") || reportBasis.equals("national")) {
-            final List<User> userList;
-            if(reportBasis.equals("company")) {
-                userList = userService.getUsersByCompany(userService.getUserByUsername(username).getCompany());
-            }else if(reportBasis.equals("branche")){
-                userList = userService.getUsersByBranche( userService.getUserByUsername(username).getBranche());
-            }else{//for national
-                userList = userService.getAllUsers();
-            }
+        final List<User> userList;
+        if(reportBasis.equals("company")) {
+            userList = userService.getUsersByCompany(userService.getUserByUsername(username).getCompany());
+        }else if(reportBasis.equals("branche")){
+            userList = userService.getUsersByBranche( userService.getUserByUsername(username).getBranche());
+        }else if(reportBasis.equals("own")){
+            userList = new LinkedList<User>();
+            userList.add(userService.getUserByUsername(username));
+        }else if(reportBasis.equals("national")){//for national
+            userList = userService.getAllUsers();
+        }else {
+            throw new WrongPathException();
+        }
 
-            List<Queue<ThreatSituation>> queueList = new LinkedList<Queue<ThreatSituation>>();
-            for (User user : userList) {
-                final Questionnaire newestQuestionaire = questionnaireService.getNewestQuestionnaireByUserId(user.getId());
-                final Map<Long, String[]> questMap = questionnaireService.getMapping(newestQuestionaire);
-                queueList.add(questionnaireService.getThreatSituationQueueFromMapping(questMap));
-            }
-            threatSituationQueue = questionnaireService.getThreatSituationAverageQueueFromQueues(queueList);
-        }else if (reportBasis.equals("own")){
-            final User user = userService.getUserByUsername(username);
+        List<Queue<ThreatSituation>> queueList = new LinkedList<Queue<ThreatSituation>>();
+        for (User user : userList) {
             final Questionnaire newestQuestionaire = questionnaireService.getNewestQuestionnaireByUserId(user.getId());
             final Map<Long, String[]> questMap = questionnaireService.getMapping(newestQuestionaire);
-            threatSituationQueue = questionnaireService.getThreatSituationQueueFromMapping(questMap);
-        } else {
-            //TODO bessere exception
-            throw new Exception("Keine Richtige Adresse");
+            queueList.add(questionnaireService.getThreatSituationQueueFromMapping(questMap));
         }
+        threatSituationQueue = questionnaireService.getThreatSituationAverageQueueFromQueues(queueList);
 
         model.addAttribute("threatSituationQueue", threatSituationQueue);
 
