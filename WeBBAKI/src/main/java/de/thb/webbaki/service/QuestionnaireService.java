@@ -2,7 +2,6 @@ package de.thb.webbaki.service;
 
 import de.thb.webbaki.controller.form.ThreatMatrixFormModel;
 import de.thb.webbaki.entity.Questionnaire;
-import de.thb.webbaki.enums.ThreatSituation;
 import de.thb.webbaki.repository.QuestionnaireRepository;
 import de.thb.webbaki.repository.ScenarioRepository;
 import de.thb.webbaki.repository.UserRepository;
@@ -195,10 +194,33 @@ public class QuestionnaireService {
             final long probability = getProbabilityLongFromString(questMap.get(i)[0]);
             final long impact = getImpactLongFromString(questMap.get(i)[1]);
 
-            threatSituationQueue.add(ThreatSituation.getThreatSituationFromValue(getThreatSituationLong(impact, probability)));
+            threatSituationQueue.add(new ThreatSituation(getThreatSituationLong(impact, probability)));
         }
         return threatSituationQueue;
     }
+
+    /**
+     *
+     * @param queueList List of ThreadSituation-Queues
+     * @return Returns the average queue
+     */
+    public Queue<ThreatSituation> getThreatSituationAverageQueueFromQueues(List<Queue<ThreatSituation>> queueList){
+        Queue<ThreatSituation> threatSituationQueue = new LinkedList<ThreatSituation>();
+        int size = queueList.get(0).size();
+        //go through all possible scenarios
+        for(int i= 0; i < size; i++){
+            List<ThreatSituation> threatSituationList = new LinkedList<ThreatSituation>();
+            for (Queue<ThreatSituation> queue : queueList){
+                threatSituationList.add(queue.poll());
+            }
+            threatSituationQueue.add(ThreatSituation.getAverageThreatSituation(threatSituationList));
+        }
+
+        return threatSituationQueue;
+    }
+
+
+
 
 
 }
