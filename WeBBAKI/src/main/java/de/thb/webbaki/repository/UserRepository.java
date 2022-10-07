@@ -18,6 +18,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     User findByUsername(String username);
     List<User> findAllByBranche(String branche);
     List<User> findAllByCompany(String company);
+    List<User> findAllBySector(String sector);
 
     @Transactional
     @Modifying

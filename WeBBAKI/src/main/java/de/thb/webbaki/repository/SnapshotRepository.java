@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface SnapshotRepository extends CrudRepository<Snapshot, Long> {
 
     List<Snapshot> findAll();
-
+    Snapshot findTopByOrderByIdDesc();
     Optional<Snapshot> findById(Long id);
 
 

@@ -2,8 +2,10 @@ package de.thb.webbaki.controller;
 
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.*;
 import de.thb.webbaki.service.Exceptions.WrongPathException;
+import de.thb.webbaki.service.helper.ThreatSituation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -32,43 +34,22 @@ public class ReportController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("report/{reportBasis}")
-    public String showQuestionnaireForm(@PathVariable("reportBasis") String reportBasis, Model model, Authentication authentication) throws Exception {
+    @GetMapping("report/{reportFocus}")
+    public String showQuestionnaireForm(@PathVariable("reportFocus") String reportFocusString, Model model, Authentication authentication) throws WrongPathException{
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
+        ReportFocus reportFocus = ReportFocus.getReportFocusByEnglishRepresentation(reportFocusString);
+        model.addAttribute("reportFocus", reportFocus);
 
-        String username = authentication.getName();
-        Queue<ThreatSituation> threatSituationQueue;
-
-        final List<User> userList;
-        if(reportBasis.equals("company")) {
-            userList = userService.getUsersByCompany(userService.getUserByUsername(username).getCompany());
-        }else if(reportBasis.equals("branche")){
-            userList = userService.getUsersByBranche( userService.getUserByUsername(username).getBranche());
-        }else if(reportBasis.equals("own")){
-            userList = new LinkedList<User>();
-            userList.add(userService.getUserByUsername(username));
-        }else if(reportBasis.equals("national")){//for national
-            userList = userService.getAllUsers();
-        }else {
-            throw new WrongPathException();
-        }
-
-        List<Queue<ThreatSituation>> queueList = new LinkedList<Queue<ThreatSituation>>();
-        for (User user : userList) {
-            final Questionnaire newestQuestionaire = questionnaireService.getNewestQuestionnaireByUserId(user.getId());
-            final Map<Long, String[]> questMap = questionnaireService.getMapping(newestQuestionaire);
-            queueList.add(questionnaireService.getThreatSituationQueueFromMapping(questMap));
-        }
-        threatSituationQueue = questionnaireService.getThreatSituationAverageQueueFromQueues(queueList);
+        Queue<ThreatSituation> threatSituationQueue = reportService.getThreatSituationQueueByReportFocus(reportFocus, authentication.getName());
 
         model.addAttribute("threatSituationQueue", threatSituationQueue);
 
         return "report/report_container";
     }
 
-    @GetMapping("report/download")
-    public void downloadPdf(HttpServletResponse response, Authentication authentication) throws IOException{
+    @GetMapping("report/{reportFocus}/download")
+    public void downloadPdf(@PathVariable("reportFocus") String reportFocusString, HttpServletResponse response, Authentication authentication) throws WrongPathException, IOException{
 
         response.setContentType("application/pdf");
         String headerKey = "Content-Disposition";
@@ -78,11 +59,11 @@ public class ReportController {
         Context context = new Context();
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         context.setVariable("masterScenarioList",masterScenarioList);
+        ReportFocus reportFocus = ReportFocus.getReportFocusByEnglishRepresentation(reportFocusString);
+        context.setVariable("reportFocus", reportFocus);
 
-        final User user = userService.getUserByUsername(authentication.getName());
-        final Questionnaire newestQuestionaire = questionnaireService.getNewestQuestionnaireByUserId(user.getId());
-        final Map<Long, String[]> questMap = questionnaireService.getMapping(newestQuestionaire);
-        Queue<ThreatSituation> threatSituationQueue = questionnaireService.getThreatSituationQueueFromMapping(questMap);
+        Queue<ThreatSituation> threatSituationQueue = reportService.getThreatSituationQueueByReportFocus(reportFocus, authentication.getName());
+
         context.setVariable("threatSituationQueue", threatSituationQueue);
 
         reportService.generatePdfFromHtml(reportService.parseThymeleafTemplateToHtml("report/report", context),

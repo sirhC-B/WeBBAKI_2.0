@@ -8,7 +8,7 @@
     <body>
         <div layout:fragment="content">
             <div class="container">
-                <a type="button" class="btn btn-primary" href="/report/download" style="margin-bottom: 2em;"> Download</a>
+                <a type="button" class="btn btn-primary" th:href='${"/report/"+reportFocus.getUrlPart()+"/download"}' style="margin-bottom: 2em;"> Download</a>
                 <div th:replace="report/report :: report"></div>
             </div>
         </div>

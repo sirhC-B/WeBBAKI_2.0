@@ -25,13 +25,15 @@ public class SnapshotService {
 
     public Optional<Snapshot> getSnapshotByID(Long id){return snapshotRepository.findById(id);}
 
+    public Snapshot getNewestSnapshot(){return snapshotRepository.findTopByOrderByIdDesc();}
+
     public void createSnap(Snapshot snap){
 
         List<User> userList = userService.getAllUsers();
         List<Long> questIDs = new ArrayList<>();
 
-        for (long i = 1; i < userList.size(); i++){
-            long userID = userList.get((int)i).getId();
+        for (User user : userList){
+            long userID = user.getId();
 
             Questionnaire quest = questionnaireService.getNewestQuestionnaireByUserId(userID);
             if(quest != null) {
@@ -98,7 +100,6 @@ public class SnapshotService {
         for(long i= 1; i <= numMap.size(); i++){
             valueMap.put(i, new String[] {questionnaireService.getProbabilityStringFromLong(numMap.get(i)[0]), questionnaireService.getImpactStringFromLong(numMap.get(i)[1])});
             System.out.println(questionnaireService.getProbabilityStringFromLong(numMap.get(i)[0]) + "-" +  questionnaireService.getImpactStringFromLong(numMap.get(i)[1]));}
-
 
         return null;
     }

@@ -1,4 +1,4 @@
-package de.thb.webbaki.service;
+package de.thb.webbaki.service.helper;
 
 import java.util.List;
 
@@ -16,16 +16,16 @@ public class ThreatSituation {
             color = "white";
         }else if(value < 5){
             symbol = "geringe Gefährdung";
-            color = "green";
+            color = "rgb(102, 255, 102)";
         }else if(value < 10){
             symbol = "erhöhte Gefährdung";
-            color = "yellow";
+            color = "rgb(255, 255, 102)";
         }else if(value < 13){
             symbol = "hohe Gefährdung";
-            color = "orange";
+            color = "rgb(255, 178, 102)";
         }else{
             symbol = "sehr hohe Gefährdung";
-            color = "red";;
+            color = "rgb(255, 102, 102)";
         }
         setValue(value);
     }

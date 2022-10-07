@@ -1,10 +1,13 @@
 package de.thb.webbaki.service;
 
+import com.sun.mail.util.QEncoderStream;
 import de.thb.webbaki.controller.form.ThreatMatrixFormModel;
 import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.QuestionnaireRepository;
 import de.thb.webbaki.repository.ScenarioRepository;
 import de.thb.webbaki.repository.UserRepository;
+import de.thb.webbaki.service.helper.ThreatSituation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.stereotype.Service;
@@ -217,6 +220,24 @@ public class QuestionnaireService {
         }
 
         return threatSituationQueue;
+    }
+
+    /**
+     *
+     * @param questionnaireList
+     * @param userList
+     * @return the only the questionnaires from the users in userlist.
+     */
+    public List<Questionnaire> getQuestionnairesWithUsersInside(List<Questionnaire> questionnaireList, List<User> userList){
+        List<Questionnaire> newQuestionnaireList = new LinkedList<Questionnaire>();
+        for(Questionnaire quest: questionnaireList){
+            for(User user: userList){
+                if(quest.getUser().equals(user)){
+                    newQuestionnaireList.add(quest);
+                }
+            }
+        }
+        return newQuestionnaireList;
     }
 
 
