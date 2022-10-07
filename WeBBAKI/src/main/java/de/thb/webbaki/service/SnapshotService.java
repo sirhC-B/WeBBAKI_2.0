@@ -23,6 +23,8 @@ public class SnapshotService {
 
     public List<Snapshot> getAllSnapshots(){return snapshotRepository.findAll();}
 
+    public List<Snapshot> getAllSnapshotOrderByDESC(){return snapshotRepository.findAllByOrderByIdDesc();}
+
     public Optional<Snapshot> getSnapshotByID(Long id){return snapshotRepository.findById(id);}
 
     public Snapshot getNewestSnapshot(){return snapshotRepository.findTopByOrderByIdDesc();}

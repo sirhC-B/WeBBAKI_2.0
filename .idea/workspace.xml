@@ -4,10 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="The Report works with the newest snapshot. The Sectorreport is now available to. Moreover, there is now a better styling for the colors in the Report.">
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Old methods were deleted. Better understanding for me.">
+      <change afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/css/report_container_style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/js/report_container_script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/SuperAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/SuperAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/ReportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/repository/SnapshotRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/repository/SnapshotRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/SnapshotService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/SnapshotService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/report.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/report.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/report_container.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/report_container.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/controller/ReportController.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/controller/ReportController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/repository/SnapshotRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/repository/SnapshotRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/SnapshotService.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/SnapshotService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report_container.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report_container.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,10 +30,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
-        <option value="CSS File" />
         <option value="Class" />
         <option value="Enum" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -84,6 +96,7 @@
       <recent name="C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\resources\templates\report" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\resources\static\js" />
       <recent name="C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\resources\templates\report" />
       <recent name="C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\resources\templates" />
     </key>
@@ -122,7 +135,7 @@
       <workItem from="1664859754462" duration="3262000" />
       <workItem from="1664866368368" duration="113000" />
       <workItem from="1664867831236" duration="22271000" />
-      <workItem from="1664947962691" duration="38665000" />
+      <workItem from="1664947962691" duration="47749000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -264,7 +277,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665134858088</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Old methods were deleted. Better understanding for me.">
+      <created>1665135056129</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1665135056129</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -337,7 +357,8 @@
     <MESSAGE value="Add better Exception for WrongPath." />
     <MESSAGE value="Adds the possibility to download the specific Reports on button click." />
     <MESSAGE value="The Report works with the newest snapshot. The Sectorreport is now available to. Moreover, there is now a better styling for the colors in the Report." />
-    <option name="LAST_COMMIT_MESSAGE" value="The Report works with the newest snapshot. The Sectorreport is now available to. Moreover, there is now a better styling for the colors in the Report." />
+    <MESSAGE value="Old methods were deleted. Better understanding for me." />
+    <option name="LAST_COMMIT_MESSAGE" value="Old methods were deleted. Better understanding for me." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

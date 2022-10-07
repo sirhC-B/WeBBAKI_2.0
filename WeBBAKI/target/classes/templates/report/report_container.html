@@ -4,10 +4,17 @@
     <head>
         <meta charset="UTF-8">
         <title>Report</title>
+        <script th:src="@{/js/report_container_script.js}" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/report_container_style.css}">
     </head>
     <body>
         <div layout:fragment="content">
             <div class="container">
+                <h5 id="snapshotH5">Zugrundliegender Snapshot:</h5>
+                <select onchange="onChange(this)" class="form-select form-select-sm">
+                    <option th:each="snapshot, iStat : ${snapshotList}" th:text="${snapshot.getName()}" th:value="${snapshot.getId()}" th:selected='${((currentSnapId == snapshot.getId())?("true"):("false"))}'></option>
+                </select>
+                <br>
                 <a type="button" class="btn btn-primary" th:href='${"/report/"+reportFocus.getUrlPart()+"/download"}' style="margin-bottom: 2em;"> Download</a>
                 <div th:replace="report/report :: report"></div>
             </div>

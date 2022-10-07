@@ -1,6 +1,7 @@
 package de.thb.webbaki.controller;
 
 import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.Snapshot;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.*;
@@ -30,12 +31,21 @@ public class ReportController {
     @Autowired
     private MasterScenarioService masterScenarioService;
     @Autowired
-    private QuestionnaireService questionnaireService;
-    @Autowired
-    private UserService userService;
+    private SnapshotService snapshotService;
 
+    /**
+     * Redirect to url with newest snap-id(because of the Nav elements in the layout.html).
+     * @param reportFocusString
+     * @return
+     */
     @GetMapping("report/{reportFocus}")
-    public String showQuestionnaireForm(@PathVariable("reportFocus") String reportFocusString, Model model, Authentication authentication) throws WrongPathException{
+    public String showQuestionnaireForm(@PathVariable("reportFocus") String reportFocusString){
+        long snapId = snapshotService.getNewestSnapshot().getId();
+        return "redirect:/report/"+reportFocusString+"/"+String.valueOf(snapId);
+    }
+    @GetMapping("report/{reportFocus}/{snapId}")
+    public String showQuestionnaireForm(@PathVariable("reportFocus") String reportFocusString, @PathVariable("snapId") long snapId,
+                                        Model model, Authentication authentication) throws WrongPathException{
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
         ReportFocus reportFocus = ReportFocus.getReportFocusByEnglishRepresentation(reportFocusString);
@@ -44,6 +54,11 @@ public class ReportController {
         Queue<ThreatSituation> threatSituationQueue = reportService.getThreatSituationQueueByReportFocus(reportFocus, authentication.getName());
 
         model.addAttribute("threatSituationQueue", threatSituationQueue);
+
+        final List<Snapshot> snapshotList = snapshotService.getAllSnapshotOrderByDESC();
+        model.addAttribute("snapshotList", snapshotList);
+
+        model.addAttribute("currentSnapId", snapId);
 
         return "report/report_container";
     }
