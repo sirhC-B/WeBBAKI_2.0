@@ -70,37 +70,4 @@ public class SnapshotService {
 
         return quests;
     }
-
-    public Map<Long, Long[]> calcAverageValues(long snapID){
-        List<Questionnaire> quests = getAllQuestionnaires(snapID);
-        Map<Long, Long[]> finalMap = new HashMap<>();
-        int questcount = 0, prob = 0, imp = 0;
-
-        for(long i= 1; i <= 100; i++){
-            finalMap.put(i, new Long[] {(long)0,(long)0});
-        }
-
-        for(Questionnaire quest : quests){
-            Map<Long, String[]> map = questionnaireService.getMapping(quest);
-            questcount ++;
-            for(long i= 1; i <= map.size(); i++){
-                finalMap.put(i, new Long[] {finalMap.get(i)[0] + questionnaireService.getProbabilityLongFromString(map.get(i)[0]),finalMap.get(i)[1] + questionnaireService.getImpactLongFromString(map.get(i)[1])});
-        }
-        }
-        for(long i= 1; i <= finalMap.size(); i++){
-            finalMap.put(i, new Long[] {finalMap.get(i)[0] / questcount ,finalMap.get(i)[1] / questcount });
-        }
-
-        return finalMap;
-    }
-
-    public Map<Long, String[]> createQuestMap(long snapID) {
-        Map<Long, Long[]> numMap = calcAverageValues(snapID);
-        Map<Long, String[]> valueMap = new HashMap<>();
-        for(long i= 1; i <= numMap.size(); i++){
-            valueMap.put(i, new String[] {questionnaireService.getProbabilityStringFromLong(numMap.get(i)[0]), questionnaireService.getImpactStringFromLong(numMap.get(i)[1])});
-            System.out.println(questionnaireService.getProbabilityStringFromLong(numMap.get(i)[0]) + "-" +  questionnaireService.getImpactStringFromLong(numMap.get(i)[1]));}
-
-        return null;
-    }
 }
