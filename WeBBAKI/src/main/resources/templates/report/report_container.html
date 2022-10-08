@@ -15,7 +15,7 @@
                     <option th:each="snapshot, iStat : ${snapshotList}" th:text="${snapshot.getName()}" th:value="${snapshot.getId()}" th:selected='${((currentSnapId == snapshot.getId())?("true"):("false"))}'></option>
                 </select>
                 <br>
-                <a type="button" class="btn btn-primary" th:href='${"/report/"+reportFocus.getUrlPart()+"/download"}' style="margin-bottom: 2em;"> Download</a>
+                <a type="button" class="btn btn-primary" th:href='${"/report/"+reportFocus.getUrlPart()+"/"+currentSnapId+"/download"}' style="margin-bottom: 2em;"> Download</a>
                 <div th:replace="report/report :: report"></div>
             </div>
         </div>

@@ -232,7 +232,7 @@ public class QuestionnaireService {
         List<Questionnaire> newQuestionnaireList = new LinkedList<Questionnaire>();
         for(Questionnaire quest: questionnaireList){
             for(User user: userList){
-                if(quest.getUser().equals(user)){
+                if(quest != null && quest.getUser().equals(user)){
                     newQuestionnaireList.add(quest);
                 }
             }

@@ -51,7 +51,7 @@ public class ReportController {
         ReportFocus reportFocus = ReportFocus.getReportFocusByEnglishRepresentation(reportFocusString);
         model.addAttribute("reportFocus", reportFocus);
 
-        Queue<ThreatSituation> threatSituationQueue = reportService.getThreatSituationQueueByReportFocus(reportFocus, authentication.getName());
+        Queue<ThreatSituation> threatSituationQueue = reportService.getThreatSituationQueueByReportFocus(reportFocus, authentication.getName(), snapId);
 
         model.addAttribute("threatSituationQueue", threatSituationQueue);
 
@@ -63,8 +63,9 @@ public class ReportController {
         return "report/report_container";
     }
 
-    @GetMapping("report/{reportFocus}/download")
-    public void downloadPdf(@PathVariable("reportFocus") String reportFocusString, HttpServletResponse response, Authentication authentication) throws WrongPathException, IOException{
+    @GetMapping("report/{reportFocus}/{snapId}/download")
+    public void downloadPdf(@PathVariable("reportFocus") String reportFocusString, @PathVariable("snapId") long snapId,
+                            HttpServletResponse response, Authentication authentication) throws WrongPathException, IOException{
 
         response.setContentType("application/pdf");
         String headerKey = "Content-Disposition";
@@ -77,7 +78,7 @@ public class ReportController {
         ReportFocus reportFocus = ReportFocus.getReportFocusByEnglishRepresentation(reportFocusString);
         context.setVariable("reportFocus", reportFocus);
 
-        Queue<ThreatSituation> threatSituationQueue = reportService.getThreatSituationQueueByReportFocus(reportFocus, authentication.getName());
+        Queue<ThreatSituation> threatSituationQueue = reportService.getThreatSituationQueueByReportFocus(reportFocus, authentication.getName(), snapId);
 
         context.setVariable("threatSituationQueue", threatSituationQueue);
 
