@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Adds coloring to the threatmatrix and changes the script for my better understanding.">
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Better selects in threatmatrix.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/threatmatrix/create_threatmatrix.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/threatmatrix/create_threatmatrix.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/static/css/create_threatmatrix_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/static/css/create_threatmatrix_style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/static/js/create_threatmatrix_script.js" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/static/js/create_threatmatrix_script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/threatmatrix/create_threatmatrix.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/threatmatrix/create_threatmatrix.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/helper/ThreatSituation.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/helper/ThreatSituation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/report.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/report.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +124,7 @@
       <workItem from="1664866368368" duration="113000" />
       <workItem from="1664867831236" duration="22271000" />
       <workItem from="1664947962691" duration="47749000" />
-      <workItem from="1665392296248" duration="5429000" />
+      <workItem from="1665392296248" duration="7891000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -310,7 +308,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665397272692</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Better selects in threatmatrix.">
+      <created>1665397887808</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1665397887808</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -388,7 +393,8 @@
     <MESSAGE value="Better style." />
     <MESSAGE value="." />
     <MESSAGE value="Adds coloring to the threatmatrix and changes the script for my better understanding." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adds coloring to the threatmatrix and changes the script for my better understanding." />
+    <MESSAGE value="Better selects in threatmatrix." />
+    <option name="LAST_COMMIT_MESSAGE" value="Better selects in threatmatrix." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

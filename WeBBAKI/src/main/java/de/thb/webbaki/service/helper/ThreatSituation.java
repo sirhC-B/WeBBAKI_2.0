@@ -1,5 +1,6 @@
 package de.thb.webbaki.service.helper;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ThreatSituation {
@@ -62,6 +63,11 @@ public class ThreatSituation {
 
     public float getValue() {
         return value;
+    }
+
+    public String getRoundedValueString(){
+        DecimalFormat decimalFormat = new DecimalFormat("#.#");
+        return decimalFormat.format(value);
     }
 
     public String getSymbol() {
