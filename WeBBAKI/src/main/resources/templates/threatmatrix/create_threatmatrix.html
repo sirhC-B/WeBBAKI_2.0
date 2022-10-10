@@ -41,7 +41,7 @@
                                     <option th:case="'none'" value="none" selected>Bitte wählen...</option>
                                     <option th:case="*" th:text="${questMap.get(#vars.scenario.id)[0]}" selected></option>
                                 </div>
-                                <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}"
+                                <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}" th:if="${probability.value != questMap.get(#vars.scenario.id)[0]}"
                                         th:value="${probability.value}" th:text="${probability.value}"></option>
                             </select>
                         </td>

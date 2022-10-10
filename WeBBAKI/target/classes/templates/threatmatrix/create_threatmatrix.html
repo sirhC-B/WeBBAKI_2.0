@@ -9,7 +9,7 @@
     <title>Bedrohungsmatrix</title>
 
 </head>
-<body onload="calc();">
+<body>
 <div layout:fragment="content" class="container">
     <h2>Fragebogen</h2><br>
     <form th:object="${threatmatrix}" th:action="@{/threatmatrix}" method="post">
@@ -31,21 +31,21 @@
                 <tbody>
 
                 <th:block th:each="scenario : ${masterScenario.scenarios}">
-                    <tr>
+                    <tr class="threatTr">
                         <td th:text="${scenario.id}"></td>
 
                         <td th:text="${scenario.name}"></td>
                         <td>
-                            <select th:id="'selectProb' + ${scenario.id}" class="form-select" th:attr="name='prob['+${scenario.id}+']'">
+                            <select class="form-select probabilitySelect" th:attr="name='prob['+${scenario.id}+']'" onchange="onChange(this)">
                                 <div th:switch="${questMap.get(#vars.scenario.id)[0]}">
                                     <option th:case="'none'" value="none" selected>Bitte wählen...</option>
                                     <option th:case="*" th:text="${questMap.get(#vars.scenario.id)[0]}" selected></option>
                                 </div>
-                                <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}"
+                                <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}" th:if="${probability.value != questMap.get(#vars.scenario.id)[0]}"
                                         th:value="${probability.value}" th:text="${probability.value}"></option>
                             </select>
                         </td>
-                        <td><select th:id="'selectImp'+ ${scenario.id}" class="form-select" th:attr="name='imp['+${scenario.id}+']'">
+                        <td><select class="form-select impactSelect" th:attr="name='imp['+${scenario.id}+']'" onchange="onChange(this)">
                             <div th:switch="${questMap.get(#vars.scenario.id)[1]}">
                                 <option th:case="'none'" value="none" selected>Bitte wählen...</option>
                                 <option th:case="*" th:text="${questMap.get(#vars.scenario.id)[1]}" selected></option>
@@ -53,11 +53,8 @@
                             <option th:each="impact : ${T(de.thb.webbaki.enums.Impact).values()}"
                                     th:value="${impact.value}" th:text="${impact.value}"></option>
                         </select></td>
-                        <td><div th:id="'noRisk'+ ${scenario.id}" class="showQuestion">keine</div>
-                            <div th:id="'smallRisk'+ ${scenario.id}" class="showQuestion">geringe</div>
-                            <div th:id="'increasedRisk'+ ${scenario.id}" class="showQuestion">erhoehte</div>
-                            <div th:id="'highRisk'+ ${scenario.id}" class="showQuestion">hohe</div>
-                            <div th:id="'veryHighRisk'+ ${scenario.id}" class="showQuestion">sehr hohe</div>
+                        <td>
+                            <div class="showQuestion threatsituationDiv">Unbekannt</div>
                         </td>
 
                         <td>
