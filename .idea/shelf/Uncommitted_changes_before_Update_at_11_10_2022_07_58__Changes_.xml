@@ -1,0 +1,44 @@
+<changelist name="Uncommitted_changes_before_Update_at_11_10_2022_07_58_[Changes]" date="1665467921595" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_10_2022_07_58_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 11.10.2022 07:58 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/shelf/Uncommitted_changes_before_Update_at_30_09_22,_22_24_[Changes]1/UserService.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_10_2022_07_58_[Changes]/WeBBAKI-0.0.1-SNAPSHOT.jar.original" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_10_2022_07_58_[Changes]/WeBBAKI-0.0.1-SNAPSHOT.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/shelf/Uncommitted_changes_before_Update_at_30_09_22,_22_24_[Changes]1/SetupDataLoader.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/shelf/Uncommitted_changes_before_Update_at_30_09_22,_22_24_[Changes]1/ReportController.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/shelf/Uncommitted_changes_before_Checkout_at_02_10_22,_15_52_[Changes]1/UserService.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/shelf/Uncommitted_changes_before_Checkout_at_02_10_22,_15_52_[Changes]1/ReportController.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/controller/UserController.class" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/controller/UserController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_10_2022_07_58_[Changes]/UserController.class" />
+  </binary>
+</changelist>
