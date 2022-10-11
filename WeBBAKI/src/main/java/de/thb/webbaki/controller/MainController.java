@@ -17,7 +17,7 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping("account")
+    @GetMapping("/account")
     public String securedAccountPage() {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

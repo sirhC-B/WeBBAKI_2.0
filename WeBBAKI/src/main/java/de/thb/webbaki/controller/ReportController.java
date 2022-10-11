@@ -38,12 +38,12 @@ public class ReportController {
      * @param reportFocusString
      * @return
      */
-    @GetMapping("report/{reportFocus}")
+    @GetMapping("/report/{reportFocus}")
     public String showQuestionnaireForm(@PathVariable("reportFocus") String reportFocusString){
         long snapId = snapshotService.getNewestSnapshot().getId();
         return "redirect:/report/"+reportFocusString+"/"+String.valueOf(snapId);
     }
-    @GetMapping("report/{reportFocus}/{snapId}")
+    @GetMapping("/report/{reportFocus}/{snapId}")
     public String showQuestionnaireForm(@PathVariable("reportFocus") String reportFocusString, @PathVariable("snapId") long snapId,
                                         Model model, Authentication authentication) throws WrongPathException{
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
@@ -63,7 +63,7 @@ public class ReportController {
         return "report/report_container";
     }
 
-    @GetMapping("report/{reportFocus}/{snapId}/download")
+    @GetMapping("/report/{reportFocus}/{snapId}/download")
     public void downloadPdf(@PathVariable("reportFocus") String reportFocusString, @PathVariable("snapId") long snapId,
                             HttpServletResponse response, Authentication authentication) throws WrongPathException, IOException{
 

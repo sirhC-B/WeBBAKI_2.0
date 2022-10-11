@@ -21,7 +21,7 @@ public class SuperAdminController implements Comparable {
     private final RoleService roleService;
     private final SnapshotService snapshotService;
 
-    @RequestMapping(value = "admin", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String showAllUsers(Model model) {
         final var users = userService.getAllUsers();
         /* If sorting of usernames needed
@@ -61,7 +61,7 @@ public class SuperAdminController implements Comparable {
         return "snap/snapshot";
     }
 
-    @GetMapping("confirmation/userDenied")
+    @GetMapping("/confirmation/userDenied")
     public String userDenied(){
         return "confirmation/userDenied";
     }
